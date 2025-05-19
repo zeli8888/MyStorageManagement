@@ -1,0 +1,3 @@
+const FoodStorageComponent = function () {
+
+}
