@@ -1,13 +1,14 @@
 import './App.css';
+import FoodStorageComponent from './component/FoodStorageComponent';
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
+    <div className="container">
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/food" element={<FoodStorageComponent />} />
         </Routes>
       </Router>
     </div>
@@ -16,21 +17,13 @@ function App() {
 
 function Home() {
   return (
-    <div>
+    <div className='container'>
       <h1>Home</h1>
       <p>
-        <Link to="/about">Go to About</Link>
+        <Link to="/food">Food Storage Management</Link>
       </p>
     </div>
   );
 }
 
-function About() {
-  return (
-    <div>
-      <h1>About</h1>
-      <p>This is the about page.</p>
-    </div>
-  );
-}
 export default App;
