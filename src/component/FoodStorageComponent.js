@@ -20,7 +20,36 @@ const FoodStorageComponent = function () {
         });
     }
 
+    const updateIngredient = (data) => {
+        // let ingredient = {
+        //     ingredientId: data.id,
+        //     ingredientName: data.ingredientName,
+        //     ingredientStorage: data.ingredientStorage,
+        //     ingredientCost: data.ingredientCost,
+        //     ingredientDesc: data.ingredientDesc
+        // };
+        IngredientService.updateIngredient(data.ingredientId, data).then(response => {
+            refreshIngredients();
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+
+    const deleteIngredient = (ingredientId) => {
+        IngredientService.deleteIngredient(ingredientId).then(response => {
+            refreshIngredients();
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+
     const columns = [
+        {
+            field: 'ingredientId',
+            headerName: 'Id',
+            width: 10,
+            editable: false,
+        },
         {
             field: 'ingredientName',
             headerName: 'Ingredient',
@@ -31,14 +60,14 @@ const FoodStorageComponent = function () {
             field: 'ingredientStorage',
             headerName: 'Storage',
             type: 'number',
-            width: 90,
+            width: 110,
             editable: true,
         },
         {
             field: 'ingredientCost',
             headerName: 'Cost',
             type: 'number',
-            width: 90,
+            width: 110,
             editable: true,
         },
         {
@@ -46,12 +75,26 @@ const FoodStorageComponent = function () {
             headerName: 'Description',
             width: 110,
             editable: true,
+        },
+        {
+            field: 'update',
+            headerName: 'Update',
+            headerAlign: 'center',
+            width: 200,
+            renderCell: (params) => (
+                <button className="btn btn-success" onClick={() => updateIngredient(params.row)}>Update</button>
+            )
+        },
+        {
+            field: 'delete',
+            headerName: 'Delete',
+            headerAlign: 'center',
+            width: 200,
+            renderCell: (params) => (
+                <button className="btn btn-warning" onClick={() => deleteIngredient(params.row.id)}>Delete</button>
+            )
         }
     ];
-
-    // const rows = [
-    //     { ingredient: 'Beef', storage: 2, cost: 6, description: '610g/6€' },
-    // ];
 
     return (
         <div className="container">
@@ -59,6 +102,18 @@ const FoodStorageComponent = function () {
                 rows={ingredients}
                 columns={columns}
                 initialState={{
+                    sorting: {
+                        sortModel: [{
+                            field: 'ingredientStorage',
+                            sort: 'asc',
+                        }],
+                    },
+                    columns: {
+                        columnVisibilityModel: {
+                            // Hide columns status and traderName, the other columns will remain visible
+                            ingredientId: false,
+                        },
+                    },
                     pagination: {
                         paginationModel: {
                             pageSize: 10,
@@ -68,7 +123,7 @@ const FoodStorageComponent = function () {
                 pageSizeOptions={[10, 20]}
                 checkboxSelection
                 disableRowSelectionOnClick
-                getRowId={(row) => row.ingredientName}
+                getRowId={(row) => row.ingredientId}
             />
         </div>
     )
