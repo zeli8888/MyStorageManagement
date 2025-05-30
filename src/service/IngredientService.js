@@ -12,6 +12,9 @@ class IngredientService {
     updateIngredient(id, ingredient) {
         return axios.put(process.env.REACT_APP_API_URL + '/ingredients/' + id, ingredient);
     }
+    addIngredient(ingredient) {
+        return axios.post(process.env.REACT_APP_API_URL + '/ingredients', ingredient);
+    }
 
 }
 
