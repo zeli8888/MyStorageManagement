@@ -159,6 +159,8 @@ const IngredientComponent = function () {
             <Dialog
                 open={addingIngredient}
                 onClose={() => { setAddingIngredient(false) }}
+                maxWidth="xs"
+                fullWidth={true}
                 slotProps={{
                     paper: {
                         component: 'form',
@@ -184,16 +186,16 @@ const IngredientComponent = function () {
                         variant="standard"
                     />
                     <TextField
-                        autoFocus
+                        required
                         margin="dense"
                         name="ingredientStorage"
+                        value={0}
                         label="Ingredient Storage"
                         type="number"
                         fullWidth
                         variant="standard"
                     />
                     <TextField
-                        autoFocus
                         margin="dense"
                         name="ingredientCost"
                         label="Ingredient Cost"
@@ -202,7 +204,6 @@ const IngredientComponent = function () {
                         variant="standard"
                     />
                     <TextField
-                        autoFocus
                         margin="dense"
                         name="ingredientDesc"
                         label="Ingredient Description"

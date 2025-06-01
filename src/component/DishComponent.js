@@ -23,12 +23,18 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import ListItemText from '@mui/material/ListItemText';
+import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
+import Grid from '@mui/material/Grid'
 const DishComponent = function () {
     const navigate = useNavigate();
     const { ingredients, setIngredients, dishes, setDishes } = React.useContext(FoodContext);
     // const [dishes, setDishes] = useState([]);
     const [addingDish, setAddingDish] = useState(false);
+    const [ingredientsForDish, setIngredientsForDish] = useState([]);
 
     useEffect(() => {
         refreshDishes();
@@ -127,6 +133,16 @@ const DishComponent = function () {
         );
     }
 
+    const addIngredientForDish = (event) => {
+        const {
+            target: { value },
+        } = event;
+        setIngredientsForDish(
+            // On autofill we get a stringified value.
+            typeof value === 'string' ? value.split(',') : value,
+        );
+    }
+
     CreateDishRow.propTypes = {
         dish: PropTypes.shape({
             dishId: PropTypes.number.isRequired,
@@ -177,6 +193,8 @@ const DishComponent = function () {
             <Dialog
                 open={addingDish}
                 onClose={() => { setAddingDish(false) }}
+                maxWidth="xs"
+                fullWidth={true}
                 slotProps={{
                     paper: {
                         component: 'form',
@@ -191,6 +209,7 @@ const DishComponent = function () {
             >
                 <DialogTitle>New Dish</DialogTitle>
                 <DialogContent>
+
                     <TextField
                         autoFocus
                         required
@@ -202,7 +221,6 @@ const DishComponent = function () {
                         variant="standard"
                     />
                     <TextField
-                        autoFocus
                         margin="dense"
                         name="dishDesc"
                         label="Dish Description"
@@ -210,13 +228,51 @@ const DishComponent = function () {
                         fullWidth
                         variant="standard"
                     />
+                    <Box mt={4} />
+                    <InputLabel id="add-ingredient-for-dish">Recipe</InputLabel>
+                    <Select
+                        name="ingredientsForDish"
+                        labelId="add-ingredient-for-dish"
+                        multiple
+                        value={ingredientsForDish}
+                        onChange={addIngredientForDish}
+                        renderValue={(selected) => selected.join(', ')}
+                        MenuProps={{
+                            PaperProps: { style: { maxHeight: '45%' } }
+                        }}
+                        style={{ width: '100%' }}
+                    >
+                        {ingredients.map((ingredient) => (
+                            <MenuItem key={ingredient.ingredientId} value={ingredient.ingredientName}>
+                                <Checkbox checked={ingredientsForDish.includes(ingredient.ingredientName)} />
+                                <ListItemText primary={ingredient.ingredientName} />
+                            </MenuItem>
+                        ))}
+                    </Select>
+                    <Grid container spacing={2} >
+                        {ingredientsForDish.map((ingredient) => {
+                            return (
+                                <TextField
+                                    key={ingredient}
+                                    name={ingredient}
+                                    label={ingredient + " Amount"}
+                                    value={1}
+                                    variant="standard"
+                                    color="success"
+                                    margin="dense"
+                                    type="number"
+                                    required
+                                />
+                            );
+                        })}
+                    </Grid>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => { setAddingDish(false) }}>Cancel</Button>
                     <Button type="submit">Save</Button>
                 </DialogActions>
             </Dialog>
-        </div>
+        </div >
     )
 }
 
