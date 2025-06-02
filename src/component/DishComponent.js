@@ -5,7 +5,6 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import DishService from '../service/DishService'
 import { FoodContext } from './FoodProvider';
@@ -29,11 +28,13 @@ import ListItemText from '@mui/material/ListItemText';
 import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid'
+
 const DishComponent = function () {
     const navigate = useNavigate();
-    const { ingredients, setIngredients, dishes, setDishes } = React.useContext(FoodContext);
+    const { ingredients, dishes, setDishes } = React.useContext(FoodContext);
     // const [dishes, setDishes] = useState([]);
     const [addingDish, setAddingDish] = useState(false);
+    const [dishUpdating, setDishUpdating] = useState();
     const [ingredientsForDish, setIngredientsForDish] = useState([]);
 
     useEffect(() => {
@@ -48,8 +49,15 @@ const DishComponent = function () {
         });
     }
 
+    const closeDialog = () => {
+        setDishUpdating();
+        setIngredientsForDish([]);
+        setAddingDish(false);
+    }
+
     const updateDish = (data) => {
         DishService.updateDish(data.dishId, data).then(response => {
+            closeDialog();
             refreshDishes();
         }).catch(error => {
             console.log(error);
@@ -57,8 +65,24 @@ const DishComponent = function () {
     }
 
     const addDish = (data) => {
-        DishService.addDish(data).then(response => {
-            setAddingDish(false);
+        let dishIngredientDTO = {
+            dish: {
+                dishName: data.dishName,
+                dishDesc: data.dishDesc,
+            },
+            ingredientIdQuantityList:
+                data.ingredientsForDish.split(',').map(ingredient => ({
+                    ingredientName: ingredient,
+                    quantity: data[ingredient]
+                }))
+
+        }
+        if (dishUpdating) {
+            dishIngredientDTO["dishId"] = dishUpdating.dishId;
+            return updateDish(dishIngredientDTO);
+        }
+        DishService.addDish(dishIngredientDTO).then(response => {
+            closeDialog();
             refreshDishes();
         }).catch(error => {
             console.log(error);
@@ -91,6 +115,15 @@ const DishComponent = function () {
                     </TableCell>
                     <TableCell component="th" scope="row">
                         {dish.dishName}
+                    </TableCell>
+                    <TableCell>{dish.dishDesc}</TableCell>
+                    <TableCell>
+                        <Button variant="contained" color="success" onClick={
+                            () => {
+                                setDishUpdating(dish);
+                                setIngredientsForDish(dish.dishIngredients.map(dishIngredient => dishIngredient.ingredient.ingredientName));
+                                setAddingDish(true);
+                            }}>Update</Button>
                     </TableCell>
                     <TableCell>{dish.dishDesc}</TableCell>
                 </TableRow>
@@ -143,6 +176,14 @@ const DishComponent = function () {
         );
     }
 
+    const initIngredientAmountForDish = (ingredient) => {
+        if (!dishUpdating) return;
+        let dishIngredients = dishUpdating.dishIngredients;
+        let index = dishIngredients.findIndex(dishIngredient => dishIngredient.ingredient.ingredientName == ingredient)
+        if (index == -1) return;
+        return dishIngredients[index].dishIngredientQuantity;
+    }
+
     CreateDishRow.propTypes = {
         dish: PropTypes.shape({
             dishId: PropTypes.number.isRequired,
@@ -172,6 +213,8 @@ const DishComponent = function () {
                             <TableCell />
                             <TableCell>Dish</TableCell>
                             <TableCell>Description</TableCell>
+                            <TableCell>Update</TableCell>
+                            <TableCell>Delete</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -184,6 +227,8 @@ const DishComponent = function () {
 
             <Button variant="contained" color="success"
                 onClick={() => {
+                    setDishUpdating();
+                    setIngredientsForDish([]);
                     setAddingDish(true);
                 }}
             >
@@ -192,7 +237,9 @@ const DishComponent = function () {
 
             <Dialog
                 open={addingDish}
-                onClose={() => { setAddingDish(false) }}
+                onClose={() => {
+                    closeDialog();
+                }}
                 maxWidth="xs"
                 fullWidth={true}
                 slotProps={{
@@ -219,6 +266,7 @@ const DishComponent = function () {
                         type="text"
                         fullWidth
                         variant="standard"
+                        defaultValue={dishUpdating ? dishUpdating.dishName : ""}
                     />
                     <TextField
                         margin="dense"
@@ -227,6 +275,7 @@ const DishComponent = function () {
                         type="text"
                         fullWidth
                         variant="standard"
+                        defaultValue={dishUpdating ? dishUpdating.dishDesc : ""}
                     />
                     <Box mt={4} />
                     <InputLabel id="add-ingredient-for-dish">Recipe</InputLabel>
@@ -256,11 +305,11 @@ const DishComponent = function () {
                                     key={ingredient}
                                     name={ingredient}
                                     label={ingredient + " Amount"}
-                                    value={1}
                                     variant="standard"
                                     color="success"
                                     margin="dense"
                                     type="number"
+                                    defaultValue={initIngredientAmountForDish(ingredient)}
                                     required
                                 />
                             );
@@ -268,7 +317,9 @@ const DishComponent = function () {
                     </Grid>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => { setAddingDish(false) }}>Cancel</Button>
+                    <Button onClick={() => {
+                        closeDialog();
+                    }}>Cancel</Button>
                     <Button type="submit">Save</Button>
                 </DialogActions>
             </Dialog>

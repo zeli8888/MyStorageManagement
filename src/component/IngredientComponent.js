@@ -6,7 +6,6 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 // import Modal from '@mui/material/Modal';
 // import Typography from '@mui/material/Typography';
@@ -189,7 +188,6 @@ const IngredientComponent = function () {
                         required
                         margin="dense"
                         name="ingredientStorage"
-                        value={0}
                         label="Ingredient Storage"
                         type="number"
                         fullWidth
