@@ -105,7 +105,9 @@ const IngredientComponent = function () {
             headerAlign: 'center',
             width: 200,
             renderCell: (params) => (
-                <button className="btn btn-success" onClick={() => updateIngredient(params.row)}>Update</button>
+                <Button variant="contained" color="success" onClick={
+                    () => updateIngredient(params.row)
+                } > Update</Button >
             )
         },
         {
@@ -114,7 +116,9 @@ const IngredientComponent = function () {
             headerAlign: 'center',
             width: 200,
             renderCell: (params) => (
-                <button className="btn btn-warning" onClick={() => deleteIngredient(params.row.ingredientId)}>Delete</button>
+                <Button variant="contained" color="error" onClick={
+                    () => deleteIngredient(params.row.ingredientId)
+                }>Delete</Button>
             )
         }
     ];

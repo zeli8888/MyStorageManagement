@@ -125,7 +125,12 @@ const DishComponent = function () {
                                 setAddingDish(true);
                             }}>Update</Button>
                     </TableCell>
-                    <TableCell>{dish.dishDesc}</TableCell>
+                    <TableCell>
+                        <Button variant="contained" color="error" onClick={
+                            () => {
+                                deleteDish(dish.dishId)
+                            }}>Delete</Button>
+                    </TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={3}>
