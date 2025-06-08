@@ -6,7 +6,6 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import DishService from '../service/DishService'
 import DishRecordService from '../service/DishRecordService'
 import { FoodContext } from './FoodProvider';
 import PropTypes from 'prop-types';
@@ -30,103 +29,66 @@ import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid'
 import moment from 'moment';
-
-const DishComponent = function () {
+const DishRecordComponent = function () {
     const navigate = useNavigate();
-    const { ingredients, dishes, setDishes } = React.useContext(FoodContext);
-    // const [dishes, setDishes] = useState([]);
-    const [addingDish, setAddingDish] = useState(false);
-    const [addingDishRecord, setAddingDishRecord] = useState(false);
-    const [dishUpdating, setDishUpdating] = useState();
-    const [ingredientsForDish, setIngredientsForDish] = useState([]);
+    const { ingredients, dishes } = React.useContext(FoodContext);
+    const [dishRecords, setDishRecords] = useState([]);
+    const [dishRecordUpdating, setDishRecordUpdating] = useState();
+    const [ingredientsForDishRecord, setIngredientsForDishRecord] = useState([]);
+    const [dishNameForDishRecord, setDishNameForDishRecord] = useState('');
 
     useEffect(() => {
-        refreshDishes();
+        refreshDishRecords();
     }, [navigate]);
 
-    const refreshDishes = () => {
-        DishService.getAllDishes().then(response => {
-            setDishes(response.data);
+    const refreshDishRecords = () => {
+        DishRecordService.getAllDishRecords().then(response => {
+            setDishRecords(response.data);
         }).catch(error => {
             console.log(error);
         });
     }
 
     const closeDialog = () => {
-        setDishUpdating();
-        setAddingDishRecord(false);
-        setIngredientsForDish([]);
-        setAddingDish(false);
+        setDishRecordUpdating();
+        setDishNameForDishRecord('');
+        setIngredientsForDishRecord([]);
     }
 
-    const updateDish = (data) => {
-        DishService.updateDish(data.dishId, data).then(response => {
-            closeDialog();
-            refreshDishes();
-        }).catch(error => {
-            console.log(error);
-        });
-    }
-
-    const addDish = (data) => {
-        if (addingDishRecord) return addDishRecord(data);
-        let dishIngredientDTO = {
-            dish: {
-                dishName: data.dishName,
-                dishDesc: data.dishDesc,
-            },
-            ingredientIdQuantityList:
-                data.ingredientsForDish.split(',').map(ingredient => ({
-                    ingredientName: ingredient,
-                    quantity: data[ingredient]
-                }))
-
-        }
-        if (dishUpdating) {
-            dishIngredientDTO["dishId"] = dishUpdating.dishId;
-            return updateDish(dishIngredientDTO);
-        }
-        DishService.addDish(dishIngredientDTO).then(response => {
-            closeDialog();
-            refreshDishes();
-        }).catch(error => {
-            console.log(error);
-        });
-    }
-
-    const addDishRecord = (data) => {
+    const updateDishRecord = (data) => {
         let dishRecordIngredientDTO = {
             dishRecord: {
                 dishRecordDesc: data.dishRecordDesc,
                 dishRecordTime: new Date(data.dishRecordTime).toISOString(),
                 dish: {
-                    dishName: data.dishName,
+                    dishName: data.dishNameForDishRecord,
                 }
             },
             ingredientIdQuantityList:
-                data.ingredientsForDish.split(',').map(ingredient => ({
+                data.ingredientsForDishRecord.split(',').map(ingredient => ({
                     ingredientName: ingredient,
                     quantity: data[ingredient]
                 }))
         }
 
-        DishRecordService.addDishRecord(dishRecordIngredientDTO).then(response => {
+        DishRecordService.updateDishRecord(dishRecordUpdating.dishRecordId, dishRecordIngredientDTO).then(response => {
             closeDialog();
+            refreshDishRecords();
         }).catch(error => {
             console.log(error);
         });
     }
 
-    const deleteDish = (dishId) => {
-        DishService.deleteDish(dishId).then(response => {
-            refreshDishes();
+    const deleteDishRecord = (dishRecordId) => {
+        DishRecordService.deleteDishRecord(dishRecordId).then(response => {
+            refreshDishRecords();
         }).catch(error => {
             console.log(error);
         });
     }
 
-    function CreateDishRow(props) {
-        const { dish } = props;
+    function CreateDishRecordRow(props) {
+        const { dishRecord } = props;
         const [open, setOpen] = React.useState(false);
 
         return (
@@ -142,32 +104,23 @@ const DishComponent = function () {
                         </IconButton>
                     </TableCell>
                     <TableCell component="th" scope="row">
-                        {dish.dishName}
+                        {dishRecord.dish.dishName}
                     </TableCell>
-                    <TableCell>{dish.dishDesc}</TableCell>
+                    <TableCell>{dishRecord.dishRecordDesc}</TableCell>
+                    <TableCell>{moment(dishRecord.dishRecordTime).format('YYYY-MM-DD HH:mm')}</TableCell>
                     <TableCell>
                         <Button variant="contained" color="success" onClick={
                             () => {
-                                setDishUpdating(dish);
-                                setAddingDishRecord(false);
-                                setIngredientsForDish(dish.dishIngredients.map(dishIngredient => dishIngredient.ingredient.ingredientName));
-                                setAddingDish(true);
+                                setDishRecordUpdating(dishRecord);
+                                setDishNameForDishRecord(dishRecord.dish.dishName);
+                                setIngredientsForDishRecord(dishRecord.dishRecordIngredients.map(dishRecordIngredient => dishRecordIngredient.ingredient.ingredientName));
                             }}>Update</Button>
                     </TableCell>
                     <TableCell>
                         <Button variant="contained" color="error" onClick={
                             () => {
-                                deleteDish(dish.dishId)
+                                deleteDishRecord(dishRecord.dishRecordId)
                             }}>Delete</Button>
-                    </TableCell>
-                    <TableCell>
-                        <Button variant="contained" color="info" onClick={
-                            () => {
-                                setDishUpdating(dish);
-                                setIngredientsForDish(dish.dishIngredients.map(dishIngredient => dishIngredient.ingredient.ingredientName));
-                                setAddingDishRecord(true);
-                                setAddingDish(true);
-                            }}>Add</Button>
                     </TableCell>
                 </TableRow>
                 <TableRow>
@@ -175,7 +128,7 @@ const DishComponent = function () {
                         <Collapse in={open} timeout="auto" unmountOnExit>
                             <Box sx={{ margin: 1 }}>
                                 <Typography variant="h6" gutterBottom component="div">
-                                    Recipe
+                                    Ingredients Used
                                 </Typography>
                                 <Table size="small" aria-label="purchases">
                                     <TableHead>
@@ -188,15 +141,15 @@ const DishComponent = function () {
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {dish.dishIngredients.map((dishIngredient) => (
-                                            <TableRow key={dishIngredient.ingredient.ingredientId}>
+                                        {dishRecord.dishRecordIngredients.map((dishRecordIngredient) => (
+                                            <TableRow key={dishRecordIngredient.ingredient.ingredientId}>
                                                 <TableCell component="th" scope="row">
-                                                    {dishIngredient.ingredient.ingredientName}
+                                                    {dishRecordIngredient.ingredient.ingredientName}
                                                 </TableCell>
-                                                <TableCell align="right">{dishIngredient.dishIngredientQuantity}</TableCell>
-                                                <TableCell align="right">{dishIngredient.ingredient.ingredientStorage}</TableCell>
-                                                <TableCell align="right">{dishIngredient.ingredient.ingredientCost}</TableCell>
-                                                <TableCell>{dishIngredient.ingredient.ingredientDesc}</TableCell>
+                                                <TableCell align="right">{dishRecordIngredient.dishRecordIngredientQuantity}</TableCell>
+                                                <TableCell align="right">{dishRecordIngredient.ingredient.ingredientStorage}</TableCell>
+                                                <TableCell align="right">{dishRecordIngredient.ingredient.ingredientCost}</TableCell>
+                                                <TableCell>{dishRecordIngredient.ingredient.ingredientDesc}</TableCell>
                                             </TableRow>
                                         ))}
                                     </TableBody>
@@ -209,32 +162,35 @@ const DishComponent = function () {
         );
     }
 
-    const addIngredientForDish = (event) => {
+    const addIngredientForDishRecord = (event) => {
         const {
             target: { value },
         } = event;
-        setIngredientsForDish(
+        setIngredientsForDishRecord(
             // On autofill we get a stringified value.
             typeof value === 'string' ? value.split(',') : value,
         );
     }
 
-    const initIngredientAmountForDish = (ingredient) => {
-        if (!dishUpdating) return;
-        let dishIngredients = dishUpdating.dishIngredients;
-        let index = dishIngredients.findIndex(dishIngredient => dishIngredient.ingredient.ingredientName == ingredient)
+    const initIngredientAmountForDishRecord = (ingredient) => {
+        let dishRecordIngredients = dishRecordUpdating.dishRecordIngredients;
+        let index = dishRecordIngredients.findIndex(dishRecordIngredient => dishRecordIngredient.ingredient.ingredientName == ingredient)
         if (index == -1) return;
-        return dishIngredients[index].dishIngredientQuantity;
+        return dishRecordIngredients[index].dishRecordIngredientQuantity;
     }
 
-    CreateDishRow.propTypes = {
-        dish: PropTypes.shape({
-            dishId: PropTypes.number.isRequired,
-            dishName: PropTypes.string.isRequired,
-            dishDesc: PropTypes.string.isRequired,
-            dishIngredients: PropTypes.arrayOf(
+    CreateDishRecordRow.propTypes = {
+        dishRecord: PropTypes.shape({
+            dishRecordId: PropTypes.number.isRequired,
+            dishRecordTime: PropTypes.string.isRequired,
+            dishRecordDesc: PropTypes.string.isRequired,
+            dish: PropTypes.shape({
+                dishId: PropTypes.number.isRequired,
+                dishName: PropTypes.string.isRequired
+            }).isRequired,
+            dishRecordIngredients: PropTypes.arrayOf(
                 PropTypes.shape({
-                    dishIngredientQuantity: PropTypes.number.isRequired,
+                    dishRecordIngredientQuantity: PropTypes.number.isRequired,
                     ingredient: PropTypes.shape({
                         ingredientId: PropTypes.number.isRequired,
                         ingredientName: PropTypes.string.isRequired,
@@ -254,34 +210,23 @@ const DishComponent = function () {
                     <TableHead>
                         <TableRow>
                             <TableCell />
-                            <TableCell>Dish</TableCell>
+                            <TableCell>Dish Name</TableCell>
                             <TableCell>Description</TableCell>
+                            <TableCell>Time</TableCell>
                             <TableCell>Update</TableCell>
                             <TableCell>Delete</TableCell>
-                            <TableCell>Add</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {dishes.map((dish) => (
-                            <CreateDishRow key={dish.dishId} dish={dish} />
+                        {dishRecords.map((dishRecord) => (
+                            <CreateDishRecordRow key={dishRecord.dishRecordId} dishRecord={dishRecord} />
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
 
-            <Button variant="contained" color="success"
-                onClick={() => {
-                    setDishUpdating();
-                    setAddingDishRecord(false);
-                    setIngredientsForDish([]);
-                    setAddingDish(true);
-                }}
-            >
-                New Dish
-            </Button>
-
             <Dialog
-                open={addingDish}
+                open={dishRecordUpdating}
                 onClose={() => {
                     closeDialog();
                 }}
@@ -294,59 +239,58 @@ const DishComponent = function () {
                             event.preventDefault();
                             const formData = new FormData(event.currentTarget);
                             const formJson = Object.fromEntries(formData.entries());
-                            addDish(formJson);
+                            updateDishRecord(formJson);
                         },
                     },
                 }}
             >
-                <DialogTitle>
-                    {dishUpdating ? (addingDishRecord ? "New Record" : "Update Dish") : "New Dish"}
-                </DialogTitle>
+                <DialogTitle>New Dish Record</DialogTitle>
                 <DialogContent>
-
-                    <TextField
-                        autoFocus
-                        required
-                        margin="dense"
-                        name="dishName"
-                        label="Dish Name"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                        defaultValue={dishUpdating ? dishUpdating.dishName : ""}
-                        slotProps={{
-                            input: {
-                                readOnly: { addingDishRecord },
-                            },
+                    <InputLabel id="dish-name-for-dish-record">Dish</InputLabel>
+                    <Select
+                        name="dishNameForDishRecord"
+                        labelId="dish-name-for-dish-record"
+                        value={dishNameForDishRecord}
+                        onChange={(event) => { setDishNameForDishRecord(event.target.value) }}
+                        renderValue={() => dishNameForDishRecord}
+                        MenuProps={{
+                            PaperProps: { style: { maxHeight: '45%' } }
                         }}
-                    />
+                        style={{ width: '100%' }}
+                    >
+                        {dishes.map((dish) => (
+                            <MenuItem key={dish.dishId} value={dish.dishName}>
+                                <Checkbox checked={dish.dishName == dishNameForDishRecord} />
+                                <ListItemText primary={dish.dishName} />
+                            </MenuItem>
+                        ))}
+                    </Select>
                     <TextField
-                        autoFocus={addingDishRecord}
                         margin="dense"
-                        name={addingDishRecord ? "dishRecordDesc" : "dishDesc"}
-                        label={addingDishRecord ? "Record Description" : "Dish Description"}
+                        name="dishRecordDesc"
+                        label="Record Description"
                         type="text"
                         fullWidth
                         variant="standard"
-                        defaultValue={dishUpdating ? dishUpdating.dishDesc : ""}
+                        defaultValue={dishRecordUpdating ? dishRecordUpdating.dishRecordDesc : ''}
                     />
-                    {addingDishRecord && <TextField
+                    <TextField
                         margin="dense"
                         name="dishRecordTime"
                         label="Record Time"
                         type="datetime-local"
                         fullWidth
                         variant="standard"
-                        defaultValue={moment(new Date()).format('YYYY-MM-DD HH:mm')}
-                    />}
+                        defaultValue={dishRecordUpdating ? moment(dishRecordUpdating["dishRecordTime"]).format('YYYY-MM-DD HH:mm') : ''}
+                    />
                     <Box mt={4} />
-                    <InputLabel id="add-ingredient-for-dish">{addingDishRecord ? "Ingredients Used" : "Recipe"}</InputLabel>
+                    <InputLabel id="add-ingredient-for-DishRecord">Recipe</InputLabel>
                     <Select
-                        name="ingredientsForDish"
-                        labelId="add-ingredient-for-dish"
+                        name="ingredientsForDishRecord"
+                        labelId="add-ingredient-for-DishRecord"
                         multiple
-                        value={ingredientsForDish}
-                        onChange={addIngredientForDish}
+                        value={ingredientsForDishRecord}
+                        onChange={addIngredientForDishRecord}
                         renderValue={(selected) => selected.join(', ')}
                         MenuProps={{
                             PaperProps: { style: { maxHeight: '45%' } }
@@ -355,13 +299,13 @@ const DishComponent = function () {
                     >
                         {ingredients.map((ingredient) => (
                             <MenuItem key={ingredient.ingredientId} value={ingredient.ingredientName}>
-                                <Checkbox checked={ingredientsForDish.includes(ingredient.ingredientName)} />
+                                <Checkbox checked={ingredientsForDishRecord.includes(ingredient.ingredientName)} />
                                 <ListItemText primary={ingredient.ingredientName} />
                             </MenuItem>
                         ))}
                     </Select>
                     <Grid container spacing={2} >
-                        {ingredientsForDish.map((ingredient) => {
+                        {ingredientsForDishRecord.map((ingredient) => {
                             return (
                                 <TextField
                                     key={ingredient}
@@ -371,7 +315,7 @@ const DishComponent = function () {
                                     color="success"
                                     margin="dense"
                                     type="number"
-                                    defaultValue={initIngredientAmountForDish(ingredient)}
+                                    defaultValue={initIngredientAmountForDishRecord(ingredient)}
                                     required
                                 />
                             );
@@ -389,4 +333,4 @@ const DishComponent = function () {
     )
 }
 
-export default DishComponent;
+export default DishRecordComponent;

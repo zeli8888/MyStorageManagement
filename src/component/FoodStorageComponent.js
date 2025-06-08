@@ -1,6 +1,7 @@
 import DishComponent from './DishComponent';
 import IngredientComponent from './IngredientComponent'
 import FoodProvider from './FoodProvider';
+import DishRecordComponent from './DishRecordComponent';
 
 const FoodStorageComponent = function () {
 
@@ -8,6 +9,7 @@ const FoodStorageComponent = function () {
         <FoodProvider>
             <IngredientComponent />
             <DishComponent />
+            <DishRecordComponent />
         </FoodProvider>
     )
 }
