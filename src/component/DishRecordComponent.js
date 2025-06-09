@@ -29,6 +29,8 @@ import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid'
 import moment from 'moment';
+import { DeletionConfirmation } from './MyComponents';
+
 const DishRecordComponent = function () {
     const navigate = useNavigate();
     const { ingredients, dishes } = React.useContext(FoodContext);
@@ -36,6 +38,7 @@ const DishRecordComponent = function () {
     const [dishRecordUpdating, setDishRecordUpdating] = useState();
     const [ingredientsForDishRecord, setIngredientsForDishRecord] = useState([]);
     const [dishNameForDishRecord, setDishNameForDishRecord] = useState('');
+    const [dishRecordToDelete, setDishRecordToDelete] = useState();
 
     useEffect(() => {
         refreshDishRecords();
@@ -118,9 +121,7 @@ const DishRecordComponent = function () {
                     </TableCell>
                     <TableCell>
                         <Button variant="contained" color="error" onClick={
-                            () => {
-                                deleteDishRecord(dishRecord.dishRecordId)
-                            }}>Delete</Button>
+                            () => setDishRecordToDelete(dishRecord)}>Delete</Button>
                     </TableCell>
                 </TableRow>
                 <TableRow>
@@ -244,7 +245,7 @@ const DishRecordComponent = function () {
                     },
                 }}
             >
-                <DialogTitle>New Dish Record</DialogTitle>
+                <DialogTitle>Update Dish Record</DialogTitle>
                 <DialogContent>
                     <InputLabel id="dish-name-for-dish-record">Dish</InputLabel>
                     <Select
@@ -329,6 +330,13 @@ const DishRecordComponent = function () {
                     <Button type="submit">Save</Button>
                 </DialogActions>
             </Dialog>
+
+            <DeletionConfirmation warningMessage={dishRecordToDelete ? "Are you sure you want to delete dish record for " + dishRecordToDelete.dish.dishName + "?" : "Processing"}
+                open={dishRecordToDelete} onClose={() => { setDishRecordToDelete(null) }}
+                onConfirm={() => {
+                    setDishRecordToDelete(null);
+                    deleteDishRecord(dishRecordToDelete.dishRecordId);
+                }} />
         </div >
     )
 }

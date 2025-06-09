@@ -30,6 +30,7 @@ import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid'
 import moment from 'moment';
+import { DeletionConfirmation } from './MyComponents';
 
 const DishComponent = function () {
     const navigate = useNavigate();
@@ -39,6 +40,7 @@ const DishComponent = function () {
     const [addingDishRecord, setAddingDishRecord] = useState(false);
     const [dishUpdating, setDishUpdating] = useState();
     const [ingredientsForDish, setIngredientsForDish] = useState([]);
+    const [dishToDelete, setDishToDelete] = useState();
 
     useEffect(() => {
         refreshDishes();
@@ -156,9 +158,7 @@ const DishComponent = function () {
                     </TableCell>
                     <TableCell>
                         <Button variant="contained" color="error" onClick={
-                            () => {
-                                deleteDish(dish.dishId)
-                            }}>Delete</Button>
+                            () => setDishToDelete(dish)}> Delete </Button>
                     </TableCell>
                     <TableCell>
                         <Button variant="contained" color="info" onClick={
@@ -385,6 +385,13 @@ const DishComponent = function () {
                     <Button type="submit">Save</Button>
                 </DialogActions>
             </Dialog>
+
+            <DeletionConfirmation warningMessage={dishToDelete ? "Are you sure you want to delete dish " + dishToDelete.dishName + "?" : "Processing"}
+                open={dishToDelete} onClose={() => setDishToDelete(null)}
+                onConfirm={() => {
+                    setDishToDelete(null);
+                    deleteDish(dishToDelete.dishId);
+                }} />
         </div >
     )
 }

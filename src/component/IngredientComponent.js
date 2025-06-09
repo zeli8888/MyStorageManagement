@@ -7,19 +7,17 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-// import Modal from '@mui/material/Modal';
-// import Typography from '@mui/material/Typography';
-// import { Formik, Form, Field, ErrorMessage } from 'formik';
 import IngredientService from '../service/IngredientService'
 import { FoodContext } from './FoodProvider';
+import { DeletionConfirmation } from './MyComponents';
 
 
 const IngredientComponent = function () {
     const navigate = useNavigate();
     const { ingredients, setIngredients } = React.useContext(FoodContext);
-
-    // const [ingredients, setIngredients] = useState([]);
+    const [ingredientUpdating, setIngredientUpdating] = useState();
     const [addingIngredient, setAddingIngredient] = useState(false);
+    const [ingredientToDelete, setIngredientToDelete] = useState();
 
     useEffect(() => {
         refreshIngredients();
@@ -35,6 +33,8 @@ const IngredientComponent = function () {
 
     const updateIngredient = (data) => {
         IngredientService.updateIngredient(data.ingredientId, data).then(response => {
+            setIngredientUpdating();
+            setAddingIngredient(false);
             refreshIngredients();
         }).catch(error => {
             console.log(error);
@@ -42,6 +42,7 @@ const IngredientComponent = function () {
     }
 
     const addIngredient = (data) => {
+        if (ingredientUpdating) return updateIngredient(data);
         IngredientService.addIngredient(data).then(response => {
             setAddingIngredient(false);
             refreshIngredients();
@@ -58,55 +59,55 @@ const IngredientComponent = function () {
         });
     }
 
-    // const validateIngredient = (data) => {
-    //     let errors = {}
-    //     if (!data.ingredientName) {
-    //         errors.ingredientName = 'Enter the ingredient name!'
-    //     }
-    //     return errors
-    // }
-
     const columns = [
         {
             field: 'ingredientId',
             headerName: 'Id',
-            width: 10,
+            with: 0,
             editable: false,
+            headerAlign: 'center'
         },
         {
             field: 'ingredientName',
             headerName: 'Ingredient',
-            width: 150,
-            editable: true,
+            flex: 2,
+            editable: false,
+            headerAlign: 'center'
         },
         {
             field: 'ingredientStorage',
             headerName: 'Storage',
+            flex: 2,
             type: 'number',
-            width: 110,
-            editable: true,
+            editable: false,
+            headerAlign: 'center'
         },
         {
             field: 'ingredientCost',
             headerName: 'Cost',
+            flex: 2,
             type: 'number',
-            width: 110,
-            editable: true,
+            editable: false,
+            headerAlign: 'center'
         },
         {
             field: 'ingredientDesc',
             headerName: 'Description',
-            width: 110,
-            editable: true,
+            flex: 3,
+            editable: false,
+            headerAlign: 'center'
         },
         {
             field: 'update',
             headerName: 'Update',
             headerAlign: 'center',
-            width: 200,
+            flex: 3,
             renderCell: (params) => (
                 <Button variant="contained" color="success" onClick={
-                    () => updateIngredient(params.row)
+                    () => {
+                        setIngredientUpdating(params.row);
+                        setAddingIngredient(true);
+                    }
                 } > Update</Button >
             )
         },
@@ -114,10 +115,10 @@ const IngredientComponent = function () {
             field: 'delete',
             headerName: 'Delete',
             headerAlign: 'center',
-            width: 200,
+            flex: 3,
             renderCell: (params) => (
                 <Button variant="contained" color="error" onClick={
-                    () => deleteIngredient(params.row.ingredientId)
+                    () => setIngredientToDelete(params.row)
                 }>Delete</Button>
             )
         }
@@ -126,6 +127,7 @@ const IngredientComponent = function () {
     return (
         <div className="container">
             <DataGrid
+                autoWidth
                 rows={ingredients}
                 columns={columns}
                 initialState={{
@@ -148,12 +150,22 @@ const IngredientComponent = function () {
                 }}
                 pageSizeOptions={[10, 20]}
                 // checkboxSelection
-                disableRowSelectionOnClick
+                // disableRowSelectionOnClick
                 getRowId={(row) => row.ingredientId}
+                sx={{
+                    boxShadow: 2,
+                    border: 2,
+                    borderColor: 'lightgrey',
+                    width: '100%',
+                    '& .MuiDataGrid-cell': {
+                        textAlign: 'center', // Center the text in each cell
+                    }
+                }}
             />
 
             <Button variant="contained" color="success"
                 onClick={() => {
+                    setIngredientUpdating();
                     setAddingIngredient(true);
                 }}
             >
@@ -161,7 +173,10 @@ const IngredientComponent = function () {
             </Button>
             <Dialog
                 open={addingIngredient}
-                onClose={() => { setAddingIngredient(false) }}
+                onClose={() => {
+                    setIngredientUpdating();
+                    setAddingIngredient(false);
+                }}
                 maxWidth="xs"
                 fullWidth={true}
                 slotProps={{
@@ -176,8 +191,9 @@ const IngredientComponent = function () {
                     },
                 }}
             >
-                <DialogTitle>New Ingredient</DialogTitle>
+                <DialogTitle>{ingredientUpdating ? "Update Ingredient" : "New Ingredient"}</DialogTitle>
                 <DialogContent>
+                    {ingredientUpdating && <input type="hidden" name="ingredientId" value={ingredientUpdating.ingredientId} />}
                     <TextField
                         autoFocus
                         required
@@ -187,6 +203,7 @@ const IngredientComponent = function () {
                         type="text"
                         fullWidth
                         variant="standard"
+                        defaultValue={ingredientUpdating ? ingredientUpdating.ingredientName : ""}
                     />
                     <TextField
                         required
@@ -196,6 +213,7 @@ const IngredientComponent = function () {
                         type="number"
                         fullWidth
                         variant="standard"
+                        defaultValue={ingredientUpdating ? ingredientUpdating.ingredientStorage : ""}
                     />
                     <TextField
                         margin="dense"
@@ -204,6 +222,7 @@ const IngredientComponent = function () {
                         type="number"
                         fullWidth
                         variant="standard"
+                        defaultValue={ingredientUpdating ? ingredientUpdating.ingredientCost : ""}
                     />
                     <TextField
                         margin="dense"
@@ -212,65 +231,23 @@ const IngredientComponent = function () {
                         type="text"
                         fullWidth
                         variant="standard"
+                        defaultValue={ingredientUpdating ? ingredientUpdating.ingredientDesc : ""}
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => { setAddingIngredient(false) }}>Cancel</Button>
+                    <Button onClick={() => {
+                        setAddingIngredient(false);
+                        setAddingIngredient(false);
+                    }}>Cancel</Button>
                     <Button type="submit">Save</Button>
                 </DialogActions>
             </Dialog>
-
-            {/* <Modal
-                open={addingIngredient}
-                onClose={() => { setAddingIngredient(false) }}
-                aria-labelledby="modal-title"
-            >
-                <div>
-                    <Typography id="modal-title" variant="h6" component="h2">
-                        New Ingredient
-                    </Typography>
-                    <Formik
-                        initialValues={{
-                            ingredientName: '',
-                            ingredientStorage: 0,
-                            ingredientCost: 0,
-                            ingredientDesc: ''
-                        }}
-                        onSubmit={addIngredient}
-                        validateOnChange={true}
-                        validateOnBlur={true}
-                        validate={validateIngredient}>
-                        {
-                            (formikProps) => (
-                                <>
-                                    <Form>
-                                        <fieldset className="form-group">
-                                            <label>Ingredient Name</label>
-                                            <Field className="form-control" type="text" name="ingredientName" />
-                                        </fieldset>
-                                        <ErrorMessage name="ingredientName" component="div"
-                                            className="alert alert-warning" />
-                                        <fieldset className="form-group">
-                                            <label>Storage</label>
-                                            <Field className="form-control" type="number" name="ingredientStorage" />
-                                        </fieldset>
-                                        <fieldset className="form-group">
-                                            <label>Cost</label>
-                                            <Field className="form-control" type="number" name="ingredientCost" />
-                                        </fieldset>
-                                        <fieldset className="form-group">
-                                            <label>Description</label>
-                                            <Field className="form-control" type="text" name="ingredientDesc" />
-                                        </fieldset>
-                                        <Button variant="contained" color="error" onClick={() => { setAddingIngredient(false) }}>Cancel</Button>
-                                        <Button variant="contained" color="success" onClick={formikProps.submitForm}>Save</Button>
-                                    </Form>
-                                </>
-                            )
-                        }
-                    </Formik>
-                </div>
-            </Modal> */}
+            <DeletionConfirmation warningMessage={ingredientToDelete ? "Are you sure you want to delete ingredient " + ingredientToDelete.ingredientName + "?" : "Processing"}
+                open={ingredientToDelete} onClose={() => setIngredientToDelete(null)}
+                onConfirm={() => {
+                    setIngredientToDelete(null);
+                    deleteIngredient(ingredientToDelete.ingredientId);
+                }} />
         </div>
     )
 }
