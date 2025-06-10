@@ -30,6 +30,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid'
 import moment from 'moment';
 import { DeletionConfirmation } from './MyComponents';
+import Alert from '@mui/material/Alert';
 
 const DishRecordComponent = function () {
     const navigate = useNavigate();
@@ -39,6 +40,7 @@ const DishRecordComponent = function () {
     const [ingredientsForDishRecord, setIngredientsForDishRecord] = useState([]);
     const [dishNameForDishRecord, setDishNameForDishRecord] = useState('');
     const [dishRecordToDelete, setDishRecordToDelete] = useState();
+    const [dishRecordAlert, setDishRecordAlert] = useState();
 
     useEffect(() => {
         refreshDishRecords();
@@ -77,6 +79,7 @@ const DishRecordComponent = function () {
         DishRecordService.updateDishRecord(dishRecordUpdating.dishRecordId, dishRecordIngredientDTO).then(response => {
             closeDialog();
             refreshDishRecords();
+            setDishRecordAlert({ severity: "success", message: "Dish Record for " + data.dishNameForDishRecord + " updated successfully!" });
         }).catch(error => {
             console.log(error);
         });
@@ -85,6 +88,7 @@ const DishRecordComponent = function () {
     const deleteDishRecord = (dishRecordId) => {
         DishRecordService.deleteDishRecord(dishRecordId).then(response => {
             refreshDishRecords();
+            setDishRecordAlert({ severity: "success", message: "Dish Record for " + dishRecordToDelete.dish.dishName + " deleted successfully!" });
         }).catch(error => {
             console.log(error);
         });
@@ -96,7 +100,7 @@ const DishRecordComponent = function () {
 
         return (
             <React.Fragment>
-                <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+                <TableRow>
                     <TableCell>
                         <IconButton
                             aria-label="expand row"
@@ -125,19 +129,19 @@ const DishRecordComponent = function () {
                     </TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={3}>
+                    <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
                         <Collapse in={open} timeout="auto" unmountOnExit>
                             <Box sx={{ margin: 1 }}>
-                                <Typography variant="h6" gutterBottom component="div">
+                                <Typography variant="h6" gutterBottom component="div" textAlign={"left"}>
                                     Ingredients Used
                                 </Typography>
                                 <Table size="small" aria-label="purchases">
                                     <TableHead>
                                         <TableRow>
                                             <TableCell>Name</TableCell>
-                                            <TableCell align="right">Amount</TableCell>
-                                            <TableCell align="right">Storage</TableCell>
-                                            <TableCell align="right">Cost</TableCell>
+                                            <TableCell>Amount</TableCell>
+                                            <TableCell>Storage</TableCell>
+                                            <TableCell>Cost</TableCell>
                                             <TableCell>Description</TableCell>
                                         </TableRow>
                                     </TableHead>
@@ -147,9 +151,9 @@ const DishRecordComponent = function () {
                                                 <TableCell component="th" scope="row">
                                                     {dishRecordIngredient.ingredient.ingredientName}
                                                 </TableCell>
-                                                <TableCell align="right">{dishRecordIngredient.dishRecordIngredientQuantity}</TableCell>
-                                                <TableCell align="right">{dishRecordIngredient.ingredient.ingredientStorage}</TableCell>
-                                                <TableCell align="right">{dishRecordIngredient.ingredient.ingredientCost}</TableCell>
+                                                <TableCell>{dishRecordIngredient.dishRecordIngredientQuantity}</TableCell>
+                                                <TableCell>{dishRecordIngredient.ingredient.ingredientStorage}</TableCell>
+                                                <TableCell>{dishRecordIngredient.ingredient.ingredientCost}</TableCell>
                                                 <TableCell>{dishRecordIngredient.ingredient.ingredientDesc}</TableCell>
                                             </TableRow>
                                         ))}
@@ -206,8 +210,9 @@ const DishRecordComponent = function () {
 
     return (
         <div className="container">
+            {dishRecordAlert && <Alert severity={dishRecordAlert.severity} onClose={() => { setDishRecordAlert(null) }}>{dishRecordAlert.message}</Alert>}
             <TableContainer component={Paper}>
-                <Table aria-label="collapsible table">
+                <Table aria-label="collapsible table" sx={{ '& .MuiTableCell-root': { textAlign: 'center' } }}>
                     <TableHead>
                         <TableRow>
                             <TableCell />
@@ -334,8 +339,8 @@ const DishRecordComponent = function () {
             <DeletionConfirmation warningMessage={dishRecordToDelete ? "Are you sure you want to delete dish record for " + dishRecordToDelete.dish.dishName + "?" : "Processing"}
                 open={dishRecordToDelete} onClose={() => { setDishRecordToDelete(null) }}
                 onConfirm={() => {
-                    setDishRecordToDelete(null);
                     deleteDishRecord(dishRecordToDelete.dishRecordId);
+                    setDishRecordToDelete(null);
                 }} />
         </div >
     )

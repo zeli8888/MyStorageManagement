@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
@@ -10,7 +10,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import IngredientService from '../service/IngredientService'
 import { FoodContext } from './FoodProvider';
 import { DeletionConfirmation } from './MyComponents';
-
+import Alert from '@mui/material/Alert';
 
 const IngredientComponent = function () {
     const navigate = useNavigate();
@@ -18,6 +18,7 @@ const IngredientComponent = function () {
     const [ingredientUpdating, setIngredientUpdating] = useState();
     const [addingIngredient, setAddingIngredient] = useState(false);
     const [ingredientToDelete, setIngredientToDelete] = useState();
+    const [ingredientAlert, setIngredientAlert] = useState();
 
     useEffect(() => {
         refreshIngredients();
@@ -36,6 +37,7 @@ const IngredientComponent = function () {
             setIngredientUpdating();
             setAddingIngredient(false);
             refreshIngredients();
+            setIngredientAlert({ severity: "success", message: "Ingredient " + data.ingredientName + " updated successfully!" });
         }).catch(error => {
             console.log(error);
         });
@@ -46,6 +48,7 @@ const IngredientComponent = function () {
         IngredientService.addIngredient(data).then(response => {
             setAddingIngredient(false);
             refreshIngredients();
+            setIngredientAlert({ severity: "success", message: "Ingredient " + data.ingredientName + " added successfully!" });
         }).catch(error => {
             console.log(error);
         });
@@ -54,6 +57,7 @@ const IngredientComponent = function () {
     const deleteIngredient = (ingredientId) => {
         IngredientService.deleteIngredient(ingredientId).then(response => {
             refreshIngredients();
+            setIngredientAlert({ severity: "success", message: "Ingredient " + ingredientToDelete.ingredientName + " deleted successfully!" });
         }).catch(error => {
             console.log(error);
         });
@@ -126,6 +130,7 @@ const IngredientComponent = function () {
 
     return (
         <div className="container">
+            {ingredientAlert && <Alert severity={ingredientAlert.severity} onClose={() => { setIngredientAlert(null) }}>{ingredientAlert.message}</Alert>}
             <DataGrid
                 autoWidth
                 rows={ingredients}
@@ -245,8 +250,8 @@ const IngredientComponent = function () {
             <DeletionConfirmation warningMessage={ingredientToDelete ? "Are you sure you want to delete ingredient " + ingredientToDelete.ingredientName + "?" : "Processing"}
                 open={ingredientToDelete} onClose={() => setIngredientToDelete(null)}
                 onConfirm={() => {
-                    setIngredientToDelete(null);
                     deleteIngredient(ingredientToDelete.ingredientId);
+                    setIngredientToDelete(null);
                 }} />
         </div>
     )

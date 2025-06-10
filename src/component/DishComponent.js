@@ -31,7 +31,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid'
 import moment from 'moment';
 import { DeletionConfirmation } from './MyComponents';
-
+import Alert from '@mui/material/Alert';
 const DishComponent = function () {
     const navigate = useNavigate();
     const { ingredients, dishes, setDishes } = React.useContext(FoodContext);
@@ -41,6 +41,7 @@ const DishComponent = function () {
     const [dishUpdating, setDishUpdating] = useState();
     const [ingredientsForDish, setIngredientsForDish] = useState([]);
     const [dishToDelete, setDishToDelete] = useState();
+    const [dishAlert, setDishAlert] = useState();
 
     useEffect(() => {
         refreshDishes();
@@ -65,6 +66,7 @@ const DishComponent = function () {
         DishService.updateDish(data.dishId, data).then(response => {
             closeDialog();
             refreshDishes();
+            setDishAlert({ severity: "success", message: "Dish " + data.dish.dishName + " updated successfully!" });
         }).catch(error => {
             console.log(error);
         });
@@ -91,6 +93,7 @@ const DishComponent = function () {
         DishService.addDish(dishIngredientDTO).then(response => {
             closeDialog();
             refreshDishes();
+            setDishAlert({ severity: "success", message: "Dish " + data.dishName + " added successfully!" });
         }).catch(error => {
             console.log(error);
         });
@@ -114,6 +117,7 @@ const DishComponent = function () {
 
         DishRecordService.addDishRecord(dishRecordIngredientDTO).then(response => {
             closeDialog();
+            setDishAlert({ severity: "success", message: "Dish Record for " + data.dishName + " added successfully!" });
         }).catch(error => {
             console.log(error);
         });
@@ -122,6 +126,7 @@ const DishComponent = function () {
     const deleteDish = (dishId) => {
         DishService.deleteDish(dishId).then(response => {
             refreshDishes();
+            setDishAlert({ severity: "success", message: "Dish " + dishToDelete.dishName + " deleted successfully!" });
         }).catch(error => {
             console.log(error);
         });
@@ -133,7 +138,7 @@ const DishComponent = function () {
 
         return (
             <React.Fragment>
-                <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+                <TableRow>
                     <TableCell>
                         <IconButton
                             aria-label="expand row"
@@ -171,19 +176,19 @@ const DishComponent = function () {
                     </TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={3}>
+                    <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
                         <Collapse in={open} timeout="auto" unmountOnExit>
                             <Box sx={{ margin: 1 }}>
-                                <Typography variant="h6" gutterBottom component="div">
+                                <Typography variant="h6" gutterBottom component="div" textAlign={"left"}>
                                     Recipe
                                 </Typography>
                                 <Table size="small" aria-label="purchases">
                                     <TableHead>
                                         <TableRow>
                                             <TableCell>Name</TableCell>
-                                            <TableCell align="right">Amount</TableCell>
-                                            <TableCell align="right">Storage</TableCell>
-                                            <TableCell align="right">Cost</TableCell>
+                                            <TableCell>Amount</TableCell>
+                                            <TableCell>Storage</TableCell>
+                                            <TableCell>Cost</TableCell>
                                             <TableCell>Description</TableCell>
                                         </TableRow>
                                     </TableHead>
@@ -193,9 +198,9 @@ const DishComponent = function () {
                                                 <TableCell component="th" scope="row">
                                                     {dishIngredient.ingredient.ingredientName}
                                                 </TableCell>
-                                                <TableCell align="right">{dishIngredient.dishIngredientQuantity}</TableCell>
-                                                <TableCell align="right">{dishIngredient.ingredient.ingredientStorage}</TableCell>
-                                                <TableCell align="right">{dishIngredient.ingredient.ingredientCost}</TableCell>
+                                                <TableCell>{dishIngredient.dishIngredientQuantity}</TableCell>
+                                                <TableCell>{dishIngredient.ingredient.ingredientStorage}</TableCell>
+                                                <TableCell>{dishIngredient.ingredient.ingredientCost}</TableCell>
                                                 <TableCell>{dishIngredient.ingredient.ingredientDesc}</TableCell>
                                             </TableRow>
                                         ))}
@@ -205,7 +210,7 @@ const DishComponent = function () {
                         </Collapse>
                     </TableCell>
                 </TableRow>
-            </React.Fragment>
+            </React.Fragment >
         );
     }
 
@@ -249,8 +254,9 @@ const DishComponent = function () {
 
     return (
         <div className="container">
+            {dishAlert && <Alert severity={dishAlert.severity} onClose={() => { setDishAlert(null) }}>{dishAlert.message}</Alert>}
             <TableContainer component={Paper}>
-                <Table aria-label="collapsible table">
+                <Table aria-label="collapsible table" sx={{ '& .MuiTableCell-root': { textAlign: 'center' } }}>
                     <TableHead>
                         <TableRow>
                             <TableCell />
@@ -316,7 +322,7 @@ const DishComponent = function () {
                         defaultValue={dishUpdating ? dishUpdating.dishName : ""}
                         slotProps={{
                             input: {
-                                readOnly: { addingDishRecord },
+                                readOnly: addingDishRecord,
                             },
                         }}
                     />
@@ -389,8 +395,8 @@ const DishComponent = function () {
             <DeletionConfirmation warningMessage={dishToDelete ? "Are you sure you want to delete dish " + dishToDelete.dishName + "?" : "Processing"}
                 open={dishToDelete} onClose={() => setDishToDelete(null)}
                 onConfirm={() => {
-                    setDishToDelete(null);
                     deleteDish(dishToDelete.dishId);
+                    setDishToDelete(null);
                 }} />
         </div >
     )
