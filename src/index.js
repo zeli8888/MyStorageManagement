@@ -2,10 +2,55 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import * as React from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router';
+import FoodStorageComponent from './component/FoodStorageComponent';
+import IngredientComponent from './component/IngredientComponent';
+import DishComponent from './component/DishComponent';
+import DishRecordComponent from './component/DishRecordComponent';
+import Typography from '@mui/material/Typography';
+
+const router = createBrowserRouter([
+  {
+    Component: App, // root layout route
+    children: [
+      {
+        path: '/',
+        Component: Overview,
+      },
+      {
+        path: 'foodstorage',
+        Component: FoodStorageComponent,
+        children: [
+          {
+            path: 'ingredients',
+            Component: IngredientComponent,
+          },
+          {
+            path: 'dishes',
+            Component: DishComponent,
+          },
+          {
+            path: 'dishrecords',
+            Component: DishRecordComponent,
+          },
+        ],
+      },
+    ],
+  },
+]);
+
+function Overview() {
+  return (
+    <Typography>To Be Done</Typography>
+  )
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <App />
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

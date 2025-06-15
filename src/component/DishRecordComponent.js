@@ -65,7 +65,7 @@ const DishRecordComponent = function () {
             dishRecord: {
                 dishRecordDesc: data.dishRecordDesc,
                 dishRecordTime: new Date(data.dishRecordTime).toISOString(),
-                dish: {
+                dish: data.dishNameForDishRecord == "" ? null : {
                     dishName: data.dishNameForDishRecord,
                 }
             },
@@ -79,7 +79,7 @@ const DishRecordComponent = function () {
         DishRecordService.updateDishRecord(dishRecordUpdating.dishRecordId, dishRecordIngredientDTO).then(response => {
             closeDialog();
             refreshDishRecords();
-            setDishRecordAlert({ severity: "success", message: "Dish Record for " + data.dishNameForDishRecord + " updated successfully!" });
+            setDishRecordAlert({ severity: "success", message: "Dish Record updated successfully!" });
         }).catch(error => {
             console.log(error);
         });
@@ -88,7 +88,7 @@ const DishRecordComponent = function () {
     const deleteDishRecord = (dishRecordId) => {
         DishRecordService.deleteDishRecord(dishRecordId).then(response => {
             refreshDishRecords();
-            setDishRecordAlert({ severity: "success", message: "Dish Record for " + dishRecordToDelete.dish.dishName + " deleted successfully!" });
+            setDishRecordAlert({ severity: "success", message: "Dish Record deleted successfully!" });
         }).catch(error => {
             console.log(error);
         });
@@ -111,7 +111,7 @@ const DishRecordComponent = function () {
                         </IconButton>
                     </TableCell>
                     <TableCell component="th" scope="row">
-                        {dishRecord.dish.dishName}
+                        {dishRecord.dish ? dishRecord.dish.dishName : ""}
                     </TableCell>
                     <TableCell>{dishRecord.dishRecordDesc}</TableCell>
                     <TableCell>{moment(dishRecord.dishRecordTime).format('YYYY-MM-DD HH:mm')}</TableCell>
@@ -119,7 +119,7 @@ const DishRecordComponent = function () {
                         <Button variant="contained" color="success" onClick={
                             () => {
                                 setDishRecordUpdating(dishRecord);
-                                setDishNameForDishRecord(dishRecord.dish.dishName);
+                                setDishNameForDishRecord(dishRecord.dish ? dishRecord.dish.dishName : "");
                                 setIngredientsForDishRecord(dishRecord.dishRecordIngredients.map(dishRecordIngredient => dishRecordIngredient.ingredient.ingredientName));
                             }}>Update</Button>
                     </TableCell>
@@ -336,7 +336,7 @@ const DishRecordComponent = function () {
                 </DialogActions>
             </Dialog>
 
-            <DeletionConfirmation warningMessage={dishRecordToDelete ? "Are you sure you want to delete dish record for " + dishRecordToDelete.dish.dishName + "?" : "Processing"}
+            <DeletionConfirmation warningMessage={dishRecordToDelete ? "Are you sure you want to delete this dish record?" : "Processing"}
                 open={dishRecordToDelete} onClose={() => { setDishRecordToDelete(null) }}
                 onConfirm={() => {
                     deleteDishRecord(dishRecordToDelete.dishRecordId);

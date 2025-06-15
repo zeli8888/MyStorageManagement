@@ -1,15 +1,14 @@
-import DishComponent from './DishComponent';
-import IngredientComponent from './IngredientComponent'
 import FoodProvider from './FoodProvider';
-import DishRecordComponent from './DishRecordComponent';
+import { Outlet } from 'react-router'
 
 const FoodStorageComponent = function () {
 
     return (
         <FoodProvider>
-            <IngredientComponent />
+            <Outlet />
+            {/* <IngredientComponent />
             <DishComponent />
-            <DishRecordComponent />
+            <DishRecordComponent /> */}
         </FoodProvider>
     )
 }
