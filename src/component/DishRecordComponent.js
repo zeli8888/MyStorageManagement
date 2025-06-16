@@ -29,7 +29,7 @@ import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid'
 import moment from 'moment';
-import { DeletionConfirmation } from './MyComponents';
+import { DeletionConfirmationComponent, SearchComponent } from './MyComponents';
 import Alert from '@mui/material/Alert';
 
 const DishRecordComponent = function () {
@@ -209,27 +209,36 @@ const DishRecordComponent = function () {
     };
 
     return (
-        <div className="container">
-            {dishRecordAlert && <Alert severity={dishRecordAlert.severity} onClose={() => { setDishRecordAlert(null) }}>{dishRecordAlert.message}</Alert>}
-            <TableContainer component={Paper}>
-                <Table aria-label="collapsible table" sx={{ '& .MuiTableCell-root': { textAlign: 'center' } }}>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell />
-                            <TableCell>Dish Name</TableCell>
-                            <TableCell>Description</TableCell>
-                            <TableCell>Time</TableCell>
-                            <TableCell>Update</TableCell>
-                            <TableCell>Delete</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {dishRecords.map((dishRecord) => (
-                            <CreateDishRecordRow key={dishRecord.dishRecordId} dishRecord={dishRecord} />
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+        <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={2} >
+                <Grid size={12}>
+                    {dishRecordAlert && <Alert severity={dishRecordAlert.severity} onClose={() => { setDishRecordAlert(null) }}>{dishRecordAlert.message}</Alert>}
+                </Grid>
+                <Grid size={12}>
+                    <SearchComponent onSearch={refreshDishRecords} />
+                </Grid>
+                <Grid size={12}>
+                    <TableContainer component={Paper}>
+                        <Table aria-label="collapsible table" sx={{ '& .MuiTableCell-root': { textAlign: 'center' }, border: '2px solid lightgray' }}>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell />
+                                    <TableCell>Dish Name</TableCell>
+                                    <TableCell>Description</TableCell>
+                                    <TableCell>Time</TableCell>
+                                    <TableCell>Update</TableCell>
+                                    <TableCell>Delete</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {dishRecords.map((dishRecord) => (
+                                    <CreateDishRecordRow key={dishRecord.dishRecordId} dishRecord={dishRecord} />
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Grid>
+            </Grid>
 
             <Dialog
                 open={dishRecordUpdating}
@@ -336,13 +345,13 @@ const DishRecordComponent = function () {
                 </DialogActions>
             </Dialog>
 
-            <DeletionConfirmation warningMessage={dishRecordToDelete ? "Are you sure you want to delete this dish record?" : "Processing"}
+            <DeletionConfirmationComponent warningMessage={dishRecordToDelete ? "Are you sure you want to delete this dish record?" : "Processing"}
                 open={dishRecordToDelete} onClose={() => { setDishRecordToDelete(null) }}
                 onConfirm={() => {
                     deleteDishRecord(dishRecordToDelete.dishRecordId);
                     setDishRecordToDelete(null);
                 }} />
-        </div >
+        </Box>
     )
 }
 

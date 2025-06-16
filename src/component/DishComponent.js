@@ -30,7 +30,7 @@ import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid'
 import moment from 'moment';
-import { DeletionConfirmation } from './MyComponents';
+import { DeletionConfirmationComponent, SearchComponent } from './MyComponents';
 import Alert from '@mui/material/Alert';
 const DishComponent = function () {
     const navigate = useNavigate();
@@ -253,38 +253,50 @@ const DishComponent = function () {
     };
 
     return (
-        <div className="container">
-            {dishAlert && <Alert severity={dishAlert.severity} onClose={() => { setDishAlert(null) }}>{dishAlert.message}</Alert>}
-            <TableContainer component={Paper}>
-                <Table aria-label="collapsible table" sx={{ '& .MuiTableCell-root': { textAlign: 'center' } }}>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell />
-                            <TableCell>Dish</TableCell>
-                            <TableCell>Description</TableCell>
-                            <TableCell>Update</TableCell>
-                            <TableCell>Delete</TableCell>
-                            <TableCell>Add</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {dishes.map((dish) => (
-                            <CreateDishRow key={dish.dishId} dish={dish} />
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-
-            <Button variant="contained" color="success"
-                onClick={() => {
-                    setDishUpdating();
-                    setAddingDishRecord(false);
-                    setIngredientsForDish([]);
-                    setAddingDish(true);
-                }}
-            >
-                New Dish
-            </Button>
+        <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={2} >
+                <Grid size={12}>
+                    {dishAlert && <Alert severity={dishAlert.severity} onClose={() => { setDishAlert(null) }}>{dishAlert.message}</Alert>}
+                </Grid>
+                <Grid size={12}>
+                    <SearchComponent onSearch={refreshDishes} />
+                </Grid>
+                <Grid size={12}>
+                    <TableContainer component={Paper}>
+                        <Table aria-label="collapsible table" sx={{ '& .MuiTableCell-root': { textAlign: 'center' }, border: '2px solid lightgray' }}>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell />
+                                    <TableCell>Dish</TableCell>
+                                    <TableCell>Description</TableCell>
+                                    <TableCell>Update</TableCell>
+                                    <TableCell>Delete</TableCell>
+                                    <TableCell>Add Record</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {dishes.map((dish) => (
+                                    <CreateDishRow key={dish.dishId} dish={dish} />
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Grid>
+                <Button variant="contained" color="success"
+                    onClick={() => {
+                        setDishUpdating();
+                        setAddingDishRecord(false);
+                        setIngredientsForDish([]);
+                        setAddingDish(true);
+                    }}
+                    sx={{
+                        marginRight: 0,
+                        marginLeft: 'auto'
+                    }}
+                >
+                    New Dish
+                </Button>
+            </Grid>
 
             <Dialog
                 open={addingDish}
@@ -392,13 +404,13 @@ const DishComponent = function () {
                 </DialogActions>
             </Dialog>
 
-            <DeletionConfirmation warningMessage={dishToDelete ? "Are you sure you want to delete dish " + dishToDelete.dishName + "?" : "Processing"}
+            <DeletionConfirmationComponent warningMessage={dishToDelete ? "Are you sure you want to delete dish " + dishToDelete.dishName + "?" : "Processing"}
                 open={dishToDelete} onClose={() => setDishToDelete(null)}
                 onConfirm={() => {
                     deleteDish(dishToDelete.dishId);
                     setDishToDelete(null);
                 }} />
-        </div >
+        </Box>
     )
 }
 

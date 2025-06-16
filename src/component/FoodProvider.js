@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import IngredientService from '../service/IngredientService'
 import DishService from '../service/DishService'
 

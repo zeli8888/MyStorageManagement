@@ -1,4 +1,4 @@
-import React, { useState, useEffect, use } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
@@ -9,9 +9,10 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import IngredientService from '../service/IngredientService'
 import { FoodContext } from './FoodProvider';
-import { DeletionConfirmation } from './MyComponents';
+import { DeletionConfirmationComponent, SearchComponent } from './MyComponents';
 import Alert from '@mui/material/Alert';
-
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 const IngredientComponent = function () {
     const navigate = useNavigate();
     const { ingredients, setIngredients } = React.useContext(FoodContext);
@@ -129,53 +130,65 @@ const IngredientComponent = function () {
     ];
 
     return (
-        <div className="container">
-            {ingredientAlert && <Alert severity={ingredientAlert.severity} onClose={() => { setIngredientAlert(null) }}>{ingredientAlert.message}</Alert>}
-            <DataGrid
-                autoWidth
-                rows={ingredients}
-                columns={columns}
-                initialState={{
-                    sorting: {
-                        sortModel: [{
-                            field: 'ingredientStorage',
-                            sort: 'asc',
-                        }],
-                    },
-                    columns: {
-                        columnVisibilityModel: {
-                            ingredientId: false,
-                        },
-                    },
-                    pagination: {
-                        paginationModel: {
-                            pageSize: 10,
-                        },
-                    },
-                }}
-                pageSizeOptions={[10, 20]}
-                // checkboxSelection
-                // disableRowSelectionOnClick
-                getRowId={(row) => row.ingredientId}
-                sx={{
-                    boxShadow: 2,
-                    border: 2,
-                    borderColor: 'lightgrey',
-                    width: '100%',
-                    '& .MuiDataGrid-cell': {
-                        textAlign: 'center', // Center the text in each cell
-                    }
-                }}
-            />
-
-            <Button variant="contained" color="success"
-                onClick={() => {
-                    setIngredientUpdating();
-                    setAddingIngredient(true);
-                }}
-            >
-                New Ingredient
-            </Button>
+        <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={2} >
+                <Grid size={12}>
+                    {ingredientAlert && <Alert severity={ingredientAlert.severity} onClose={() => { setIngredientAlert(null) }}>{ingredientAlert.message}</Alert>}
+                </Grid>
+                <Grid size={12}>
+                    <SearchComponent onSearch={refreshIngredients} />
+                </Grid>
+                <Grid size={12}>
+                    <DataGrid
+                        autoWidth
+                        rows={ingredients}
+                        columns={columns}
+                        initialState={{
+                            sorting: {
+                                sortModel: [{
+                                    field: 'ingredientStorage',
+                                    sort: 'asc',
+                                }],
+                            },
+                            columns: {
+                                columnVisibilityModel: {
+                                    ingredientId: false,
+                                },
+                            },
+                            pagination: {
+                                paginationModel: {
+                                    pageSize: 10,
+                                },
+                            },
+                        }}
+                        pageSizeOptions={[10, 20]}
+                        // checkboxSelection
+                        // disableRowSelectionOnClick
+                        getRowId={(row) => row.ingredientId}
+                        sx={{
+                            boxShadow: 2,
+                            border: 2,
+                            borderColor: 'lightgrey',
+                            width: '100%',
+                            '& .MuiDataGrid-cell': {
+                                textAlign: 'center', // Center the text in each cell
+                            }
+                        }}
+                    />
+                </Grid>
+                <Button variant="contained" color="success"
+                    onClick={() => {
+                        setIngredientUpdating();
+                        setAddingIngredient(true);
+                    }}
+                    sx={{
+                        marginRight: 0,
+                        marginLeft: 'auto'
+                    }}
+                >
+                    New Ingredient
+                </Button>
+            </Grid>
             <Dialog
                 open={addingIngredient}
                 onClose={() => {
@@ -247,13 +260,13 @@ const IngredientComponent = function () {
                     <Button type="submit">Save</Button>
                 </DialogActions>
             </Dialog>
-            <DeletionConfirmation warningMessage={ingredientToDelete ? "Are you sure you want to delete ingredient " + ingredientToDelete.ingredientName + "?" : "Processing"}
+            <DeletionConfirmationComponent warningMessage={ingredientToDelete ? "Are you sure you want to delete ingredient " + ingredientToDelete.ingredientName + "?" : "Processing"}
                 open={ingredientToDelete} onClose={() => setIngredientToDelete(null)}
                 onConfirm={() => {
                     deleteIngredient(ingredientToDelete.ingredientId);
                     setIngredientToDelete(null);
                 }} />
-        </div>
+        </Box>
     )
 }
 

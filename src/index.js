@@ -4,7 +4,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router';
-import FoodStorageComponent from './component/FoodStorageComponent';
 import IngredientComponent from './component/IngredientComponent';
 import DishComponent from './component/DishComponent';
 import DishRecordComponent from './component/DishRecordComponent';
@@ -19,22 +18,16 @@ const router = createBrowserRouter([
         Component: Overview,
       },
       {
-        path: 'foodstorage',
-        Component: FoodStorageComponent,
-        children: [
-          {
-            path: 'ingredients',
-            Component: IngredientComponent,
-          },
-          {
-            path: 'dishes',
-            Component: DishComponent,
-          },
-          {
-            path: 'dishrecords',
-            Component: DishRecordComponent,
-          },
-        ],
+        path: 'foodstorage/ingredients',
+        Component: IngredientComponent,
+      },
+      {
+        path: 'foodstorage/dishes',
+        Component: DishComponent,
+      },
+      {
+        path: 'foodstorage/dishrecords',
+        Component: DishRecordComponent,
       },
     ],
   },
