@@ -6,6 +6,8 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import IngredientService from '../service/IngredientService'
+import DishService from '../service/DishService'
 import DishRecordService from '../service/DishRecordService'
 import { FoodContext } from './FoodProvider';
 import PropTypes from 'prop-types';
@@ -34,7 +36,7 @@ import Alert from '@mui/material/Alert';
 
 const DishRecordComponent = function () {
     const navigate = useNavigate();
-    const { ingredients, dishes } = React.useContext(FoodContext);
+    const { ingredients, setIngredients, dishes, setDishes } = React.useContext(FoodContext);
     const [dishRecords, setDishRecords] = useState([]);
     const [dishRecordUpdating, setDishRecordUpdating] = useState();
     const [ingredientsForDishRecord, setIngredientsForDishRecord] = useState([]);
@@ -46,8 +48,23 @@ const DishRecordComponent = function () {
         refreshDishRecords();
     }, [navigate]);
 
-    const refreshDishRecords = () => {
-        DishRecordService.getAllDishRecords().then(response => {
+    const refreshDishRecords = async () => {
+        try {
+            const [dishRecordsResponse, dishesResponse, ingredientsResponse] = await Promise.all([
+                DishRecordService.getAllDishRecords(),
+                DishService.getAllDishes(),
+                IngredientService.getAllIngredients()
+            ]);
+            setDishRecords(dishRecordsResponse.data);
+            setDishes(dishesResponse.data);
+            setIngredients(ingredientsResponse.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const searchDishRecords = (searchString) => {
+        DishRecordService.searchDishRecords(searchString).then(response => {
             setDishRecords(response.data);
         }).catch(error => {
             console.log(error);
@@ -215,7 +232,7 @@ const DishRecordComponent = function () {
                     {dishRecordAlert && <Alert severity={dishRecordAlert.severity} onClose={() => { setDishRecordAlert(null) }}>{dishRecordAlert.message}</Alert>}
                 </Grid>
                 <Grid size={12}>
-                    <SearchComponent onSearch={refreshDishRecords} />
+                    <SearchComponent onSearch={searchDishRecords} />
                 </Grid>
                 <Grid size={12}>
                     <TableContainer component={Paper}>

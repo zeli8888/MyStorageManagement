@@ -16,6 +16,13 @@ class DishRecordService {
         return axios.post(process.env.REACT_APP_API_URL + '/dishrecords', dishRecordIngredientDTO);
     }
 
+    searchDishRecords(searchString) {
+        if (searchString === '') {
+            return axios.get(process.env.REACT_APP_API_URL + '/dishrecords');
+        }
+        return axios.get(process.env.REACT_APP_API_URL + '/dishrecords/search?searchString=' + searchString);
+    }
+
 }
 
 export default new DishRecordService()

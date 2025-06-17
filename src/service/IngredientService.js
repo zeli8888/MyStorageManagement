@@ -16,6 +16,12 @@ class IngredientService {
         return axios.post(process.env.REACT_APP_API_URL + '/ingredients', ingredient);
     }
 
+    searchIngredients(searchString) {
+        if (searchString === '') {
+            return axios.get(process.env.REACT_APP_API_URL + '/ingredients');
+        }
+        return axios.get(process.env.REACT_APP_API_URL + '/ingredients/search?searchString=' + searchString);
+    }
 }
 
 export default new IngredientService()

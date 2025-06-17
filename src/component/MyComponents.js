@@ -8,6 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
+import { useState } from 'react';
 
 export function DeletionConfirmationComponent(props) {
     const { onClose, warningMessage, open, onConfirm } = props;
@@ -37,16 +38,25 @@ DeletionConfirmationComponent.propTypes = {
 
 export function SearchComponent(props) {
     const { onSearch } = props;
+    const [searchText, setSearchText] = useState('');
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            onSearch(searchText);
+        }
+    };
     return (
         <TextField
             label="Search"
             variant="outlined"
             size="small"
             fullWidth
+            onChange={(e) => setSearchText(e.target.value)}
+            value={searchText}
+            onKeyDown={handleKeyDown}
             slotProps={{
                 input: {
                     endAdornment: (
-                        <IconButton type="button" aria-label="search" size="small" onClick={onSearch}>
+                        <IconButton type="button" aria-label="search" size="small" onClick={(event) => onSearch(searchText)}>
                             <SearchIcon />
                         </IconButton>
                     ),

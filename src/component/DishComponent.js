@@ -6,6 +6,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import IngredientService from '../service/IngredientService'
 import DishService from '../service/DishService'
 import DishRecordService from '../service/DishRecordService'
 import { FoodContext } from './FoodProvider';
@@ -34,7 +35,7 @@ import { DeletionConfirmationComponent, SearchComponent } from './MyComponents';
 import Alert from '@mui/material/Alert';
 const DishComponent = function () {
     const navigate = useNavigate();
-    const { ingredients, dishes, setDishes } = React.useContext(FoodContext);
+    const { ingredients, setIngredients, dishes, setDishes } = React.useContext(FoodContext);
     // const [dishes, setDishes] = useState([]);
     const [addingDish, setAddingDish] = useState(false);
     const [addingDishRecord, setAddingDishRecord] = useState(false);
@@ -47,8 +48,21 @@ const DishComponent = function () {
         refreshDishes();
     }, [navigate]);
 
-    const refreshDishes = () => {
-        DishService.getAllDishes().then(response => {
+    const refreshDishes = async () => {
+        try {
+            const [dishesResponse, ingredientsResponse] = await Promise.all([
+                DishService.getAllDishes(),
+                IngredientService.getAllIngredients()
+            ]);
+            setDishes(dishesResponse.data);
+            setIngredients(ingredientsResponse.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const searchDishes = (searchString) => {
+        DishService.searchDishes(searchString).then(response => {
             setDishes(response.data);
         }).catch(error => {
             console.log(error);
@@ -259,7 +273,7 @@ const DishComponent = function () {
                     {dishAlert && <Alert severity={dishAlert.severity} onClose={() => { setDishAlert(null) }}>{dishAlert.message}</Alert>}
                 </Grid>
                 <Grid size={12}>
-                    <SearchComponent onSearch={refreshDishes} />
+                    <SearchComponent onSearch={searchDishes} />
                 </Grid>
                 <Grid size={12}>
                     <TableContainer component={Paper}>

@@ -33,6 +33,14 @@ const IngredientComponent = function () {
         });
     }
 
+    const searchIngredients = (searchText) => {
+        IngredientService.searchIngredients(searchText).then(response => {
+            setIngredients(response.data);
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+
     const updateIngredient = (data) => {
         IngredientService.updateIngredient(data.ingredientId, data).then(response => {
             setIngredientUpdating();
@@ -136,7 +144,7 @@ const IngredientComponent = function () {
                     {ingredientAlert && <Alert severity={ingredientAlert.severity} onClose={() => { setIngredientAlert(null) }}>{ingredientAlert.message}</Alert>}
                 </Grid>
                 <Grid size={12}>
-                    <SearchComponent onSearch={refreshIngredients} />
+                    <SearchComponent onSearch={searchIngredients} />
                 </Grid>
                 <Grid size={12}>
                     <DataGrid
