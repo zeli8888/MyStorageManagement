@@ -16,11 +16,12 @@ class DishRecordService {
         return axios.post(process.env.REACT_APP_API_URL + '/dishrecords', dishRecordIngredientDTO);
     }
 
-    searchDishRecords(searchString) {
+    searchDishRecords(searchString, page, size) {
         if (searchString === '') {
-            return axios.get(process.env.REACT_APP_API_URL + '/dishrecords');
+            return this.getAllDishRecords(page, size);
         }
-        return axios.get(process.env.REACT_APP_API_URL + '/dishrecords/search?searchString=' + searchString);
+        return axios.get(process.env.REACT_APP_API_URL + '/dishrecords/search?searchString=' + searchString
+            + (!page ? '' : ('&page=' + page)) + (!size ? '' : ('&size=' + size)));
     }
 
 }

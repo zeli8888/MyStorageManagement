@@ -31,9 +31,9 @@ import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid'
 import moment from 'moment';
-import { DeletionConfirmationComponent, SearchComponent } from './MyComponents';
+import { DeletionConfirmationComponent, SearchComponent, EnhancedTableToolbar, EnhancedTableHead, handleClick, getVisibleRows } from './MyComponents';
 import Alert from '@mui/material/Alert';
-
+import TablePagination from '@mui/material/TablePagination';
 const DishRecordComponent = function () {
     const navigate = useNavigate();
     const { ingredients, setIngredients, dishes, setDishes } = React.useContext(FoodContext);
@@ -43,6 +43,16 @@ const DishRecordComponent = function () {
     const [dishNameForDishRecord, setDishNameForDishRecord] = useState('');
     const [dishRecordToDelete, setDishRecordToDelete] = useState();
     const [dishRecordAlert, setDishRecordAlert] = useState();
+    const [order, setOrder] = React.useState('desc');
+    const [orderBy, setOrderBy] = React.useState('dishRecordTime');
+    const [selected, setSelected] = React.useState([]);
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+    const visibleRows = React.useMemo(
+        () => getVisibleRows(dishRecords, order, orderBy, page, rowsPerPage),
+        [order, orderBy, page, rowsPerPage, dishRecords],
+    );
 
     useEffect(() => {
         refreshDishRecords();
@@ -114,18 +124,25 @@ const DishRecordComponent = function () {
     function CreateDishRecordRow(props) {
         const { dishRecord } = props;
         const [open, setOpen] = React.useState(false);
+        const isItemSelected = selected.includes(dishRecord.dishRecordId);
 
         return (
             <React.Fragment>
-                <TableRow>
-                    <TableCell>
-                        <IconButton
-                            aria-label="expand row"
-                            size="small"
-                            onClick={() => setOpen(!open)}
-                        >
-                            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                        </IconButton>
+                <TableRow
+                    hover
+                    role="checkbox"
+                    aria-checked={isItemSelected}
+                    tabIndex={-1}
+                    key={dishRecord.dishRecordId}
+                    selected={isItemSelected}
+                    sx={{ cursor: 'pointer' }}
+                >
+                    <TableCell padding="checkbox">
+                        <Checkbox
+                            color="primary"
+                            checked={isItemSelected}
+                            onClick={(event) => handleClick(event, dishRecord.dishRecordId, selected, setSelected)}
+                        />
                     </TableCell>
                     <TableCell component="th" scope="row">
                         {dishRecord.dish ? dishRecord.dish.dishName : ""}
@@ -144,9 +161,18 @@ const DishRecordComponent = function () {
                         <Button variant="contained" color="error" onClick={
                             () => setDishRecordToDelete(dishRecord)}>Delete</Button>
                     </TableCell>
+                    <TableCell>
+                        <IconButton
+                            aria-label="expand row"
+                            size="small"
+                            onClick={() => setOpen(!open)}
+                        >
+                            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                        </IconButton>
+                    </TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                    <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
                         <Collapse in={open} timeout="auto" unmountOnExit>
                             <Box sx={{ margin: 1 }}>
                                 <Typography variant="h6" gutterBottom component="div" textAlign={"left"}>
@@ -225,6 +251,39 @@ const DishRecordComponent = function () {
         }).isRequired,
     };
 
+    const headCells = [
+        {
+            id: 'dishName',
+            label: 'Dish Name',
+            sortingEnabled: true
+        },
+        {
+            id: 'description',
+            label: 'Description',
+            sortingEnabled: true
+        },
+        {
+            id: 'time',
+            label: 'Time',
+            sortingEnabled: true
+        },
+        {
+            id: 'update',
+            label: 'Update',
+            sortingEnabled: false
+        },
+        {
+            id: 'delete',
+            label: 'Delete',
+            sortingEnabled: false
+        },
+        {
+            id: 'expand',
+            label: '',
+            sortingEnabled: false
+        },
+    ];
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2} >
@@ -235,25 +294,39 @@ const DishRecordComponent = function () {
                     <SearchComponent onSearch={searchDishRecords} />
                 </Grid>
                 <Grid size={12}>
+                    <EnhancedTableToolbar numSelected={selected.length} headString="Dish Records" />
                     <TableContainer component={Paper}>
                         <Table aria-label="collapsible table" sx={{ '& .MuiTableCell-root': { textAlign: 'center' }, border: '2px solid lightgray' }}>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell />
-                                    <TableCell>Dish Name</TableCell>
-                                    <TableCell>Description</TableCell>
-                                    <TableCell>Time</TableCell>
-                                    <TableCell>Update</TableCell>
-                                    <TableCell>Delete</TableCell>
-                                </TableRow>
-                            </TableHead>
+                            <EnhancedTableHead
+                                order={order}
+                                orderBy={orderBy}
+                                setOrder={setOrder}
+                                setOrderBy={setOrderBy}
+                                numSelected={selected.length}
+                                rows={dishRecords}
+                                setSelected={setSelected}
+                                idAttributeName="dishRecordId"
+                                headCells={headCells}
+                            />
                             <TableBody>
-                                {dishRecords.map((dishRecord) => (
+                                {visibleRows.map((dishRecord) => (
                                     <CreateDishRecordRow key={dishRecord.dishRecordId} dishRecord={dishRecord} />
                                 ))}
                             </TableBody>
                         </Table>
                     </TableContainer>
+                    <TablePagination
+                        rowsPerPageOptions={[2, 3, 5, 10, 15, 20, 25]}
+                        component="div"
+                        count={dishRecords.length}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onPageChange={(event, newPage) => setPage(newPage)}
+                        onRowsPerPageChange={(event) => {
+                            setRowsPerPage(parseInt(event.target.value, 10));
+                            setPage(0);
+                        }}
+                    />
                 </Grid>
             </Grid>
 

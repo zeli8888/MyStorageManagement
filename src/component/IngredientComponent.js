@@ -170,8 +170,7 @@ const IngredientComponent = function () {
                             },
                         }}
                         pageSizeOptions={[10, 20]}
-                        // checkboxSelection
-                        // disableRowSelectionOnClick
+                        checkboxSelection
                         getRowId={(row) => row.ingredientId}
                         sx={{
                             boxShadow: 2,
