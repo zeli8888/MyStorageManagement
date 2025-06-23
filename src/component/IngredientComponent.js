@@ -15,7 +15,8 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 const IngredientComponent = function () {
     const navigate = useNavigate();
-    const { ingredients, setIngredients } = React.useContext(FoodContext);
+    const [ingredients, setIngredients] = useState([]);
+    const { setAllIngredients } = React.useContext(FoodContext);
     const [ingredientUpdating, setIngredientUpdating] = useState();
     const [addingIngredient, setAddingIngredient] = useState(false);
     const [ingredientToDelete, setIngredientToDelete] = useState();
@@ -28,6 +29,7 @@ const IngredientComponent = function () {
     const refreshIngredients = () => {
         IngredientService.getAllIngredients().then(response => {
             setIngredients(response.data);
+            setAllIngredients(response.data);
         }).catch(error => {
             console.log(error);
         });

@@ -5,21 +5,21 @@ import DishService from '../service/DishService'
 export const FoodContext = React.createContext();  //exporting context object
 
 const FoodProvider = ({ children }) => {
-    const [ingredients, setIngredients] = useState([]);
-    const [dishes, setDishes] = useState([]);
+    const [allIngredients, setAllIngredients] = useState([]);
+    const [allDishes, setAllDishes] = useState([]);
 
     useEffect(() => {
-        IngredientService.getAllIngredients().then(response => { setIngredients(response.data) })
-        DishService.getAllDishes().then(response => { setDishes(response.data) })
+        IngredientService.getAllIngredients().then(response => { setAllIngredients(response.data) })
+        DishService.getAllDishes().then(response => { setAllDishes(response.data) })
     }, []);
 
     return (
         <FoodContext.Provider value={
             {
-                ingredients: ingredients,
-                setIngredients: setIngredients,
-                dishes: dishes,
-                setDishes: setDishes
+                allIngredients: allIngredients,
+                setAllIngredients: setAllIngredients,
+                allDishes: allDishes,
+                setAllDishes: setAllDishes
             }}>
             {children
                 //this indicates that all the child tags with MyProvider as Parent can access the global store  

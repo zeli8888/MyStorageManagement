@@ -35,8 +35,8 @@ import { DeletionConfirmationComponent, SearchComponent } from './MyComponents';
 import Alert from '@mui/material/Alert';
 const DishComponent = function () {
     const navigate = useNavigate();
-    const { ingredients, setIngredients, dishes, setDishes } = React.useContext(FoodContext);
-    // const [dishes, setDishes] = useState([]);
+    const [dishes, setDishes] = useState([]);
+    const { allIngredients, setAllDishes } = React.useContext(FoodContext);
     const [addingDish, setAddingDish] = useState(false);
     const [addingDishRecord, setAddingDishRecord] = useState(false);
     const [dishUpdating, setDishUpdating] = useState();
@@ -48,17 +48,13 @@ const DishComponent = function () {
         refreshDishes();
     }, [navigate]);
 
-    const refreshDishes = async () => {
-        try {
-            const [dishesResponse, ingredientsResponse] = await Promise.all([
-                DishService.getAllDishes(),
-                IngredientService.getAllIngredients()
-            ]);
-            setDishes(dishesResponse.data);
-            setIngredients(ingredientsResponse.data);
-        } catch (error) {
+    const refreshDishes = () => {
+        DishService.getAllDishes().then(response => {
+            setDishes(response.data);
+            setAllDishes(response.data);
+        }).catch(error => {
             console.log(error);
-        }
+        });
     }
 
     const searchDishes = (searchString) => {
@@ -385,7 +381,7 @@ const DishComponent = function () {
                         }}
                         style={{ width: '100%' }}
                     >
-                        {ingredients.map((ingredient) => (
+                        {allIngredients.map((ingredient) => (
                             <MenuItem key={ingredient.ingredientId} value={ingredient.ingredientName}>
                                 <Checkbox checked={ingredientsForDish.includes(ingredient.ingredientName)} />
                                 <ListItemText primary={ingredient.ingredientName} />

@@ -36,7 +36,7 @@ import Alert from '@mui/material/Alert';
 import TablePagination from '@mui/material/TablePagination';
 const DishRecordComponent = function () {
     const navigate = useNavigate();
-    const { ingredients, setIngredients, dishes, setDishes } = React.useContext(FoodContext);
+    const { allIngredients, allDishes } = React.useContext(FoodContext);
     const [dishRecords, setDishRecords] = useState([]);
     const [dishRecordUpdating, setDishRecordUpdating] = useState();
     const [ingredientsForDishRecord, setIngredientsForDishRecord] = useState([]);
@@ -58,19 +58,12 @@ const DishRecordComponent = function () {
         refreshDishRecords();
     }, [navigate]);
 
-    const refreshDishRecords = async () => {
-        try {
-            const [dishRecordsResponse, dishesResponse, ingredientsResponse] = await Promise.all([
-                DishRecordService.getAllDishRecords(),
-                DishService.getAllDishes(),
-                IngredientService.getAllIngredients()
-            ]);
-            setDishRecords(dishRecordsResponse.data);
-            setDishes(dishesResponse.data);
-            setIngredients(ingredientsResponse.data);
-        } catch (error) {
+    const refreshDishRecords = () => {
+        DishRecordService.getAllDishRecords().then(response => {
+            setDishRecords(response.data);
+        }).catch(error => {
             console.log(error);
-        }
+        });
     }
 
     const searchDishRecords = (searchString) => {
@@ -363,7 +356,7 @@ const DishRecordComponent = function () {
                         }}
                         style={{ width: '100%' }}
                     >
-                        {dishes.map((dish) => (
+                        {allDishes.map((dish) => (
                             <MenuItem key={dish.dishId} value={dish.dishName}>
                                 <Checkbox checked={dish.dishName == dishNameForDishRecord} />
                                 <ListItemText primary={dish.dishName} />
@@ -402,7 +395,7 @@ const DishRecordComponent = function () {
                         }}
                         style={{ width: '100%' }}
                     >
-                        {ingredients.map((ingredient) => (
+                        {allIngredients.map((ingredient) => (
                             <MenuItem key={ingredient.ingredientId} value={ingredient.ingredientName}>
                                 <Checkbox checked={ingredientsForDishRecord.includes(ingredient.ingredientName)} />
                                 <ListItemText primary={ingredient.ingredientName} />
