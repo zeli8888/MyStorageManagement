@@ -5,8 +5,10 @@ class DishRecordService {
         return axios.get(process.env.REACT_APP_API_URL + '/dishrecords' + (!page ? '' : ('?page=' + page)) + (!size ? '' : ('&size=' + size)));
     }
 
-    deleteDishRecord(dishRecordId) {
-        return axios.delete(process.env.REACT_APP_API_URL + '/dishrecords/' + dishRecordId);
+    deleteDishRecords(dishRecordIds) {
+        return axios.delete(process.env.REACT_APP_API_URL + '/dishrecords', {
+            data: dishRecordIds
+        });
     }
 
     updateDishRecord(dishRecordId, dishRecordIngredientDTO) {

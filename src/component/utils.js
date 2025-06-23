@@ -20,8 +20,9 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 import DeleteIcon from '@mui/icons-material/Delete';
-import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
+import { Stack } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 
 export function DeletionConfirmationComponent(props) {
     const { onClose, warningMessage, open, onConfirm } = props;
@@ -50,7 +51,7 @@ DeletionConfirmationComponent.propTypes = {
 };
 
 export function SearchComponent(props) {
-    const { onSearch } = props;
+    const { onSearch, sx } = props;
     const [searchText, setSearchText] = useState('');
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
@@ -76,27 +77,27 @@ export function SearchComponent(props) {
                     sx: { pr: 0.5 },
                 },
             }}
-            sx={{ display: 'inline-block' }}
+            sx={[{ display: 'inline-block' }, sx]}
         />);
 }
 
-function descendingComparator(a, b, orderBy) {
-    if (b[orderBy] < a[orderBy]) {
-        return -1;
-    }
-    if (b[orderBy] > a[orderBy]) {
-        return 1;
-    }
-    return 0;
-}
 
-function getComparator(order, orderBy) {
-    return order === 'desc'
-        ? (a, b) => descendingComparator(a, b, orderBy)
-        : (a, b) => -descendingComparator(a, b, orderBy);
-}
+export function getVisibleRows(rows, order, orderBy, page, rowsPerPage,
+    descendingComparator = (a, b, orderBy) => {
+        if (b[orderBy] < a[orderBy]) {
+            return -1;
+        }
+        if (b[orderBy] > a[orderBy]) {
+            return 1;
+        }
+        return 0;
+    }) {
 
-export function getVisibleRows(rows, order, orderBy, page, rowsPerPage) {
+    function getComparator(order, orderBy) {
+        return order === 'desc'
+            ? (a, b) => descendingComparator(a, b, orderBy)
+            : (a, b) => -descendingComparator(a, b, orderBy);
+    }
     return [...rows]
         .sort(getComparator(order, orderBy))
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
@@ -129,7 +130,9 @@ export function EnhancedTableHead(props) {
     const { order, orderBy, setOrder, setOrderBy, numSelected, headCells, rows, setSelected, idAttributeName } =
         props;
     const createSortHandler = (property) => (event) => {
-        onRequestSort(event, property);
+        const isAsc = orderBy === property && order === 'asc';
+        setOrder(isAsc ? 'desc' : 'asc');
+        setOrderBy(property);
     };
 
     const rowCount = rows.length;
@@ -141,12 +144,6 @@ export function EnhancedTableHead(props) {
             return;
         }
         setSelected([]);
-    };
-
-    const onRequestSort = (event, property) => {
-        const isAsc = orderBy === property && order === 'asc';
-        setOrder(isAsc ? 'desc' : 'asc');
-        setOrderBy(property);
     };
 
     return (
@@ -186,23 +183,20 @@ export function EnhancedTableHead(props) {
 }
 
 export function EnhancedTableToolbar(props) {
-    const { numSelected, headString } = props;
+    const { numSelected, deleteSelected, updateSelected, onSearch, tableTitle } = props;
     return (
         <Toolbar
             sx={[
-                {
-                    pl: { sm: 2 },
-                    pr: { xs: 1, sm: 1 },
-                },
                 numSelected > 0 && {
                     bgcolor: (theme) =>
                         alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
                 },
+                { width: '100%' },
             ]}
         >
             {numSelected > 0 ? (
                 <Typography
-                    sx={{ flex: '1 1 100%' }}
+                    sx={{ width: '100%' }}
                     color="inherit"
                     variant="subtitle1"
                     component="div"
@@ -210,25 +204,29 @@ export function EnhancedTableToolbar(props) {
                     {numSelected} selected
                 </Typography>
             ) : (
-                <Typography
-                    sx={{ flex: '1 1 100%' }}
-                    variant="h6"
-                    id="tableTitle"
-                    component="div"
-                >
-                    {headString}
-                </Typography>
+                <Stack direction="row" sx={{ width: '100%' }}>
+                    <Typography
+                        sx={{ flex: '1 1' }}
+                        variant="h6"
+                        id="tableTitle"
+                        component="div"
+                    >
+                        {tableTitle}
+                    </Typography>
+                    <SearchComponent sx={{ flex: '3 3' }} onSearch={onSearch} />
+                </Stack>
             )}
-            {numSelected > 0 ? (
-                <Tooltip title="Delete">
+            {numSelected === 1 && (
+                <Tooltip title="Update">
                     <IconButton>
-                        <DeleteIcon />
+                        <EditIcon onClick={updateSelected} />
                     </IconButton>
                 </Tooltip>
-            ) : (
-                <Tooltip title="Filter list">
+            )}
+            {numSelected > 0 && (
+                <Tooltip title="Delete">
                     <IconButton>
-                        <FilterListIcon />
+                        <DeleteIcon onClick={deleteSelected} />
                     </IconButton>
                 </Tooltip>
             )}

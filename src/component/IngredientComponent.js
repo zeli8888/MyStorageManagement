@@ -9,7 +9,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import IngredientService from '../service/IngredientService'
 import { FoodContext } from './FoodProvider';
-import { DeletionConfirmationComponent, SearchComponent } from './MyComponents';
+import { DeletionConfirmationComponent, SearchComponent } from './utils';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';

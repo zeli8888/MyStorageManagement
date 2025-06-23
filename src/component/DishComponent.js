@@ -6,7 +6,6 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import IngredientService from '../service/IngredientService'
 import DishService from '../service/DishService'
 import DishRecordService from '../service/DishRecordService'
 import { FoodContext } from './FoodProvider';
@@ -31,7 +30,7 @@ import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid'
 import moment from 'moment';
-import { DeletionConfirmationComponent, SearchComponent } from './MyComponents';
+import { DeletionConfirmationComponent, SearchComponent } from './utils';
 import Alert from '@mui/material/Alert';
 const DishComponent = function () {
     const navigate = useNavigate();
@@ -144,7 +143,7 @@ const DishComponent = function () {
 
     function CreateDishRow(props) {
         const { dish } = props;
-        const [open, setOpen] = React.useState(false);
+        const [open, setOpen] = useState(false);
 
         return (
             <React.Fragment>

@@ -6,8 +6,6 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import IngredientService from '../service/IngredientService'
-import DishService from '../service/DishService'
 import DishRecordService from '../service/DishRecordService'
 import { FoodContext } from './FoodProvider';
 import PropTypes from 'prop-types';
@@ -31,7 +29,7 @@ import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid'
 import moment from 'moment';
-import { DeletionConfirmationComponent, SearchComponent, EnhancedTableToolbar, EnhancedTableHead, handleClick, getVisibleRows } from './MyComponents';
+import { DeletionConfirmationComponent, EnhancedTableToolbar, EnhancedTableHead, handleClick, getVisibleRows } from './utils';
 import Alert from '@mui/material/Alert';
 import TablePagination from '@mui/material/TablePagination';
 const DishRecordComponent = function () {
@@ -41,16 +39,30 @@ const DishRecordComponent = function () {
     const [dishRecordUpdating, setDishRecordUpdating] = useState();
     const [ingredientsForDishRecord, setIngredientsForDishRecord] = useState([]);
     const [dishNameForDishRecord, setDishNameForDishRecord] = useState('');
-    const [dishRecordToDelete, setDishRecordToDelete] = useState();
+    const [deletingDishRecord, setDeletingDishRecord] = useState(false);
     const [dishRecordAlert, setDishRecordAlert] = useState();
-    const [order, setOrder] = React.useState('desc');
-    const [orderBy, setOrderBy] = React.useState('dishRecordTime');
-    const [selected, setSelected] = React.useState([]);
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [order, setOrder] = useState('desc');
+    const [orderBy, setOrderBy] = useState('dishRecordTime');
+    const [selected, setSelected] = useState([]);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
 
     const visibleRows = React.useMemo(
-        () => getVisibleRows(dishRecords, order, orderBy, page, rowsPerPage),
+        () => getVisibleRows(dishRecords, order, orderBy, page, rowsPerPage,
+            (a, b, orderBy) => {
+                if (orderBy === 'dishName') {
+                    b = b.dish;
+                    a = a.dish;
+                }
+                if (b[orderBy] < a[orderBy]) {
+                    return -1;
+                }
+                if (b[orderBy] > a[orderBy]) {
+                    return 1;
+                }
+                return 0;
+            }
+        ),
         [order, orderBy, page, rowsPerPage, dishRecords],
     );
 
@@ -105,10 +117,11 @@ const DishRecordComponent = function () {
         });
     }
 
-    const deleteDishRecord = (dishRecordId) => {
-        DishRecordService.deleteDishRecord(dishRecordId).then(response => {
+    const deleteDishRecords = (dishRecordIds) => {
+        DishRecordService.deleteDishRecords(dishRecordIds).then(response => {
+            setSelected([]);
             refreshDishRecords();
-            setDishRecordAlert({ severity: "success", message: "Dish Record deleted successfully!" });
+            setDishRecordAlert({ severity: "success", message: "Dish Records deleted successfully!" });
         }).catch(error => {
             console.log(error);
         });
@@ -116,7 +129,7 @@ const DishRecordComponent = function () {
 
     function CreateDishRecordRow(props) {
         const { dishRecord } = props;
-        const [open, setOpen] = React.useState(false);
+        const [open, setOpen] = useState(false);
         const isItemSelected = selected.includes(dishRecord.dishRecordId);
 
         return (
@@ -143,18 +156,6 @@ const DishRecordComponent = function () {
                     <TableCell>{dishRecord.dishRecordDesc}</TableCell>
                     <TableCell>{moment(dishRecord.dishRecordTime).format('YYYY-MM-DD HH:mm')}</TableCell>
                     <TableCell>
-                        <Button variant="contained" color="success" onClick={
-                            () => {
-                                setDishRecordUpdating(dishRecord);
-                                setDishNameForDishRecord(dishRecord.dish ? dishRecord.dish.dishName : "");
-                                setIngredientsForDishRecord(dishRecord.dishRecordIngredients.map(dishRecordIngredient => dishRecordIngredient.ingredient.ingredientName));
-                            }}>Update</Button>
-                    </TableCell>
-                    <TableCell>
-                        <Button variant="contained" color="error" onClick={
-                            () => setDishRecordToDelete(dishRecord)}>Delete</Button>
-                    </TableCell>
-                    <TableCell>
                         <IconButton
                             aria-label="expand row"
                             size="small"
@@ -165,7 +166,7 @@ const DishRecordComponent = function () {
                     </TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
+                    <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
                         <Collapse in={open} timeout="auto" unmountOnExit>
                             <Box sx={{ margin: 1 }}>
                                 <Typography variant="h6" gutterBottom component="div" textAlign={"left"}>
@@ -251,24 +252,14 @@ const DishRecordComponent = function () {
             sortingEnabled: true
         },
         {
-            id: 'description',
+            id: 'dishRecordDesc',
             label: 'Description',
             sortingEnabled: true
         },
         {
-            id: 'time',
+            id: 'dishRecordTime',
             label: 'Time',
             sortingEnabled: true
-        },
-        {
-            id: 'update',
-            label: 'Update',
-            sortingEnabled: false
-        },
-        {
-            id: 'delete',
-            label: 'Delete',
-            sortingEnabled: false
         },
         {
             id: 'expand',
@@ -284,10 +275,15 @@ const DishRecordComponent = function () {
                     {dishRecordAlert && <Alert severity={dishRecordAlert.severity} onClose={() => { setDishRecordAlert(null) }}>{dishRecordAlert.message}</Alert>}
                 </Grid>
                 <Grid size={12}>
-                    <SearchComponent onSearch={searchDishRecords} />
-                </Grid>
-                <Grid size={12}>
-                    <EnhancedTableToolbar numSelected={selected.length} headString="Dish Records" />
+                    <EnhancedTableToolbar numSelected={selected.length} tableTitle="Dish Records"
+                        deleteSelected={() => setDeletingDishRecord(selected)}
+                        updateSelected={() => {
+                            let dishRecord = dishRecords.find(dishRecord => dishRecord.dishRecordId == selected[0]);
+                            setDishRecordUpdating(dishRecord);
+                            setDishNameForDishRecord(dishRecord.dish ? dishRecord.dish.dishName : "");
+                            setIngredientsForDishRecord(dishRecord.dishRecordIngredients.map(dishRecordIngredient => dishRecordIngredient.ingredient.ingredientName));
+                        }}
+                        onSearch={searchDishRecords} />
                     <TableContainer component={Paper}>
                         <Table aria-label="collapsible table" sx={{ '& .MuiTableCell-root': { textAlign: 'center' }, border: '2px solid lightgray' }}>
                             <EnhancedTableHead
@@ -309,7 +305,7 @@ const DishRecordComponent = function () {
                         </Table>
                     </TableContainer>
                     <TablePagination
-                        rowsPerPageOptions={[2, 3, 5, 10, 15, 20, 25]}
+                        rowsPerPageOptions={[5, 10, 15, 20, 25]}
                         component="div"
                         count={dishRecords.length}
                         rowsPerPage={rowsPerPage}
@@ -428,11 +424,11 @@ const DishRecordComponent = function () {
                 </DialogActions>
             </Dialog>
 
-            <DeletionConfirmationComponent warningMessage={dishRecordToDelete ? "Are you sure you want to delete this dish record?" : "Processing"}
-                open={dishRecordToDelete} onClose={() => { setDishRecordToDelete(null) }}
+            <DeletionConfirmationComponent warningMessage={deletingDishRecord ? "Are you sure you want to delete selected " + selected.length + " dish records?" : "Processing"}
+                open={deletingDishRecord} onClose={() => { setDeletingDishRecord(null) }}
                 onConfirm={() => {
-                    deleteDishRecord(dishRecordToDelete.dishRecordId);
-                    setDishRecordToDelete(null);
+                    deleteDishRecords(selected);
+                    setDeletingDishRecord(null);
                 }} />
         </Box>
     )
