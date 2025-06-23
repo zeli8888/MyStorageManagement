@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 class DishRecordService {
-    getAllDishRecords() {
-        return axios.get(process.env.REACT_APP_API_URL + '/dishrecords');
+    getAllDishRecords(page, size) {
+        return axios.get(process.env.REACT_APP_API_URL + '/dishrecords' + (!page ? '' : ('?page=' + page)) + (!size ? '' : ('&size=' + size)));
     }
 
     deleteDishRecord(dishRecordId) {
