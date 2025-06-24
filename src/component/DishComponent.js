@@ -30,8 +30,9 @@ import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid'
 import moment from 'moment';
-import { DeletionConfirmationComponent, SearchComponent } from './utils';
+import { DeletionConfirmationComponent, getVisibleRows, handleClick, EnhancedTableToolbar, EnhancedTableHead } from './utils';
 import Alert from '@mui/material/Alert';
+import TablePagination from '@mui/material/TablePagination';
 const DishComponent = function () {
     const navigate = useNavigate();
     const [dishes, setDishes] = useState([]);
@@ -40,8 +41,19 @@ const DishComponent = function () {
     const [addingDishRecord, setAddingDishRecord] = useState(false);
     const [dishUpdating, setDishUpdating] = useState();
     const [ingredientsForDish, setIngredientsForDish] = useState([]);
-    const [dishToDelete, setDishToDelete] = useState();
     const [dishAlert, setDishAlert] = useState();
+    const [deletingDish, setDeletingDish] = useState(false);
+    const [order, setOrder] = useState('desc');
+    const [orderBy, setOrderBy] = useState('dishRecordTime');
+    const [selected, setSelected] = useState([]);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [searchString, setSearchString] = useState('');
+
+    const visibleRows = React.useMemo(
+        () => getVisibleRows(dishes, order, orderBy, page, rowsPerPage),
+        [order, orderBy, rowsPerPage, dishes],
+    );
 
     useEffect(() => {
         refreshDishes();
@@ -132,10 +144,11 @@ const DishComponent = function () {
         });
     }
 
-    const deleteDish = (dishId) => {
-        DishService.deleteDish(dishId).then(response => {
+    const deleteDishes = (dishIds) => {
+        DishService.deleteDishes(dishIds).then(response => {
+            setSelected([]);
             refreshDishes();
-            setDishAlert({ severity: "success", message: "Dish " + dishToDelete.dishName + " deleted successfully!" });
+            setDishAlert({ severity: "success", message: "Dishes deleted successfully!" });
         }).catch(error => {
             console.log(error);
         });
@@ -144,36 +157,30 @@ const DishComponent = function () {
     function CreateDishRow(props) {
         const { dish } = props;
         const [open, setOpen] = useState(false);
+        const isItemSelected = selected.includes(dish.dishId);
 
         return (
             <React.Fragment>
-                <TableRow>
-                    <TableCell>
-                        <IconButton
-                            aria-label="expand row"
-                            size="small"
-                            onClick={() => setOpen(!open)}
-                        >
-                            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                        </IconButton>
+                <TableRow
+                    hover
+                    role="checkbox"
+                    aria-checked={isItemSelected}
+                    tabIndex={-1}
+                    key={dish.dishId}
+                    selected={isItemSelected}
+                    sx={{ cursor: 'pointer' }}
+                >
+                    <TableCell padding="checkbox">
+                        <Checkbox
+                            color="primary"
+                            checked={isItemSelected}
+                            onClick={(event) => handleClick(event, dish.dishId, selected, setSelected)}
+                        />
                     </TableCell>
                     <TableCell component="th" scope="row">
                         {dish.dishName}
                     </TableCell>
                     <TableCell>{dish.dishDesc}</TableCell>
-                    <TableCell>
-                        <Button variant="contained" color="success" onClick={
-                            () => {
-                                setDishUpdating(dish);
-                                setAddingDishRecord(false);
-                                setIngredientsForDish(dish.dishIngredients.map(dishIngredient => dishIngredient.ingredient.ingredientName));
-                                setAddingDish(true);
-                            }}>Update</Button>
-                    </TableCell>
-                    <TableCell>
-                        <Button variant="contained" color="error" onClick={
-                            () => setDishToDelete(dish)}> Delete </Button>
-                    </TableCell>
                     <TableCell>
                         <Button variant="contained" color="info" onClick={
                             () => {
@@ -183,9 +190,18 @@ const DishComponent = function () {
                                 setAddingDish(true);
                             }}>Add</Button>
                     </TableCell>
+                    <TableCell>
+                        <IconButton
+                            aria-label="expand row"
+                            size="small"
+                            onClick={() => setOpen(!open)}
+                        >
+                            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                        </IconButton>
+                    </TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                    <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
                         <Collapse in={open} timeout="auto" unmountOnExit>
                             <Box sx={{ margin: 1 }}>
                                 <Typography variant="h6" gutterBottom component="div" textAlign={"left"}>
@@ -261,6 +277,29 @@ const DishComponent = function () {
         }).isRequired,
     };
 
+    const headCells = [
+        {
+            id: 'dishName',
+            label: 'Dish Name',
+            sortingEnabled: true
+        },
+        {
+            id: 'dishDesc',
+            label: 'Description',
+            sortingEnabled: true
+        },
+        {
+            id: 'addRecord',
+            label: 'Add Record',
+            sortingEnabled: false
+        },
+        {
+            id: 'expand',
+            label: '',
+            sortingEnabled: false
+        },
+    ];
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2} >
@@ -268,21 +307,29 @@ const DishComponent = function () {
                     {dishAlert && <Alert severity={dishAlert.severity} onClose={() => { setDishAlert(null) }}>{dishAlert.message}</Alert>}
                 </Grid>
                 <Grid size={12}>
-                    <SearchComponent onSearch={searchDishes} />
-                </Grid>
-                <Grid size={12}>
+                    <EnhancedTableToolbar numSelected={selected.length} tableTitle="Dishes"
+                        deleteSelected={() => setDeletingDish(true)}
+                        updateSelected={() => {
+                            let dish = dishes.find(dish => dish.dishId == selected[0]);
+                            setDishUpdating(dish);
+                            setAddingDishRecord(false);
+                            setIngredientsForDish(dish.dishIngredients.map(dishIngredient => dishIngredient.ingredient.ingredientName));
+                            setAddingDish(true);
+                        }}
+                        onSearch={(text) => { setPage(0); searchDishes(text); }} />
                     <TableContainer component={Paper}>
                         <Table aria-label="collapsible table" sx={{ '& .MuiTableCell-root': { textAlign: 'center' }, border: '2px solid lightgray' }}>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell />
-                                    <TableCell>Dish</TableCell>
-                                    <TableCell>Description</TableCell>
-                                    <TableCell>Update</TableCell>
-                                    <TableCell>Delete</TableCell>
-                                    <TableCell>Add Record</TableCell>
-                                </TableRow>
-                            </TableHead>
+                            <EnhancedTableHead
+                                order={order}
+                                orderBy={orderBy}
+                                setOrder={setOrder}
+                                setOrderBy={setOrderBy}
+                                numSelected={selected.length}
+                                rows={dishes}
+                                setSelected={setSelected}
+                                idAttributeName="dishId"
+                                headCells={headCells}
+                            />
                             <TableBody>
                                 {dishes.map((dish) => (
                                     <CreateDishRow key={dish.dishId} dish={dish} />
@@ -290,6 +337,18 @@ const DishComponent = function () {
                             </TableBody>
                         </Table>
                     </TableContainer>
+                    <TablePagination
+                        rowsPerPageOptions={[5, 10, 15, 20, 25]}
+                        component="div"
+                        count={selected.length}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onPageChange={(event, newPage) => setPage(newPage)}
+                        onRowsPerPageChange={(event) => {
+                            setRowsPerPage(parseInt(event.target.value, 10));
+                            setPage(0);
+                        }}
+                    />
                 </Grid>
                 <Button variant="contained" color="success"
                     onClick={() => {
@@ -413,11 +472,11 @@ const DishComponent = function () {
                 </DialogActions>
             </Dialog>
 
-            <DeletionConfirmationComponent warningMessage={dishToDelete ? "Are you sure you want to delete dish " + dishToDelete.dishName + "?" : "Processing"}
-                open={dishToDelete} onClose={() => setDishToDelete(null)}
+            <DeletionConfirmationComponent warningMessage={deletingDish ? "Are you sure you want to delete selected " + (selected.length > 1 ? selected.length + " dishes?" : "dish?") : "Processing"}
+                open={deletingDish} onClose={() => setDeletingDish(false)}
                 onConfirm={() => {
-                    deleteDish(dishToDelete.dishId);
-                    setDishToDelete(null);
+                    deleteDishes(selected);
+                    setDeletingDish(false);
                 }} />
         </Box>
     )

@@ -272,7 +272,7 @@ const DishRecordComponent = function () {
                 </Grid>
                 <Grid size={12}>
                     <EnhancedTableToolbar numSelected={selected.length} tableTitle="Dish Records"
-                        deleteSelected={() => setDeletingDishRecord(selected)}
+                        deleteSelected={() => setDeletingDishRecord(true)}
                         updateSelected={() => {
                             let dishRecord = dishRecords.find(dishRecord => dishRecord.dishRecordId == selected[0]);
                             setDishRecordUpdating(dishRecord);
@@ -420,11 +420,11 @@ const DishRecordComponent = function () {
                 </DialogActions>
             </Dialog>
 
-            <DeletionConfirmationComponent warningMessage={deletingDishRecord ? "Are you sure you want to delete selected " + selected.length + " dish records?" : "Processing"}
-                open={deletingDishRecord} onClose={() => { setDeletingDishRecord(null) }}
+            <DeletionConfirmationComponent warningMessage={deletingDishRecord ? "Are you sure you want to delete selected " + (selected.length > 1 ? selected.length + " dish records?" : "dish record?") : "Processing"}
+                open={deletingDishRecord} onClose={() => { setDeletingDishRecord(false) }}
                 onConfirm={() => {
                     deleteDishRecords(selected);
-                    setDeletingDishRecord(null);
+                    setDeletingDishRecord(false);
                 }} />
         </Box>
     )

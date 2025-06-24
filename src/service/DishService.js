@@ -5,8 +5,8 @@ class DishService {
         return axios.get(process.env.REACT_APP_API_URL + '/dishes');
     }
 
-    deleteDish(dishId) {
-        return axios.delete(process.env.REACT_APP_API_URL + '/dishes/' + dishId);
+    deleteDishes(dishIds) {
+        return axios.delete(process.env.REACT_APP_API_URL + '/dishes', { data: dishIds });
     }
 
     updateDish(id, dishIngredientDTO) {
