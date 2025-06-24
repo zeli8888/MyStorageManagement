@@ -44,15 +44,14 @@ const DishComponent = function () {
     const [dishAlert, setDishAlert] = useState();
     const [deletingDish, setDeletingDish] = useState(false);
     const [order, setOrder] = useState('desc');
-    const [orderBy, setOrderBy] = useState('dishRecordTime');
+    const [orderBy, setOrderBy] = useState('dishName');
     const [selected, setSelected] = useState([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [searchString, setSearchString] = useState('');
 
     const visibleRows = React.useMemo(
         () => getVisibleRows(dishes, order, orderBy, page, rowsPerPage),
-        [order, orderBy, rowsPerPage, dishes],
+        [order, orderBy, page, rowsPerPage, dishes],
     );
 
     useEffect(() => {
@@ -331,7 +330,7 @@ const DishComponent = function () {
                                 headCells={headCells}
                             />
                             <TableBody>
-                                {dishes.map((dish) => (
+                                {visibleRows.map((dish) => (
                                     <CreateDishRow key={dish.dishId} dish={dish} />
                                 ))}
                             </TableBody>
@@ -340,7 +339,7 @@ const DishComponent = function () {
                     <TablePagination
                         rowsPerPageOptions={[5, 10, 15, 20, 25]}
                         component="div"
-                        count={selected.length}
+                        count={dishes.length}
                         rowsPerPage={rowsPerPage}
                         page={page}
                         onPageChange={(event, newPage) => setPage(newPage)}
