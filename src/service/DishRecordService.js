@@ -2,7 +2,7 @@ import axios from 'axios'
 
 class DishRecordService {
     getAllDishRecords(page, size) {
-        return axios.get(process.env.REACT_APP_API_URL + '/dishrecords' + (!page ? '' : ('?page=' + page)) + (!size ? '' : ('&size=' + size)));
+        return axios.get(process.env.REACT_APP_API_URL + '/dishrecords' + '?page=' + page + '&size=' + size);
     }
 
     deleteDishRecords(dishRecordIds) {
@@ -23,7 +23,7 @@ class DishRecordService {
             return this.getAllDishRecords(page, size);
         }
         return axios.get(process.env.REACT_APP_API_URL + '/dishrecords/search?searchString=' + searchString
-            + (!page ? '' : ('&page=' + page)) + (!size ? '' : ('&size=' + size)));
+            + '&page=' + page + '&size=' + size);
     }
 
 }

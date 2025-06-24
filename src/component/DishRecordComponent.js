@@ -45,10 +45,13 @@ const DishRecordComponent = function () {
     const [orderBy, setOrderBy] = useState('dishRecordTime');
     const [selected, setSelected] = useState([]);
     const [page, setPage] = useState(0);
+    const [totalElements, setTotalElements] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [searchString, setSearchString] = useState('');
 
+    // page set to 0 to use server-side pagination, won't slice the data
     const visibleRows = React.useMemo(
-        () => getVisibleRows(dishRecords, order, orderBy, page, rowsPerPage,
+        () => getVisibleRows(dishRecords, order, orderBy, 0, rowsPerPage,
             (a, b, orderBy) => {
                 if (orderBy === 'dishName') {
                     b = b.dish;
@@ -63,24 +66,17 @@ const DishRecordComponent = function () {
                 return 0;
             }
         ),
-        [order, orderBy, page, rowsPerPage, dishRecords],
+        [order, orderBy, rowsPerPage, dishRecords],
     );
 
     useEffect(() => {
         refreshDishRecords();
-    }, [navigate]);
+    }, [navigate, page, rowsPerPage, searchString]);
 
     const refreshDishRecords = () => {
-        DishRecordService.getAllDishRecords().then(response => {
-            setDishRecords(response.data);
-        }).catch(error => {
-            console.log(error);
-        });
-    }
-
-    const searchDishRecords = (searchString) => {
-        DishRecordService.searchDishRecords(searchString).then(response => {
-            setDishRecords(response.data);
+        DishRecordService.searchDishRecords(searchString, page, rowsPerPage).then(response => {
+            setDishRecords(response.data.content);
+            setTotalElements(response.data.totalElements);
         }).catch(error => {
             console.log(error);
         });
@@ -283,7 +279,7 @@ const DishRecordComponent = function () {
                             setDishNameForDishRecord(dishRecord.dish ? dishRecord.dish.dishName : "");
                             setIngredientsForDishRecord(dishRecord.dishRecordIngredients.map(dishRecordIngredient => dishRecordIngredient.ingredient.ingredientName));
                         }}
-                        onSearch={searchDishRecords} />
+                        onSearch={(text) => { setPage(0); setSearchString(text); }} />
                     <TableContainer component={Paper}>
                         <Table aria-label="collapsible table" sx={{ '& .MuiTableCell-root': { textAlign: 'center' }, border: '2px solid lightgray' }}>
                             <EnhancedTableHead
@@ -307,7 +303,7 @@ const DishRecordComponent = function () {
                     <TablePagination
                         rowsPerPageOptions={[5, 10, 15, 20, 25]}
                         component="div"
-                        count={dishRecords.length}
+                        count={totalElements}
                         rowsPerPage={rowsPerPage}
                         page={page}
                         onPageChange={(event, newPage) => setPage(newPage)}
