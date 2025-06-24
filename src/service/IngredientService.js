@@ -5,8 +5,8 @@ class IngredientService {
         return axios.get(process.env.REACT_APP_API_URL + '/ingredients');
     }
 
-    deleteIngredient(ingredientId) {
-        return axios.delete(process.env.REACT_APP_API_URL + '/ingredients/' + ingredientId);
+    deleteIngredients(ingredientIds) {
+        return axios.delete(process.env.REACT_APP_API_URL + '/ingredients', { data: ingredientIds });
     }
 
     updateIngredient(id, ingredient) {

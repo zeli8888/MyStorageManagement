@@ -301,7 +301,7 @@ const DishComponent = function () {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={2} >
+            <Grid container spacing={0} >
                 <Grid size={12}>
                     {dishAlert && <Alert severity={dishAlert.severity} onClose={() => { setDishAlert(null) }}>{dishAlert.message}</Alert>}
                 </Grid>
@@ -316,6 +316,8 @@ const DishComponent = function () {
                             setAddingDish(true);
                         }}
                         onSearch={(text) => { setPage(0); searchDishes(text); }} />
+                </Grid>
+                <Grid size={12}>
                     <TableContainer component={Paper}>
                         <Table aria-label="collapsible table" sx={{ '& .MuiTableCell-root': { textAlign: 'center' }, border: '2px solid lightgray' }}>
                             <EnhancedTableHead
@@ -358,7 +360,8 @@ const DishComponent = function () {
                     }}
                     sx={{
                         marginRight: 0,
-                        marginLeft: 'auto'
+                        marginLeft: 'auto',
+                        marginTop: 1
                     }}
                 >
                     New Dish

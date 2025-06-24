@@ -9,7 +9,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import IngredientService from '../service/IngredientService'
 import { FoodContext } from './FoodProvider';
-import { DeletionConfirmationComponent, SearchComponent } from './utils';
+import { DeletionConfirmationComponent, EnhancedTableToolbar } from './utils';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -19,8 +19,9 @@ const IngredientComponent = function () {
     const { setAllIngredients } = React.useContext(FoodContext);
     const [ingredientUpdating, setIngredientUpdating] = useState();
     const [addingIngredient, setAddingIngredient] = useState(false);
-    const [ingredientToDelete, setIngredientToDelete] = useState();
     const [ingredientAlert, setIngredientAlert] = useState();
+    const [selected, setSelected] = useState([]);
+    const [deletingIngredient, setDeletingIngredient] = useState(false);
 
     useEffect(() => {
         refreshIngredients();
@@ -65,10 +66,10 @@ const IngredientComponent = function () {
         });
     }
 
-    const deleteIngredient = (ingredientId) => {
-        IngredientService.deleteIngredient(ingredientId).then(response => {
+    const deleteIngredients = (ingredientIds) => {
+        IngredientService.deleteIngredients(ingredientIds).then(response => {
             refreshIngredients();
-            setIngredientAlert({ severity: "success", message: "Ingredient " + ingredientToDelete.ingredientName + " deleted successfully!" });
+            setIngredientAlert({ severity: "success", message: "Ingredients deleted successfully!" });
         }).catch(error => {
             console.log(error);
         });
@@ -111,47 +112,31 @@ const IngredientComponent = function () {
             flex: 3,
             editable: false,
             headerAlign: 'center'
-        },
-        {
-            field: 'update',
-            headerName: 'Update',
-            headerAlign: 'center',
-            flex: 3,
-            renderCell: (params) => (
-                <Button variant="contained" color="success" onClick={
-                    () => {
-                        setIngredientUpdating(params.row);
-                        setAddingIngredient(true);
-                    }
-                } > Update</Button >
-            )
-        },
-        {
-            field: 'delete',
-            headerName: 'Delete',
-            headerAlign: 'center',
-            flex: 3,
-            renderCell: (params) => (
-                <Button variant="contained" color="error" onClick={
-                    () => setIngredientToDelete(params.row)
-                }>Delete</Button>
-            )
         }
     ];
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={2} >
+            <Grid container spacing={0} >
                 <Grid size={12}>
                     {ingredientAlert && <Alert severity={ingredientAlert.severity} onClose={() => { setIngredientAlert(null) }}>{ingredientAlert.message}</Alert>}
                 </Grid>
                 <Grid size={12}>
-                    <SearchComponent onSearch={searchIngredients} />
+                    <EnhancedTableToolbar numSelected={selected.length} tableTitle="Ingredients"
+                        deleteSelected={() => setDeletingIngredient(true)}
+                        updateSelected={() => {
+                            let ingredient = ingredients.find(ingredient => ingredient.ingredientId == selected[0]);
+                            setIngredientUpdating(ingredient);
+                            setAddingIngredient(true);
+                        }}
+                        onSearch={(text) => { searchIngredients(text); }} />
                 </Grid>
                 <Grid size={12}>
                     <DataGrid
                         autoWidth
                         rows={ingredients}
+                        selectionModel={selected}
+                        onRowSelectionModelChange={(newSelection) => setSelected([...newSelection.ids])}
                         columns={columns}
                         initialState={{
                             sorting: {
@@ -171,7 +156,7 @@ const IngredientComponent = function () {
                                 },
                             },
                         }}
-                        pageSizeOptions={[10, 20]}
+                        pageSizeOptions={[5, 10, 15, 20, 25]}
                         checkboxSelection
                         getRowId={(row) => row.ingredientId}
                         sx={{
@@ -192,7 +177,8 @@ const IngredientComponent = function () {
                     }}
                     sx={{
                         marginRight: 0,
-                        marginLeft: 'auto'
+                        marginLeft: 'auto',
+                        marginTop: 1
                     }}
                 >
                     New Ingredient
@@ -269,11 +255,11 @@ const IngredientComponent = function () {
                     <Button type="submit">Save</Button>
                 </DialogActions>
             </Dialog>
-            <DeletionConfirmationComponent warningMessage={ingredientToDelete ? "Are you sure you want to delete ingredient " + ingredientToDelete.ingredientName + "?" : "Processing"}
-                open={ingredientToDelete} onClose={() => setIngredientToDelete(null)}
+            <DeletionConfirmationComponent warningMessage={deletingIngredient ? "Are you sure you want to delete selected " + (selected.length > 1 ? selected.length + " ingredients?" : "ingredient?") : "Processing"}
+                open={deletingIngredient} onClose={() => setDeletingIngredient(false)}
                 onConfirm={() => {
-                    deleteIngredient(ingredientToDelete.ingredientId);
-                    setIngredientToDelete(null);
+                    deleteIngredients(selected);
+                    setDeletingIngredient(false);
                 }} />
         </Box>
     )

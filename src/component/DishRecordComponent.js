@@ -266,7 +266,7 @@ const DishRecordComponent = function () {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={2} >
+            <Grid container spacing={0} >
                 <Grid size={12}>
                     {dishRecordAlert && <Alert severity={dishRecordAlert.severity} onClose={() => { setDishRecordAlert(null) }}>{dishRecordAlert.message}</Alert>}
                 </Grid>
@@ -280,6 +280,8 @@ const DishRecordComponent = function () {
                             setIngredientsForDishRecord(dishRecord.dishRecordIngredients.map(dishRecordIngredient => dishRecordIngredient.ingredient.ingredientName));
                         }}
                         onSearch={(text) => { setPage(0); setSearchString(text); }} />
+                </Grid>
+                <Grid size={12}>
                     <TableContainer component={Paper}>
                         <Table aria-label="collapsible table" sx={{ '& .MuiTableCell-root': { textAlign: 'center' }, border: '2px solid lightgray' }}>
                             <EnhancedTableHead
