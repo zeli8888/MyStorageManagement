@@ -23,7 +23,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { visuallyHidden } from '@mui/utils';
 import { Stack } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-
+import React from 'react';
 export function DeletionConfirmationComponent(props) {
     const { onClose, warningMessage, open, onConfirm } = props;
 
