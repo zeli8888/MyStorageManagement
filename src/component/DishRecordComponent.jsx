@@ -75,6 +75,7 @@ const DishRecordComponent = function () {
 
     const refreshDishRecords = () => {
         DishRecordService.searchDishRecords(searchString, page, rowsPerPage).then(response => {
+            setSelected([]);
             setDishRecords(response.data.content);
             setTotalElements(response.data.totalElements);
         }).catch(error => {
@@ -132,6 +133,7 @@ const DishRecordComponent = function () {
             <React.Fragment>
                 <TableRow
                     hover
+                    onClick={() => setOpen(!open)}
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}

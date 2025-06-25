@@ -1,4 +1,3 @@
-import './App.css';
 import { createTheme } from '@mui/material/styles';
 import { ReactRouterAppProvider } from '@toolpad/core/react-router';
 import { Outlet } from 'react-router'

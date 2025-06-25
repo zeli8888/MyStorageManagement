@@ -162,6 +162,7 @@ const DishComponent = function () {
             <React.Fragment>
                 <TableRow
                     hover
+                    onClick={() => setOpen(!open)}
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
