@@ -13,6 +13,7 @@ import FlatwareSharpIcon from '@mui/icons-material/FlatwareSharp';
 import GrassIcon from '@mui/icons-material/Grass';
 import DinnerDiningIcon from '@mui/icons-material/DinnerDining';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import UserProvider from './component/UserProvider';
 import React from 'react';
 const NAVIGATION = [
   {
@@ -105,9 +106,11 @@ function App() {
           sidebarFooter: SidebarFooter,
         }}>
         <PageContainer>
-          <FoodProvider>
-            <Outlet />
-          </FoodProvider>
+          <UserProvider>
+            <FoodProvider>
+              <Outlet />
+            </FoodProvider>
+          </UserProvider>
         </PageContainer>
       </DashboardLayout>
     </ReactRouterAppProvider>
