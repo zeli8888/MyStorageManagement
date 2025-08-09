@@ -7,7 +7,7 @@ import {
     signInWithGoogle,
     signInWithGithub,
     signInWithCredentials,
-} from './firebase/auth';
+} from '../service/firebase/auth';
 export default function LoginComponent() {
     const { session, setSession, loading } = React.useContext(SessionContext);
     const navigate = useNavigate();
@@ -54,14 +54,12 @@ export default function LoginComponent() {
                     }
 
                     if (result?.success && result?.user) {
-                        const token = await result.user.getIdToken();
                         // Convert Firebase user to Session format
                         const userSession = {
                             user: {
                                 name: result.user.displayName || '',
                                 email: result.user.email || '',
                                 image: result.user.photoURL || '',
-                                token: token,
                             },
                         };
                         setSession(userSession);

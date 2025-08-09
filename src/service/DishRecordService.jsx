@@ -1,28 +1,28 @@
-import axios from 'axios'
+import baseApi from './BaseApi';
 
 class DishRecordService {
     getAllDishRecords(page, size) {
-        return axios.get(import.meta.env.VITE_REACT_APP_API_URL + '/dishrecords' + '?page=' + page + '&size=' + size);
+        return baseApi.get('/dishrecords' + '?page=' + page + '&size=' + size);
     }
 
     deleteDishRecords(dishRecordIds) {
-        return axios.delete(import.meta.env.VITE_REACT_APP_API_URL + '/dishrecords', {
+        return baseApi.delete('/dishrecords', {
             data: dishRecordIds
         });
     }
 
     updateDishRecord(dishRecordId, dishRecordIngredientDTO) {
-        return axios.put(import.meta.env.VITE_REACT_APP_API_URL + '/dishrecords/' + dishRecordId, dishRecordIngredientDTO);
+        return baseApi.put('/dishrecords/' + dishRecordId, dishRecordIngredientDTO);
     }
     addDishRecord(dishRecordIngredientDTO) {
-        return axios.post(import.meta.env.VITE_REACT_APP_API_URL + '/dishrecords', dishRecordIngredientDTO);
+        return baseApi.post('/dishrecords', dishRecordIngredientDTO);
     }
 
     searchDishRecords(searchString, page, size) {
         if (searchString === '') {
             return this.getAllDishRecords(page, size);
         }
-        return axios.get(import.meta.env.VITE_REACT_APP_API_URL + '/dishrecords/search?searchString=' + searchString
+        return baseApi.get('/dishrecords/search?searchString=' + searchString
             + '&page=' + page + '&size=' + size);
     }
 

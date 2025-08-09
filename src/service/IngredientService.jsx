@@ -1,26 +1,26 @@
-import axios from 'axios'
+import baseApi from './BaseApi';
 
 class IngredientService {
     getAllIngredients() {
-        return axios.get(import.meta.env.VITE_REACT_APP_API_URL + '/ingredients');
+        return baseApi.get('/ingredients');
     }
 
     deleteIngredients(ingredientIds) {
-        return axios.delete(import.meta.env.VITE_REACT_APP_API_URL + '/ingredients', { data: ingredientIds });
+        return baseApi.delete('/ingredients', { data: ingredientIds });
     }
 
     updateIngredient(id, ingredient) {
-        return axios.put(import.meta.env.VITE_REACT_APP_API_URL + '/ingredients/' + id, ingredient);
+        return baseApi.put('/ingredients/' + id, ingredient);
     }
     addIngredient(ingredient) {
-        return axios.post(import.meta.env.VITE_REACT_APP_API_URL + '/ingredients', ingredient);
+        return baseApi.post('/ingredients', ingredient);
     }
 
     searchIngredients(searchString) {
         if (searchString === '') {
-            return axios.get(import.meta.env.VITE_REACT_APP_API_URL + '/ingredients');
+            return baseApi.get('/ingredients');
         }
-        return axios.get(import.meta.env.VITE_REACT_APP_API_URL + '/ingredients/search?searchString=' + searchString);
+        return baseApi.get('/ingredients/search?searchString=' + searchString);
     }
 }
 

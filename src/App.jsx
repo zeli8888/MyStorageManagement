@@ -17,7 +17,7 @@ import {
   firebaseSignOut,
   signInWithGoogle,
   onAuthStateChanged,
-} from './component/firebase/auth';
+} from './service/firebase/auth';
 import React from 'react';
 const NAVIGATION = [
   {
