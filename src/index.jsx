@@ -6,38 +6,56 @@ import { createBrowserRouter, RouterProvider } from 'react-router';
 import IngredientComponent from './component/IngredientComponent';
 import DishComponent from './component/DishComponent';
 import DishRecordComponent from './component/DishRecordComponent';
+import LoginComponent from './component/LoginComponent';
+import SessionFilter from './component/SessionFilter';
 import Typography from '@mui/material/Typography';
-
 const router = createBrowserRouter([
   {
     Component: App, // root layout route
     children: [
       {
         path: '/',
-        Component: Overview,
+        Component: SessionFilter,
+        children: [
+          {
+            path: 'home',
+            Component: ToBeDone
+          },
+          {
+            path: 'foodstorage',
+            children: [
+              {
+                path: 'ingredients',
+                Component: IngredientComponent,
+              },
+              {
+                path: 'dishes',
+                Component: DishComponent,
+              },
+              {
+                path: 'dishrecords',
+                Component: DishRecordComponent,
+              },
+            ]
+          },
+        ]
       },
       {
-        path: 'foodstorage/ingredients',
-        Component: IngredientComponent,
-      },
-      {
-        path: 'foodstorage/dishes',
-        Component: DishComponent,
-      },
-      {
-        path: 'foodstorage/dishrecords',
-        Component: DishRecordComponent,
+        path: '/login',
+        Component: LoginComponent,
       },
     ],
   },
-]);
-
-function Overview() {
+],
+  {
+    basename: import.meta.env.VITE_REACT_APP_CONTEXT
+  }
+);
+function ToBeDone() {
   return (
     <Typography>To Be Done</Typography>
   )
 }
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

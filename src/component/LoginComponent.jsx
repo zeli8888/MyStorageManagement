@@ -1,9 +1,15 @@
 import * as React from 'react';
 import { SignInPage } from '@toolpad/core/SignInPage';
 import { Navigate, useNavigate } from 'react-router';
-import { UserContext } from './UserProvider';
-export default function SignIn() {
-    const { user, setUser, jwtToken, setJwtToken } = React.useContext(UserContext);
+import SessionContext from './UserProvider';
+import LinearProgress from '@mui/material/LinearProgress';
+import {
+    signInWithGoogle,
+    signInWithGithub,
+    signInWithCredentials,
+} from './firebase/auth';
+export default function LoginComponent() {
+    const { session, setSession, loading } = React.useContext(SessionContext);
     const navigate = useNavigate();
 
     if (loading) {
@@ -16,6 +22,12 @@ export default function SignIn() {
 
     return (
         <SignInPage
+            sx={{
+                height: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}
             providers={[
                 { id: 'google', name: 'Google' },
                 { id: 'github', name: 'GitHub' },
@@ -31,8 +43,8 @@ export default function SignIn() {
                         result = await signInWithGithub();
                     }
                     if (provider.id === 'credentials') {
-                        const email = formData?.get('email') as string;
-                        const password = formData?.get('password') as string;
+                        const email = formData?.get('email');
+                        const password = formData?.get('password');
 
                         if (!email || !password) {
                             return { error: 'Email and password are required' };
@@ -42,12 +54,14 @@ export default function SignIn() {
                     }
 
                     if (result?.success && result?.user) {
+                        const token = await result.user.getIdToken();
                         // Convert Firebase user to Session format
-                        const userSession: Session = {
+                        const userSession = {
                             user: {
                                 name: result.user.displayName || '',
                                 email: result.user.email || '',
                                 image: result.user.photoURL || '',
+                                token: token,
                             },
                         };
                         setSession(userSession);

@@ -15,15 +15,14 @@ const githubProvider = new GithubAuthProvider();
 // Sign in with Google functionality
 export const signInWithGoogle = async () => {
     try {
-        return setPersistence(firebaseAuth, browserSessionPersistence).then(async () => {
-            const result = await signInWithPopup(firebaseAuth, googleProvider);
-            return {
-                success: true,
-                user: result.user,
-                error: null,
-            };
-        });
-    } catch (error: any) {
+        await setPersistence(firebaseAuth, browserSessionPersistence);
+        const result = await signInWithPopup(firebaseAuth, googleProvider);
+        return {
+            success: true,
+            user: result.user,
+            error: null,
+        };
+    } catch (error) {
         return {
             success: false,
             user: null,
@@ -35,15 +34,14 @@ export const signInWithGoogle = async () => {
 // Sign in with GitHub functionality
 export const signInWithGithub = async () => {
     try {
-        return setPersistence(firebaseAuth, browserSessionPersistence).then(async () => {
-            const result = await signInWithPopup(firebaseAuth, githubProvider);
-            return {
-                success: true,
-                user: result.user,
-                error: null,
-            };
-        });
-    } catch (error: any) {
+        await setPersistence(firebaseAuth, browserSessionPersistence);
+        const result = await signInWithPopup(firebaseAuth, githubProvider);
+        return {
+            success: true,
+            user: result.user,
+            error: null,
+        };
+    } catch (error) {
         return {
             success: false,
             user: null,
@@ -53,22 +51,20 @@ export const signInWithGithub = async () => {
 };
 
 // Sign in with email and password
-
-export async function signInWithCredentials(email: string, password: string) {
+export async function signInWithCredentials(email, password) {
     try {
-        return setPersistence(firebaseAuth, browserSessionPersistence).then(async () => {
-            const userCredential = await signInWithEmailAndPassword(
-                firebaseAuth,
-                email,
-                password,
-            );
-            return {
-                success: true,
-                user: userCredential.user,
-                error: null,
-            };
-        });
-    } catch (error: any) {
+        await setPersistence(firebaseAuth, browserSessionPersistence);
+        const userCredential = await signInWithEmailAndPassword(
+            firebaseAuth,
+            email,
+            password,
+        );
+        return {
+            success: true,
+            user: userCredential.user,
+            error: null,
+        };
+    } catch (error) {
         return {
             success: false,
             user: null,
@@ -82,7 +78,7 @@ export const firebaseSignOut = async () => {
     try {
         await signOut(firebaseAuth);
         return { success: true };
-    } catch (error: any) {
+    } catch (error) {
         return {
             success: false,
             error: error.message,
@@ -91,6 +87,6 @@ export const firebaseSignOut = async () => {
 };
 
 // Auth state observer
-export const onAuthStateChanged = (callback: (user: any) => void) => {
+export const onAuthStateChanged = (callback) => {
     return firebaseAuth.onAuthStateChanged(callback);
 };
