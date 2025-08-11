@@ -6,6 +6,8 @@ import {
     browserSessionPersistence,
     signInWithEmailAndPassword,
     signOut,
+    createUserWithEmailAndPassword,
+    sendPasswordResetEmail,
 } from 'firebase/auth';
 import { firebaseAuth } from './firebaseConfig';
 
@@ -85,6 +87,26 @@ export const firebaseSignOut = async () => {
         };
     }
 };
+
+// Sign up with email and password
+export async function signUpWithCredentials(email, password) {
+    try {
+        const userCredential = await createUserWithEmailAndPassword(firebaseAuth, email, password);
+        return { success: true, user: userCredential.user, error: null };
+    } catch (error) {
+        return { success: false, user: null, error: error instanceof Error ? error.message : "Registration failed" };
+    }
+}
+
+// Send password reset email
+export async function sendPasswordReset(email) {
+    try {
+        await sendPasswordResetEmail(firebaseAuth, email);
+        return { success: true };
+    } catch (error) {
+        return { success: false, error: error instanceof Error ? error.message : "Password reset failed" };
+    }
+}
 
 // Auth state observer
 export const onAuthStateChanged = (callback) => {

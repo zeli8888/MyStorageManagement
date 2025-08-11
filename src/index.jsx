@@ -9,6 +9,8 @@ import DishRecordComponent from './component/DishRecordComponent';
 import LoginComponent from './component/LoginComponent';
 import SessionFilter from './component/SessionFilter';
 import Typography from '@mui/material/Typography';
+import RegistrationComponent from './component/RegistrationComponent';
+import ResetPasswordComponent from './component/ResetPasswordComponent';
 const router = createBrowserRouter([
   {
     Component: App, // root layout route
@@ -43,6 +45,14 @@ const router = createBrowserRouter([
       {
         path: '/login',
         Component: LoginComponent,
+      },
+      {
+        path: '/register',
+        Component: RegistrationComponent,
+      },
+      {
+        path: '/reset-password',
+        Component: ResetPasswordComponent,
       },
     ],
   },

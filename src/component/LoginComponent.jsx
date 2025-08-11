@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { SignInPage } from '@toolpad/core/SignInPage';
-import { Navigate, useNavigate } from 'react-router';
+import { Navigate, useNavigate, Link } from 'react-router';
 import SessionContext from './UserProvider';
 import LinearProgress from '@mui/material/LinearProgress';
 import {
@@ -23,15 +23,15 @@ export default function LoginComponent() {
     return (
         <SignInPage
             sx={{
-                height: '100%',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
+                '& .MuiContainer-root': {
+                    height: 'auto !important',
+                    minHeight: '100%'
+                }
             }}
             providers={[
                 { id: 'google', name: 'Google' },
                 { id: 'github', name: 'GitHub' },
-                { id: 'credentials', name: 'Credentials' },
+                { id: 'credentials', name: 'Email and Password' },
             ]}
             signIn={async (provider, formData, callbackUrl) => {
                 let result;
@@ -72,6 +72,10 @@ export default function LoginComponent() {
                         error: error instanceof Error ? error.message : 'An error occurred',
                     };
                 }
+            }}
+            slots={{
+                signUpLink: () => <Link to="/register">Create Account</Link>,
+                forgotPasswordLink: () => <Link to="/reset-password">Forgot Password?</Link>,
             }}
         />
     );
