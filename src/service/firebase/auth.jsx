@@ -1,6 +1,7 @@
 import {
     GoogleAuthProvider,
     GithubAuthProvider,
+    OAuthProvider,
     signInWithPopup,
     setPersistence,
     browserSessionPersistence,
@@ -13,6 +14,15 @@ import { firebaseAuth } from './firebaseConfig';
 
 const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
+const microsoftProvider = new OAuthProvider('microsoft.com');
+
+microsoftProvider.setCustomParameters({
+    prompt: 'select_account',
+});
+
+microsoftProvider.addScope('openid');
+microsoftProvider.addScope('email');
+microsoftProvider.addScope('profile');
 
 // Sign in with Google functionality
 export const signInWithGoogle = async () => {
@@ -48,6 +58,25 @@ export const signInWithGithub = async () => {
             success: false,
             user: null,
             error: error.message,
+        };
+    }
+};
+
+// Sign in with Microsoft functionality
+export const signInWithMicrosoft = async () => {
+    try {
+        await setPersistence(firebaseAuth, browserSessionPersistence);
+        const result = await signInWithPopup(firebaseAuth, microsoftProvider);
+        return {
+            success: true,
+            user: result.user,
+            error: null,
+        };
+    } catch (error) {
+        return {
+            success: false,
+            user: null,
+            error: error.message
         };
     }
 };

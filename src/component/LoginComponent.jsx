@@ -6,6 +6,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 import {
     signInWithGoogle,
     signInWithGithub,
+    signInWithMicrosoft,
     signInWithCredentials,
 } from '../service/firebase/auth';
 export default function LoginComponent() {
@@ -31,6 +32,7 @@ export default function LoginComponent() {
             providers={[
                 { id: 'google', name: 'Google' },
                 { id: 'github', name: 'GitHub' },
+                { id: 'microsoft', name: 'Microsoft' },
                 { id: 'credentials', name: 'Email and Password' },
             ]}
             signIn={async (provider, formData, callbackUrl) => {
@@ -41,6 +43,9 @@ export default function LoginComponent() {
                     }
                     if (provider.id === 'github') {
                         result = await signInWithGithub();
+                    }
+                    if (provider.id === 'microsoft') {
+                        result = await signInWithMicrosoft();
                     }
                     if (provider.id === 'credentials') {
                         const email = formData?.get('email');
