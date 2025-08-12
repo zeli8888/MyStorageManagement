@@ -12,13 +12,12 @@ import FlatwareSharpIcon from '@mui/icons-material/FlatwareSharp';
 import GrassIcon from '@mui/icons-material/Grass';
 import DinnerDiningIcon from '@mui/icons-material/DinnerDining';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import SessionContext from './component/UserProvider';
 import {
   firebaseSignOut,
   signInWithGoogle,
-  onAuthStateChanged,
 } from './service/firebase/auth';
 import React from 'react';
+import { SessionContext } from './component/SessionProvider';
 const NAVIGATION = [
   {
     segment: 'home',
@@ -103,38 +102,7 @@ const AUTHENTICATION = {
 };
 
 function App() {
-  const [session, setSession] = React.useState(null);
-  const [loading, setLoading] = React.useState(true);
-
-  const sessionContextValue = React.useMemo(
-    () => ({
-      session,
-      loading,
-      setSession,
-      setLoading,
-    }),
-    [session, loading],
-  );
-
-  React.useEffect(() => {
-    // Returns an `unsubscribe` function to be called during teardown
-    const unsubscribe = onAuthStateChanged((user) => {
-      if (user) {
-        setSession({
-          user: {
-            name: user.displayName || '',
-            email: user.email || '',
-            image: user.photoURL || '',
-          },
-        });
-      } else {
-        setSession(null);
-      }
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
-  }, []);
+  const { session } = React.useContext(SessionContext);
 
   return (
     <ReactRouterAppProvider
@@ -143,18 +111,16 @@ function App() {
       session={session}
       authentication={AUTHENTICATION}
     >
-      <SessionContext.Provider value={sessionContextValue}>
-        <DashboardLayout
-          slots={{
-            appTitle: CustomAppTitle,
-            // toolbarActions: ToolbarActionsSearch,
-            sidebarFooter: SidebarFooter,
-          }}>
-          <PageContainer>
-            <Outlet />
-          </PageContainer>
-        </DashboardLayout>
-      </SessionContext.Provider>
+      <DashboardLayout
+        slots={{
+          appTitle: CustomAppTitle,
+          // toolbarActions: ToolbarActionsSearch,
+          sidebarFooter: SidebarFooter,
+        }}>
+        <PageContainer>
+          <Outlet />
+        </PageContainer>
+      </DashboardLayout>
     </ReactRouterAppProvider>
   );
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { TextField, Button, Box, Typography } from '@mui/material';
 import { signUpWithCredentials } from '../service/firebase/auth';
-import SessionContext from './UserProvider';
+import SessionContext from './SessionProvider';
 
 function RegistrationComponent() {
   const [email, setEmail] = useState('');

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { SignInPage } from '@toolpad/core/SignInPage';
 import { Navigate, useNavigate, Link } from 'react-router';
-import SessionContext from './UserProvider';
+import { SessionContext } from './SessionProvider';
 import LinearProgress from '@mui/material/LinearProgress';
 import {
     signInWithGoogle,

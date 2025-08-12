@@ -1,7 +1,7 @@
 import * as React from 'react';
 import LinearProgress from '@mui/material/LinearProgress';
 import { Outlet, Navigate, useLocation } from 'react-router';
-import SessionContext from './UserProvider';
+import { SessionContext } from './SessionProvider';
 import FoodProvider from './FoodProvider';
 
 export default function SessionFilter() {

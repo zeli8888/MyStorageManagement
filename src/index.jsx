@@ -11,6 +11,7 @@ import SessionFilter from './component/SessionFilter';
 import Typography from '@mui/material/Typography';
 import RegistrationComponent from './component/RegistrationComponent';
 import ResetPasswordComponent from './component/ResetPasswordComponent';
+import SessionProvider from './component/SessionProvider';
 const router = createBrowserRouter([
   {
     Component: App, // root layout route
@@ -69,7 +70,9 @@ function ToBeDone() {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <SessionProvider>
+      <RouterProvider router={router} />
+    </SessionProvider>
   </React.StrictMode>,
 );
 
