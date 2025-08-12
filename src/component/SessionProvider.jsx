@@ -6,6 +6,7 @@ export const SessionContext = React.createContext();
 const SessionProvider = ({ children }) => {
   const [session, setSession] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
+  const [rememberMe, setRememberMe] = React.useState(false);
 
   React.useEffect(() => {
     // Returns an `unsubscribe` function to be called during teardown
@@ -34,6 +35,8 @@ const SessionProvider = ({ children }) => {
         loading,
         setSession,
         setLoading,
+        rememberMe,
+        setRememberMe
       }}>
       {children}
     </SessionContext.Provider>)

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { SignInPage } from '@toolpad/core/SignInPage';
 import { Navigate, useNavigate, Link } from 'react-router';
+import { RememberMeCheckbox } from './utils';
 import { SessionContext } from './SessionProvider';
 import LinearProgress from '@mui/material/LinearProgress';
 import {
@@ -10,7 +11,7 @@ import {
     signInWithCredentials,
 } from '../service/firebase/auth';
 export default function LoginComponent() {
-    const { session, setSession, loading } = React.useContext(SessionContext);
+    const { session, setSession, loading, rememberMe, setRememberMe } = React.useContext(SessionContext);
     const navigate = useNavigate();
 
     if (loading) {
@@ -39,13 +40,13 @@ export default function LoginComponent() {
                 let result;
                 try {
                     if (provider.id === 'google') {
-                        result = await signInWithGoogle();
+                        result = await signInWithGoogle(rememberMe);
                     }
                     if (provider.id === 'github') {
-                        result = await signInWithGithub();
+                        result = await signInWithGithub(rememberMe);
                     }
                     if (provider.id === 'microsoft') {
-                        result = await signInWithMicrosoft();
+                        result = await signInWithMicrosoft(rememberMe);
                     }
                     if (provider.id === 'credentials') {
                         const email = formData?.get('email');
@@ -55,7 +56,7 @@ export default function LoginComponent() {
                             return { error: 'Email and password are required' };
                         }
 
-                        result = await signInWithCredentials(email, password);
+                        result = await signInWithCredentials(rememberMe, email, password);
                     }
 
                     if (result?.success && result?.user) {
@@ -81,6 +82,7 @@ export default function LoginComponent() {
             slots={{
                 signUpLink: () => <Link to="/register">Create Account</Link>,
                 forgotPasswordLink: () => <Link to="/reset-password">Forgot Password?</Link>,
+                rememberMe: () => <RememberMeCheckbox rememberMe={rememberMe} setRememberMe={setRememberMe} />,
             }}
         />
     );

@@ -23,7 +23,55 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { visuallyHidden } from '@mui/utils';
 import { Stack } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import { useTheme } from '@mui/material/styles';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import React from 'react';
+export function RememberMeCheckbox(props) {
+    const theme = useTheme();
+    const { rememberMe, setRememberMe, sx } = props;
+
+    return (
+        <FormControlLabel
+            sx={{
+                marginRight: 0,
+                flexShrink: 0,
+                '& .MuiFormControlLabel-label': {
+                    fontSize: theme.typography.pxToRem(14),
+                    [theme.breakpoints.down('sm')]: {
+                        fontSize: theme.typography.pxToRem(12)
+                    }
+                },
+                ...sx
+            }}
+            label="Remember me"
+            control={
+                <Checkbox
+                    name="remember"
+                    value="true"
+                    color="primary"
+                    size="small"
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                    sx={{
+                        padding: { xs: 0.25, sm: 0.5 },
+                        '& .MuiSvgIcon-root': {
+                            fontSize: { xs: 18, sm: 20 }
+                        }
+                    }}
+                />
+            }
+            slotProps={{
+                typography: {
+                    component: 'span',
+                    sx: {
+                        whiteSpace: 'nowrap'
+                    }
+                }
+            }}
+        />
+    );
+}
+
 export function DeletionConfirmationComponent(props) {
     const { onClose, warningMessage, open, onConfirm } = props;
 

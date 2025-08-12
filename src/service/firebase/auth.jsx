@@ -5,6 +5,7 @@ import {
     signInWithPopup,
     setPersistence,
     browserSessionPersistence,
+    browserLocalPersistence,
     signInWithEmailAndPassword,
     signOut,
     createUserWithEmailAndPassword,
@@ -25,9 +26,9 @@ microsoftProvider.addScope('email');
 microsoftProvider.addScope('profile');
 
 // Sign in with Google functionality
-export const signInWithGoogle = async () => {
+export const signInWithGoogle = async (rememberMe) => {
     try {
-        await setPersistence(firebaseAuth, browserSessionPersistence);
+        await setPersistence(firebaseAuth, rememberMe ? browserLocalPersistence : browserSessionPersistence);
         const result = await signInWithPopup(firebaseAuth, googleProvider);
         return {
             success: true,
@@ -44,9 +45,9 @@ export const signInWithGoogle = async () => {
 };
 
 // Sign in with GitHub functionality
-export const signInWithGithub = async () => {
+export const signInWithGithub = async (rememberMe) => {
     try {
-        await setPersistence(firebaseAuth, browserSessionPersistence);
+        await setPersistence(firebaseAuth, rememberMe ? browserLocalPersistence : browserSessionPersistence);
         const result = await signInWithPopup(firebaseAuth, githubProvider);
         return {
             success: true,
@@ -63,9 +64,9 @@ export const signInWithGithub = async () => {
 };
 
 // Sign in with Microsoft functionality
-export const signInWithMicrosoft = async () => {
+export const signInWithMicrosoft = async (rememberMe) => {
     try {
-        await setPersistence(firebaseAuth, browserSessionPersistence);
+        await setPersistence(firebaseAuth, rememberMe ? browserLocalPersistence : browserSessionPersistence);
         const result = await signInWithPopup(firebaseAuth, microsoftProvider);
         return {
             success: true,
@@ -82,9 +83,9 @@ export const signInWithMicrosoft = async () => {
 };
 
 // Sign in with email and password
-export async function signInWithCredentials(email, password) {
+export async function signInWithCredentials(rememberMe, email, password) {
     try {
-        await setPersistence(firebaseAuth, browserSessionPersistence);
+        await setPersistence(firebaseAuth, rememberMe ? browserLocalPersistence : browserSessionPersistence);
         const userCredential = await signInWithEmailAndPassword(
             firebaseAuth,
             email,
@@ -118,8 +119,9 @@ export const firebaseSignOut = async () => {
 };
 
 // Sign up with email and password
-export async function signUpWithCredentials(email, password) {
+export async function signUpWithCredentials(rememberMe, email, password) {
     try {
+        await setPersistence(firebaseAuth, rememberMe ? browserLocalPersistence : browserSessionPersistence);
         const userCredential = await createUserWithEmailAndPassword(firebaseAuth, email, password);
         return { success: true, user: userCredential.user, error: null };
     } catch (error) {

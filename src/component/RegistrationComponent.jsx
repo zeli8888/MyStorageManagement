@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { TextField, Button, Box, Typography } from '@mui/material';
 import { signUpWithCredentials } from '../service/firebase/auth';
-import SessionContext from './SessionProvider';
+import { SessionContext } from './SessionProvider';
+import { RememberMeCheckbox } from './utils';
 
 function RegistrationComponent() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { setSession } = React.useContext(SessionContext);
+  const { setSession, rememberMe, setRememberMe } = React.useContext(SessionContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -42,6 +43,7 @@ function RegistrationComponent() {
           fullWidth
           label="Email"
           type="email"
+          autoComplete="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           margin="normal"
@@ -51,6 +53,7 @@ function RegistrationComponent() {
           fullWidth
           label="Password"
           type="password"
+          autoComplete="new-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           margin="normal"
@@ -68,12 +71,29 @@ function RegistrationComponent() {
         >
           Create Account
         </Button>
-        <Typography sx={{
-          mt: { xs: 1, sm: 2 },
-          fontSize: { xs: '0.875rem', sm: '1rem' }
+        <Box sx={{
+          mt: 2,
+          display: 'flex',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: 1,
+          justifyContent: 'space-between'
         }}>
-          Already have an account? <Link to="/login">Sign In</Link>
-        </Typography>
+          <RememberMeCheckbox
+            rememberMe={rememberMe}
+            setRememberMe={setRememberMe}
+          />
+          <Typography variant="body2" sx={{
+            fontSize: { xs: '0.875rem', sm: '1rem' },
+            textAlign: { xs: 'left', sm: 'right' },
+            flexGrow: 1
+          }}>
+            Already have an account?{' '}
+            <Link to="/login">
+              Sign In
+            </Link>
+          </Typography>
+        </Box>
       </form>
     </Box>
   );
