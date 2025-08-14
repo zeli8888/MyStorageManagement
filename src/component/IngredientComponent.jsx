@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
@@ -16,7 +16,7 @@ import Grid from '@mui/material/Grid';
 const IngredientComponent = function () {
     const navigate = useNavigate();
     const [ingredients, setIngredients] = useState([]);
-    const { setAllIngredients } = React.useContext(FoodContext);
+    const { setAllIngredients } = useContext(FoodContext);
     const [ingredientUpdating, setIngredientUpdating] = useState();
     const [addingIngredient, setAddingIngredient] = useState(false);
     const [ingredientAlert, setIngredientAlert] = useState();

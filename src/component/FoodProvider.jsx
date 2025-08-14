@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import ingredientService from '../service/IngredientService'
 import dishService from '../service/DishService'
 
-export const FoodContext = React.createContext();  //exporting context object
+export const FoodContext = createContext();  //exporting context object
 
 const FoodProvider = ({ children }) => {
     const [allIngredients, setAllIngredients] = useState([]);

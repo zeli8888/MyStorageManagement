@@ -25,7 +25,6 @@ import { Stack } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { useTheme } from '@mui/material/styles';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import React from 'react';
 export function RememberMeCheckbox(props) {
     const theme = useTheme();
     const { rememberMe, setRememberMe, sx } = props;

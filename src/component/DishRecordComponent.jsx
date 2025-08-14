@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useContext, useState, useEffect, useMemo, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -34,7 +34,7 @@ import Alert from '@mui/material/Alert';
 import TablePagination from '@mui/material/TablePagination';
 const DishRecordComponent = function () {
     const navigate = useNavigate();
-    const { allIngredients, allDishes } = React.useContext(FoodContext);
+    const { allIngredients, allDishes } = useContext(FoodContext);
     const [dishRecords, setDishRecords] = useState([]);
     const [dishRecordUpdating, setDishRecordUpdating] = useState();
     const [ingredientsForDishRecord, setIngredientsForDishRecord] = useState([]);
@@ -50,7 +50,7 @@ const DishRecordComponent = function () {
     const [searchString, setSearchString] = useState('');
 
     // page set to 0 to use server-side pagination, won't slice the data
-    const visibleRows = React.useMemo(
+    const visibleRows = useMemo(
         () => getVisibleRows(dishRecords, order, orderBy, 0, rowsPerPage,
             (a, b, orderBy) => {
                 if (orderBy === 'dishName') {
@@ -130,7 +130,7 @@ const DishRecordComponent = function () {
         const isItemSelected = selected.includes(dishRecord.dishRecordId);
 
         return (
-            <React.Fragment>
+            <Fragment>
                 <TableRow
                     hover
                     onClick={() => setOpen(!open)}
@@ -198,7 +198,7 @@ const DishRecordComponent = function () {
                         </Collapse>
                     </TableCell>
                 </TableRow>
-            </React.Fragment>
+            </Fragment>
         );
     }
 

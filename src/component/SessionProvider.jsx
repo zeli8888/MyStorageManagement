@@ -1,14 +1,14 @@
-import * as React from 'react';
+import { createContext, useState, useEffect } from 'react';
 import { onAuthStateChanged } from '../service/firebase/auth';
 
-export const SessionContext = React.createContext();
+export const SessionContext = createContext();
 
 const SessionProvider = ({ children }) => {
-  const [session, setSession] = React.useState(null);
-  const [loading, setLoading] = React.useState(true);
-  const [rememberMe, setRememberMe] = React.useState(false);
+  const [session, setSession] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [rememberMe, setRememberMe] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     // Returns an `unsubscribe` function to be called during teardown
     const unsubscribe = onAuthStateChanged((user) => {
       if (user) {

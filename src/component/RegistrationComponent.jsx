@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { TextField, Button, Box, Typography } from '@mui/material';
 import { signUpWithCredentials } from '../service/firebase/auth';
@@ -9,7 +9,7 @@ function RegistrationComponent() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { setSession, rememberMe, setRememberMe } = React.useContext(SessionContext);
+  const { setSession, rememberMe, setRememberMe } = useContext(SessionContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {

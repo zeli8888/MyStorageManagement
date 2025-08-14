@@ -1,11 +1,11 @@
-import * as React from 'react';
+import { useContext } from 'react';
 import LinearProgress from '@mui/material/LinearProgress';
 import { Outlet, Navigate, useLocation } from 'react-router';
 import { SessionContext } from './SessionProvider';
 import FoodProvider from './FoodProvider';
 
 export default function SessionFilter() {
-    const { session, loading } = React.useContext(SessionContext);
+    const { session, loading } = useContext(SessionContext);
     const location = useLocation();
 
     if (loading) {

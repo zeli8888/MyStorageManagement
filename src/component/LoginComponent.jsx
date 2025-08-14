@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useContext } from 'react';
 import { SignInPage } from '@toolpad/core/SignInPage';
 import { Navigate, useNavigate, Link } from 'react-router';
 import { RememberMeCheckbox } from './utils';
@@ -11,7 +11,7 @@ import {
     signInWithCredentials,
 } from '../service/firebase/auth';
 export default function LoginComponent() {
-    const { session, setSession, loading, rememberMe, setRememberMe } = React.useContext(SessionContext);
+    const { session, setSession, loading, rememberMe, setRememberMe } = useContext(SessionContext);
     const navigate = useNavigate();
 
     if (loading) {

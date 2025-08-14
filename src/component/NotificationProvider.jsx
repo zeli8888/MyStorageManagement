@@ -1,7 +1,7 @@
 import { SnackbarProvider } from 'notistack';
 import { useSnackbar } from 'notistack';
 import notificationService from '../service/NotificationService';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 function InitializeNotificationService() {
     const { enqueueSnackbar } = useSnackbar();
     useEffect(() => {

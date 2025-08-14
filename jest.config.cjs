@@ -1,4 +1,4 @@
-export default {
+module.exports = {
     testEnvironment: 'jsdom',          // test environment
     roots: ['<rootDir>/src'],          // test root directory
     testMatch: [                       // match test files
@@ -7,13 +7,13 @@ export default {
     ],
     transform: {                       // test transform rules
         '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
-        '^.+\\.css$': '<rootDir>/src/__test__/cssTransform.js' // handle css
+        '^.+\\.css$': '<rootDir>/src/__test__/cssTransform.cjs' // handle css
     },
     moduleNameMapper: {                // module alias
         '^@/(.*)$': '<rootDir>/src/$1',
         '\\.(jpg|jpeg|png)$': 'identity-obj-proxy' // handle image
     },
-    setupFilesAfterEnv: ['<rootDir>/src/__test__/setupTests.js'], // test setup file
+    setupFilesAfterEnv: ['<rootDir>/src/__test__/setupTests.jsx'], // test setup file
     collectCoverage: true,             // test coverage
     collectCoverageFrom: [             // specify coverage range
         'src/**/*.{js,jsx,ts,tsx}',
