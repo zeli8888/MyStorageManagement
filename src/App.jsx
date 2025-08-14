@@ -18,7 +18,7 @@ import {
 } from './service/firebase/auth';
 import React from 'react';
 import { SessionContext } from './component/SessionProvider';
-const NAVIGATION = [
+export const NAVIGATION = [
   {
     segment: 'home',
     title: 'Home',
@@ -56,7 +56,7 @@ const NAVIGATION = [
 
 ];
 
-const demoTheme = createTheme({
+export const demoTheme = createTheme({
   colorSchemes: { light: true, dark: true },
   cssVariables: {
     colorSchemeSelector: 'class',
@@ -72,7 +72,7 @@ const demoTheme = createTheme({
   },
 });
 
-function SidebarFooter({ mini }) {
+export function SidebarFooter({ mini }) {
   return (
     <Typography
       variant="caption"
@@ -83,7 +83,7 @@ function SidebarFooter({ mini }) {
   );
 }
 
-function CustomAppTitle() {
+export function CustomAppTitle() {
   return (
     <Stack direction="row" alignItems="center" spacing={2}>
       <ManageAccountsSharpIcon fontSize="large" color="primary" />
@@ -96,7 +96,7 @@ function CustomAppTitle() {
   );
 }
 
-const AUTHENTICATION = {
+export const AUTHENTICATION = {
   signIn: signInWithGoogle,
   signOut: firebaseSignOut,
 };

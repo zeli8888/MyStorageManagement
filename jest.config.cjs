@@ -2,7 +2,7 @@ module.exports = {
     testEnvironment: 'jsdom',          // test environment
     roots: ['<rootDir>/src'],          // test root directory
     testMatch: [                       // match test files
-        '**/__tests__/**/*.+(ts|tsx|js)',
+        '**/__test__/**/*.+(ts|tsx|js)',
         '**/?(*.)+(spec|test).+(ts|tsx|js)'
     ],
     transform: {                       // test transform rules
