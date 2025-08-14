@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import RegistrationComponent from './component/RegistrationComponent';
 import ResetPasswordComponent from './component/ResetPasswordComponent';
 import SessionProvider from './component/SessionProvider';
+import NotificationProvider from './component/NotificationProvider';
 const router = createBrowserRouter([
   {
     Component: App, // root layout route
@@ -71,7 +72,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <SessionProvider>
-      <RouterProvider router={router} />
+      <NotificationProvider>
+        <RouterProvider router={router} />
+      </NotificationProvider>
     </SessionProvider>
   </React.StrictMode>,
 );

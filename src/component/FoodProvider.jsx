@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import IngredientService from '../service/IngredientService'
-import DishService from '../service/DishService'
+import ingredientService from '../service/IngredientService'
+import dishService from '../service/DishService'
 
 export const FoodContext = React.createContext();  //exporting context object
 
@@ -9,8 +9,8 @@ const FoodProvider = ({ children }) => {
     const [allDishes, setAllDishes] = useState([]);
 
     useEffect(() => {
-        IngredientService.getAllIngredients().then(response => { setAllIngredients(response.data) })
-        DishService.getAllDishes().then(response => { setAllDishes(response.data) })
+        ingredientService.getAllIngredients().then(response => { setAllIngredients(response.data) }).catch(error => { console.log(error) });
+        dishService.getAllDishes().then(response => { setAllDishes(response.data) }).catch(error => { console.log(error) });
     }, []);
 
     return (

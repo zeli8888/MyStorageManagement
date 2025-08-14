@@ -6,7 +6,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import DishRecordService from '../service/DishRecordService'
+import dishRecordService from '../service/DishRecordService'
 import { FoodContext } from './FoodProvider';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
@@ -74,7 +74,7 @@ const DishRecordComponent = function () {
     }, [navigate, page, rowsPerPage, searchString]);
 
     const refreshDishRecords = () => {
-        DishRecordService.searchDishRecords(searchString, page, rowsPerPage).then(response => {
+        dishRecordService.searchDishRecords(searchString, page, rowsPerPage).then(response => {
             setSelected([]);
             setDishRecords(response.data.content);
             setTotalElements(response.data.totalElements);
@@ -105,7 +105,7 @@ const DishRecordComponent = function () {
                 }))
         }
 
-        DishRecordService.updateDishRecord(dishRecordUpdating.dishRecordId, dishRecordIngredientDTO).then(response => {
+        dishRecordService.updateDishRecord(dishRecordUpdating.dishRecordId, dishRecordIngredientDTO).then(response => {
             closeDialog();
             refreshDishRecords();
             setDishRecordAlert({ severity: "success", message: "Dish Record updated successfully!" });
@@ -115,7 +115,7 @@ const DishRecordComponent = function () {
     }
 
     const deleteDishRecords = (dishRecordIds) => {
-        DishRecordService.deleteDishRecords(dishRecordIds).then(response => {
+        dishRecordService.deleteDishRecords(dishRecordIds).then(response => {
             setSelected([]);
             refreshDishRecords();
             setDishRecordAlert({ severity: "success", message: "Dish Records deleted successfully!" });

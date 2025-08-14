@@ -6,8 +6,8 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import DishService from '../service/DishService'
-import DishRecordService from '../service/DishRecordService'
+import dishService from '../service/DishService'
+import dishRecordService from '../service/DishRecordService'
 import { FoodContext } from './FoodProvider';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
@@ -59,7 +59,7 @@ const DishComponent = function () {
     }, [navigate]);
 
     const refreshDishes = () => {
-        DishService.getAllDishes().then(response => {
+        dishService.getAllDishes().then(response => {
             setDishes(response.data);
             setAllDishes(response.data);
         }).catch(error => {
@@ -68,7 +68,7 @@ const DishComponent = function () {
     }
 
     const searchDishes = (searchString) => {
-        DishService.searchDishes(searchString).then(response => {
+        dishService.searchDishes(searchString).then(response => {
             setDishes(response.data);
         }).catch(error => {
             console.log(error);
@@ -83,7 +83,7 @@ const DishComponent = function () {
     }
 
     const updateDish = (data) => {
-        DishService.updateDish(data.dishId, data).then(response => {
+        dishService.updateDish(data.dishId, data).then(response => {
             closeDialog();
             refreshDishes();
             setDishAlert({ severity: "success", message: "Dish " + data.dish.dishName + " updated successfully!" });
@@ -110,7 +110,7 @@ const DishComponent = function () {
             dishIngredientDTO["dishId"] = dishUpdating.dishId;
             return updateDish(dishIngredientDTO);
         }
-        DishService.addDish(dishIngredientDTO).then(response => {
+        dishService.addDish(dishIngredientDTO).then(response => {
             closeDialog();
             refreshDishes();
             setDishAlert({ severity: "success", message: "Dish " + data.dishName + " added successfully!" });
@@ -135,7 +135,7 @@ const DishComponent = function () {
                 }))
         }
 
-        DishRecordService.addDishRecord(dishRecordIngredientDTO).then(response => {
+        dishRecordService.addDishRecord(dishRecordIngredientDTO).then(response => {
             closeDialog();
             setDishAlert({ severity: "success", message: "Dish Record for " + data.dishName + " added successfully!" });
         }).catch(error => {
@@ -144,7 +144,7 @@ const DishComponent = function () {
     }
 
     const deleteDishes = (dishIds) => {
-        DishService.deleteDishes(dishIds).then(response => {
+        dishService.deleteDishes(dishIds).then(response => {
             setSelected([]);
             refreshDishes();
             setDishAlert({ severity: "success", message: "Dishes deleted successfully!" });

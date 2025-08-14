@@ -7,7 +7,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import IngredientService from '../service/IngredientService'
+import ingredientService from '../service/IngredientService'
 import { FoodContext } from './FoodProvider';
 import { DeletionConfirmationComponent, EnhancedTableToolbar } from './utils';
 import Alert from '@mui/material/Alert';
@@ -28,7 +28,7 @@ const IngredientComponent = function () {
     }, [navigate]);
 
     const refreshIngredients = () => {
-        IngredientService.getAllIngredients().then(response => {
+        ingredientService.getAllIngredients().then(response => {
             setIngredients(response.data);
             setAllIngredients(response.data);
         }).catch(error => {
@@ -37,7 +37,7 @@ const IngredientComponent = function () {
     }
 
     const searchIngredients = (searchText) => {
-        IngredientService.searchIngredients(searchText).then(response => {
+        ingredientService.searchIngredients(searchText).then(response => {
             setIngredients(response.data);
         }).catch(error => {
             console.log(error);
@@ -45,7 +45,7 @@ const IngredientComponent = function () {
     }
 
     const updateIngredient = (data) => {
-        IngredientService.updateIngredient(data.ingredientId, data).then(response => {
+        ingredientService.updateIngredient(data.ingredientId, data).then(response => {
             setIngredientUpdating();
             setAddingIngredient(false);
             refreshIngredients();
@@ -57,7 +57,7 @@ const IngredientComponent = function () {
 
     const addIngredient = (data) => {
         if (ingredientUpdating) return updateIngredient(data);
-        IngredientService.addIngredient(data).then(response => {
+        ingredientService.addIngredient(data).then(response => {
             setAddingIngredient(false);
             refreshIngredients();
             setIngredientAlert({ severity: "success", message: "Ingredient " + data.ingredientName + " added successfully!" });
@@ -67,7 +67,7 @@ const IngredientComponent = function () {
     }
 
     const deleteIngredients = (ingredientIds) => {
-        IngredientService.deleteIngredients(ingredientIds).then(response => {
+        ingredientService.deleteIngredients(ingredientIds).then(response => {
             refreshIngredients();
             setIngredientAlert({ severity: "success", message: "Ingredients deleted successfully!" });
         }).catch(error => {
