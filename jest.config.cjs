@@ -11,9 +11,11 @@ module.exports = {
     },
     moduleNameMapper: {                // module alias
         '^@/(.*)$': '<rootDir>/src/$1',
-        '\\.(jpg|jpeg|png)$': 'identity-obj-proxy', // handle image
-        '@emotion/react': '@emotion/jest/preset' // handle emotion from MUI
+        '\\.(jpg|jpeg|png)$': 'identity-obj-proxy' // handle image
     },
+    snapshotSerializers: [
+        '@emotion/jest/serializer' // handle emotion model transform from MUI
+    ],
     setupFilesAfterEnv: ['<rootDir>/src/__test__/setupTests.jsx'], // test setup file
     collectCoverage: true,             // test coverage
     collectCoverageFrom: [             // specify coverage range
