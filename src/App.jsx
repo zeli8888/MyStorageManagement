@@ -16,7 +16,7 @@ import {
   firebaseSignOut,
   signInWithGoogle,
 } from './service/firebase/auth';
-import React from 'react';
+import { useContext } from 'react';
 import { SessionContext } from './component/SessionProvider';
 export const NAVIGATION = [
   {
@@ -102,7 +102,7 @@ export const AUTHENTICATION = {
 };
 
 function App() {
-  const { session } = React.useContext(SessionContext);
+  const { session } = useContext(SessionContext);
 
   return (
     <ReactRouterAppProvider
