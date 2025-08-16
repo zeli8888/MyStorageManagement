@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, cleanup } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import { describe, test, expect, vi } from 'vitest'
+import { describe, test, expect, vi, afterEach } from 'vitest'
 import { SessionContext } from '../component/SessionProvider'
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { ReactRouterAppProvider } from '@toolpad/core/react-router';
@@ -28,6 +28,7 @@ describe('App Component', () => {
     DashboardLayout.mockClear()
     ReactRouterAppProvider.mockClear()
   })
+  afterEach(cleanup)
 
   test('should render core providers and layout', () => {
     render(<App />, { wrapper: Wrapper })

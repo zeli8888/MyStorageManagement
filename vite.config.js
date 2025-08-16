@@ -14,7 +14,10 @@ export default defineConfig({
         environment: 'jsdom',
         globals: true,
         coverage: {
-            provider: 'c8'
+            provider: 'v8',
+            exclude: [
+                '**/index.jsx'
+            ]
         },
         setupFiles: './src/__test__/setupTests.js',
         server: {
