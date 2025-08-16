@@ -75,7 +75,7 @@ export default function LoginComponent() {
                     return { error: result?.error || 'Failed to sign in' };
                 } catch (error) {
                     return {
-                        error: error instanceof Error ? error.message : 'An error occurred',
+                        error: error.message
                     };
                 }
             }}

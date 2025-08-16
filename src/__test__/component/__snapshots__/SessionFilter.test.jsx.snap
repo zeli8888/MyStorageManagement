@@ -1,0 +1,36 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`../../component/SessionFilter > should match snapshot when authenticated 1`] = `
+<div>
+  <div />
+</div>
+`;
+
+exports[`../../component/SessionFilter > should match snapshot when loading 1`] = `
+<div>
+  <div
+    style="width: 100%;"
+  >
+    <span
+      class="MuiLinearProgress-root MuiLinearProgress-colorPrimary MuiLinearProgress-indeterminate css-1txyin7-MuiLinearProgress-root"
+      role="progressbar"
+    >
+      <span
+        class="MuiLinearProgress-bar MuiLinearProgress-bar1 MuiLinearProgress-barColorPrimary MuiLinearProgress-bar1Indeterminate css-lcqqge-MuiLinearProgress-bar1"
+      />
+      <span
+        class="MuiLinearProgress-bar MuiLinearProgress-bar2 MuiLinearProgress-barColorPrimary MuiLinearProgress-bar2Indeterminate css-lfb3c7-MuiLinearProgress-bar2"
+      />
+    </span>
+  </div>
+</div>
+`;
+
+exports[`../../component/SessionFilter > should match snapshot when not authenticated 1`] = `
+<div>
+  <div
+    data-testid="navigate"
+    data-to="/login?callbackUrl=%2Fprotected-route"
+  />
+</div>
+`;

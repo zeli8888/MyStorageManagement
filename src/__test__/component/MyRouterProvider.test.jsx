@@ -1,7 +1,7 @@
 // MyRouterProvider.test.tsx
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import { createBrowserRouter, RouterProvider, MemoryRouter } from 'react-router-dom';
+import { render } from '@testing-library/react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import MyRouterProvider from '../../component/MyRouterProvider';
 import '@testing-library/jest-dom/vitest'
 
