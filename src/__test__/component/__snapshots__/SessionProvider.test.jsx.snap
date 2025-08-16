@@ -1,0 +1,18 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SessionProvider > Initial loading state 1`] = `
+<DocumentFragment>
+  <div>
+    <span
+      data-testid="session"
+    >
+      null
+    </span>
+    <span
+      data-testid="loading"
+    >
+      true
+    </span>
+  </div>
+</DocumentFragment>
+`;

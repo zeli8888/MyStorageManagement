@@ -3,6 +3,7 @@ import { vi, describe, expect, test, beforeEach, afterEach } from 'vitest'
 import SessionProvider, { SessionContext } from '../../component/SessionProvider'
 import { onAuthStateChanged } from '../../service/firebase/auth'
 import '@testing-library/jest-dom/vitest'
+import { act } from 'react'
 
 // Mock Firebase auth module
 vi.mock('../../service/firebase/auth', () => ({
@@ -38,11 +39,12 @@ describe('SessionProvider', () => {
     }
 
     test('Initial loading state', async () => {
-        render(
+        const { asFragment } = render(
             <SessionProvider>
                 <TestConsumer />
             </SessionProvider>
         )
+        expect(asFragment()).toMatchSnapshot()
         expect(screen.getByTestId('loading')).toHaveTextContent('true')
     })
 
@@ -58,7 +60,9 @@ describe('SessionProvider', () => {
             email: 'john@example.com',
             photoURL: 'https://example.com/avatar.jpg'
         }
-        window.__firebaseAuthCallback(mockUser)
+        act(() => {
+            window.__firebaseAuthCallback(mockUser)
+        })
         await waitFor(() => {
             const session = JSON.parse(screen.getByTestId('session').textContent)
             expect(session).toEqual({
@@ -79,7 +83,9 @@ describe('SessionProvider', () => {
             </SessionProvider>
         )
         // Trigger unauthenticated state
-        window.__firebaseAuthCallback(null)
+        act(() => {
+            window.__firebaseAuthCallback(null)
+        })
         await waitFor(() => {
             const session = JSON.parse(screen.getByTestId('session').textContent)
             expect(session).toBeNull()
@@ -99,7 +105,9 @@ describe('SessionProvider', () => {
             email: null,
             photoURL: null
         }
-        window.__firebaseAuthCallback(mockUser)
+        act(() => {
+            window.__firebaseAuthCallback(mockUser)
+        })
         await waitFor(() => {
             const session = JSON.parse(screen.getByTestId('session').textContent)
             expect(session).toEqual({
@@ -142,7 +150,9 @@ describe('SessionProvider', () => {
         )
         // Test if setSession works
         const mockSession = { user: { name: 'Test User2' } }
-        capturedSetSession(mockSession)
+        act(() => {
+            capturedSetSession(mockSession)
+        })
         await waitFor(() => {
             const session = JSON.parse(screen.getByTestId('session').textContent)
             expect(session).toEqual(mockSession)

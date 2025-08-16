@@ -31,7 +31,8 @@ describe('App Component', () => {
   afterEach(cleanup)
 
   test('should render core providers and layout', () => {
-    render(<App />, { wrapper: Wrapper })
+    const { asFragment } = render(<App />, { wrapper: Wrapper })
+    expect(asFragment()).toMatchSnapshot()
 
     // verify ReactRouterAppProvider is called
     expect(ReactRouterAppProvider.mock.calls[0][0]).toEqual(

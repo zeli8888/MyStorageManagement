@@ -33,11 +33,12 @@ describe('NotificationProvider Component Tests', () => {
     afterEach(cleanup)
 
     test('should render SnackbarProvider with correct props', () => {
-        render(
+        const { asFragment } = render(
             <NotificationProvider>
                 <MockChild />
             </NotificationProvider>
         )
+        expect(asFragment()).toMatchSnapshot()
 
         // Verify SnackbarProvider receives correct props
         expect(SnackbarProvider.mock.calls[0][0]).toEqual(

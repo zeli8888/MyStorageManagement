@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`MyRouterProvider Component > should create router with correct configuration 1`] = `
+<DocumentFragment>
+  <div>
+    RouterProvider
+  </div>
+</DocumentFragment>
+`;

@@ -28,7 +28,8 @@ describe('MyRouterProvider Component', () => {
         const mockRouter = {};
         createBrowserRouter.mockReturnValue(mockRouter);
 
-        render(<MyRouterProvider />);
+        const { asFragment } = render(<MyRouterProvider />);
+        expect(asFragment()).toMatchSnapshot();
 
         expect(createBrowserRouter).toHaveBeenCalledWith(
             expect.anything(),

@@ -1,0 +1,628 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`App Component > should render core providers and layout 1`] = `
+<DocumentFragment>
+  <script
+    nonce=""
+  >
+    (function() {
+try {
+  let colorScheme = '';
+  const mode = localStorage.getItem('toolpad-mode') || 'system';
+  const dark = localStorage.getItem('toolpad-color-scheme-dark') || 'dark';
+  const light = localStorage.getItem('toolpad-color-scheme-light') || 'light';
+  if (mode === 'system') {
+    // handle system mode
+    const mql = window.matchMedia('(prefers-color-scheme: dark)');
+    if (mql.matches) {
+      colorScheme = dark
+    } else {
+      colorScheme = light
+    }
+  }
+  if (mode === 'light') {
+    colorScheme = light;
+  }
+  if (mode === 'dark') {
+    colorScheme = dark;
+  }
+  if (colorScheme) {
+    document.documentElement.classList.remove('%s'.replace('%s', light), '%s'.replace('%s', dark));
+      document.documentElement.classList.add('%s'.replace('%s', colorScheme));document.documentElement.setAttribute('.%s', colorScheme);
+  }
+} catch(e){}})();
+  </script>
+  <div
+    class="MuiBox-root css-t3xolk"
+  >
+    <header
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorInherit MuiAppBar-positionAbsolute css-gr4hu4-MuiPaper-root-MuiAppBar-root"
+      style="--Paper-shadow: var(--mui-shadows-4); --Paper-overlay: var(--mui-overlays-4);"
+    >
+      <div
+        class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-1yqdigs-MuiToolbar-root"
+      >
+        <div
+          class="MuiStack-root css-ua372z-MuiStack-root"
+        >
+          <div
+            class="MuiStack-root css-m69qwo-MuiStack-root"
+          >
+            <div
+              class="MuiBox-root css-9cb9u5"
+            >
+              <div
+                aria-label="Expand menu"
+                class=""
+                data-mui-internal-clone-element="true"
+              >
+                <button
+                  aria-label="Expand navigation menu"
+                  class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-5lzt0n-MuiButtonBase-root-MuiIconButton-root"
+                  tabindex="0"
+                  type="button"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-4uxqju-MuiSvgIcon-root"
+                    data-testid="MenuIcon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M3 18h18v-2H3zm0-5h18v-2H3zm0-7v2h18V6z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div
+              class="MuiBox-root css-11ihgbh"
+            >
+              <div
+                aria-label="Expand menu"
+                class=""
+                data-mui-internal-clone-element="true"
+              >
+                <button
+                  aria-label="Expand navigation menu"
+                  class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-5lzt0n-MuiButtonBase-root-MuiIconButton-root"
+                  tabindex="0"
+                  type="button"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-4uxqju-MuiSvgIcon-root"
+                    data-testid="MenuIcon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M3 18h18v-2H3zm0-5h18v-2H3zm0-7v2h18V6z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div
+              class="MuiStack-root css-d4hc6z-MuiStack-root"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeLarge css-1dw4v1r-MuiSvgIcon-root"
+                data-testid="ManageAccountsSharpIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M10.67 13.02c-.22-.01-.44-.02-.67-.02-2.42 0-4.68.67-6.61 1.82-.88.52-1.39 1.5-1.39 2.53V20h9.26c-.79-1.13-1.26-2.51-1.26-4 0-1.07.25-2.07.67-2.98"
+                />
+                <circle
+                  cx="10"
+                  cy="8"
+                  r="4"
+                />
+                <path
+                  d="M20.75 16c0-.22-.03-.42-.06-.63l1.14-1.01-1-1.73-1.45.49q-.48-.405-1.08-.63L18 11h-2l-.3 1.49q-.6.225-1.08.63l-1.45-.49-1 1.73 1.14 1.01c-.03.21-.06.41-.06.63s.03.42.06.63l-1.14 1.01 1 1.73 1.45-.49q.48.405 1.08.63L16 21h2l.3-1.49q.6-.225 1.08-.63l1.45.49 1-1.73-1.14-1.01c.03-.21.06-.41.06-.63M17 18c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2"
+                />
+              </svg>
+              <h6
+                class="MuiTypography-root MuiTypography-h6 css-1miy0lu-MuiTypography-root"
+              >
+                Storage Management App
+              </h6>
+              <div
+                class="MuiChip-root MuiChip-filled MuiChip-sizeSmall MuiChip-colorInfo MuiChip-filledInfo css-1pbngbm-MuiChip-root"
+              >
+                <span
+                  class="MuiChip-label MuiChip-labelSmall css-eccknh-MuiChip-label"
+                >
+                  BETA
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="MuiStack-root css-1faxzrb-MuiStack-root"
+          >
+            <div
+              class="MuiStack-root css-1d9cypr-MuiStack-root"
+            >
+              <div
+                aria-label="Dark mode"
+                class=""
+                data-mui-internal-clone-element="true"
+              >
+                <button
+                  aria-label="Switch to dark mode"
+                  class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-1dxo9r8-MuiButtonBase-root-MuiIconButton-root"
+                  tabindex="0"
+                  type="button"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-r11f8c-MuiSvgIcon-root"
+                    data-testid="DarkModeIcon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1"
+                    />
+                  </svg>
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-ekxu3o-MuiSvgIcon-root"
+                    data-testid="LightModeIcon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5M2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1m18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1M11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1m0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1M5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0z"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div
+                aria-label="Test User"
+                class="MuiStack-root css-urj3m2-MuiStack-root"
+                data-mui-internal-clone-element="true"
+              >
+                <button
+                  aria-haspopup="true"
+                  aria-label="Current User"
+                  class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall css-dqwtaq-MuiButtonBase-root-MuiIconButton-root"
+                  tabindex="0"
+                  type="button"
+                >
+                  <div
+                    class="MuiAvatar-root MuiAvatar-circular css-1xvkcqh-MuiAvatar-root"
+                  >
+                    <img
+                      alt="Test User"
+                      class="MuiAvatar-img css-1su80sj-MuiAvatar-img"
+                      src="https://example.com/avatar.jpg"
+                    />
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div
+      class="MuiDrawer-root MuiDrawer-anchorLeft MuiDrawer-docked css-of2ba0-MuiDrawer-docked"
+    >
+      <div
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation0 MuiDrawer-paper MuiDrawer-paperAnchorLeft MuiDrawer-paperAnchorDockedLeft css-oc2eyy-MuiPaper-root-MuiDrawer-paper"
+        style="--Paper-shadow: var(--mui-shadows-0); --Paper-overlay: var(--mui-overlays-0);"
+      >
+        <div
+          class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-1bmc26r-MuiToolbar-root"
+        />
+        <nav
+          aria-label="Tablet"
+          class="MuiBox-root css-1ifpvgc"
+        >
+          <ul
+            class="MuiList-root MuiList-padding css-1ctlfey-MuiList-root"
+          >
+            <li
+              class="MuiListItem-root MuiListItem-gutters MuiListItem-padding css-5s5fu8-MuiListItem-root"
+            >
+              <a
+                class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters css-1f82vtb-MuiButtonBase-root-MuiListItemButton-root"
+                data-discover="true"
+                href="/home"
+                tabindex="0"
+              >
+                <div
+                  class="MuiBox-root css-1yqiwhg"
+                >
+                  <div
+                    class="MuiListItemIcon-root css-12zuami-MuiListItemIcon-root"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-4uxqju-MuiSvgIcon-root"
+                      data-testid="HomeIcon"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"
+                      />
+                    </svg>
+                  </div>
+                  <span
+                    class="MuiTypography-root MuiTypography-caption css-s1yw7d-MuiTypography-root"
+                  >
+                    Home
+                  </span>
+                </div>
+              </a>
+            </li>
+            <li
+              class="MuiListSubheader-root MuiListSubheader-gutters MuiListSubheader-sticky css-1vnjtkw-MuiListSubheader-root"
+            >
+              Storage Tracker
+            </li>
+            <li
+              class="MuiListItem-root MuiListItem-gutters MuiListItem-padding css-5s5fu8-MuiListItem-root"
+            >
+              <div
+                class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters css-1f82vtb-MuiButtonBase-root-MuiListItemButton-root"
+                role="button"
+                tabindex="0"
+              >
+                <div
+                  class="MuiBox-root css-1yqiwhg"
+                >
+                  <div
+                    class="MuiListItemIcon-root css-12zuami-MuiListItemIcon-root"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-4uxqju-MuiSvgIcon-root"
+                      data-testid="FlatwareSharpIcon"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M16 7.08c0 1.77-.84 3.25-2 3.82V21h-2V10.9c-1.16-.57-2-2.05-2-3.82C10.01 4.83 11.35 3 13 3c1.66 0 3 1.83 3 4.08M17 3v18h2v-8h2V7c0-1.76-1.24-4-4-4M8.28 3h-.72v4h-.84V3H5.28v4h-.84V3H3v8h2v10h2V11h2V3z"
+                      />
+                    </svg>
+                  </div>
+                  <span
+                    class="MuiTypography-root MuiTypography-caption css-s1yw7d-MuiTypography-root"
+                  >
+                    Food Storage
+                  </span>
+                </div>
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-16e4lac-MuiSvgIcon-root"
+                  data-testid="ExpandMoreIcon"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                  />
+                </svg>
+              </div>
+              <div
+                class="MuiBox-root css-1njlo2q"
+                style="opacity: 0; transform: scale(0.75, 0.5625); visibility: hidden;"
+              >
+                <div
+                  class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-8ricol-MuiPaper-root"
+                  style="--Paper-shadow: var(--mui-shadows-1); --Paper-overlay: var(--mui-overlays-1);"
+                >
+                  <ul
+                    class="MuiList-root MuiList-padding css-11irytq-MuiList-root"
+                  >
+                    <li
+                      class="MuiListItem-root MuiListItem-gutters MuiListItem-padding css-5s5fu8-MuiListItem-root"
+                    >
+                      <a
+                        class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters css-beasn0-MuiButtonBase-root-MuiListItemButton-root"
+                        data-discover="true"
+                        href="/foodstorage/ingredients"
+                        tabindex="0"
+                      >
+                        <div
+                          class="MuiBox-root css-0"
+                        >
+                          <div
+                            class="MuiListItemIcon-root css-12zuami-MuiListItemIcon-root"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-4uxqju-MuiSvgIcon-root"
+                              data-testid="GrassIcon"
+                              focusable="false"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                d="M12 20H2v-2h5.75c-.73-2.81-2.94-5.01-5.75-5.74.64-.16 1.31-.26 2-.26 4.42 0 8 3.58 8 8m10-7.74c-.64-.16-1.31-.26-2-.26-2.93 0-5.48 1.58-6.88 3.93.29.66.53 1.35.67 2.07.13.65.2 1.32.2 2h8v-2h-5.75c.74-2.81 2.95-5.01 5.76-5.74m-6.36-1.24c.78-2.09 2.23-3.84 4.09-5C15.44 6.16 12 9.67 12 14v.02c.95-1.27 2.2-2.3 3.64-3m-4.22-2.17C10.58 6.66 8.88 4.89 6.7 4 8.14 5.86 9 8.18 9 10.71c0 .21-.03.41-.04.61.43.24.83.52 1.22.82.21-1.18.65-2.29 1.24-3.29"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                        <div
+                          class="MuiListItemText-root css-47n8y9-MuiListItemText-root"
+                        >
+                          <span
+                            class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-rizt0-MuiTypography-root"
+                          >
+                            Ingredients
+                          </span>
+                        </div>
+                      </a>
+                    </li>
+                    <li
+                      class="MuiListItem-root MuiListItem-gutters MuiListItem-padding css-5s5fu8-MuiListItem-root"
+                    >
+                      <a
+                        class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters css-beasn0-MuiButtonBase-root-MuiListItemButton-root"
+                        data-discover="true"
+                        href="/foodstorage/dishes"
+                        tabindex="0"
+                      >
+                        <div
+                          class="MuiBox-root css-0"
+                        >
+                          <div
+                            class="MuiListItemIcon-root css-12zuami-MuiListItemIcon-root"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-4uxqju-MuiSvgIcon-root"
+                              data-testid="DinnerDiningIcon"
+                              focusable="false"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                d="M2 19h20l-2 2H4zM5 6h1v1H5zm0-2h1v1H5zm4 0v1H7V4zm0 3H7V6h2zm-3 8.23c-.36.11-.69.28-1 .47V8h1zm-2 1.29c-.38.44-.68.93-.84 1.48h16.82c.01-.16.03-.33.03-.5 0-3.04-2.46-5.5-5.5-5.5-2.29 0-4.25 1.4-5.08 3.4-.59-.25-1.24-.4-1.93-.4-.17 0-.33.02-.5.04V8h2c1.03.06 1.9-.96 2-2h10V5H11c-.1-1.05-.97-1.97-2-2H3v1h1v1H3v1h1v1H3v1h1z"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                        <div
+                          class="MuiListItemText-root css-47n8y9-MuiListItemText-root"
+                        >
+                          <span
+                            class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-rizt0-MuiTypography-root"
+                          >
+                            Dishes
+                          </span>
+                        </div>
+                      </a>
+                    </li>
+                    <li
+                      class="MuiListItem-root MuiListItem-gutters MuiListItem-padding css-5s5fu8-MuiListItem-root"
+                    >
+                      <a
+                        class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters css-beasn0-MuiButtonBase-root-MuiListItemButton-root"
+                        data-discover="true"
+                        href="/foodstorage/dishrecords"
+                        tabindex="0"
+                      >
+                        <div
+                          class="MuiBox-root css-0"
+                        >
+                          <div
+                            class="MuiListItemIcon-root css-12zuami-MuiListItemIcon-root"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-4uxqju-MuiSvgIcon-root"
+                              data-testid="FormatListBulletedIcon"
+                              focusable="false"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5m0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5m0 12c-.83 0-1.5.68-1.5 1.5s.68 1.5 1.5 1.5 1.5-.68 1.5-1.5-.67-1.5-1.5-1.5M7 19h14v-2H7zm0-6h14v-2H7zm0-8v2h14V5z"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                        <div
+                          class="MuiListItemText-root css-47n8y9-MuiListItemText-root"
+                        >
+                          <span
+                            class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-rizt0-MuiTypography-root"
+                          >
+                            Dish Records
+                          </span>
+                        </div>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li>
+              <hr
+                class="MuiDivider-root MuiDivider-fullWidth css-1v9irfx-MuiDivider-root"
+              />
+            </li>
+          </ul>
+          <span
+            class="MuiTypography-root MuiTypography-caption css-17umxpf-MuiTypography-root"
+          >
+            © Ze
+          </span>
+        </nav>
+      </div>
+    </div>
+    <div
+      class="MuiDrawer-root MuiDrawer-anchorLeft MuiDrawer-docked css-127af6x-MuiDrawer-docked"
+    >
+      <div
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation0 MuiDrawer-paper MuiDrawer-paperAnchorLeft MuiDrawer-paperAnchorDockedLeft css-oc2eyy-MuiPaper-root-MuiDrawer-paper"
+        style="--Paper-shadow: var(--mui-shadows-0); --Paper-overlay: var(--mui-overlays-0);"
+      >
+        <div
+          class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-1bmc26r-MuiToolbar-root"
+        />
+        <nav
+          aria-label="Desktop"
+          class="MuiBox-root css-1tkx21v"
+        >
+          <ul
+            class="MuiList-root MuiList-padding css-1ecfr0c-MuiList-root"
+          >
+            <li
+              class="MuiListItem-root MuiListItem-gutters MuiListItem-padding css-5s5fu8-MuiListItem-root"
+            >
+              <a
+                class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters css-beasn0-MuiButtonBase-root-MuiListItemButton-root"
+                data-discover="true"
+                href="/home"
+                tabindex="0"
+              >
+                <div
+                  class="MuiBox-root css-0"
+                >
+                  <div
+                    class="MuiListItemIcon-root css-12zuami-MuiListItemIcon-root"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-4uxqju-MuiSvgIcon-root"
+                      data-testid="HomeIcon"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div
+                  class="MuiListItemText-root css-47n8y9-MuiListItemText-root"
+                >
+                  <span
+                    class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-rizt0-MuiTypography-root"
+                  >
+                    Home
+                  </span>
+                </div>
+              </a>
+            </li>
+            <li
+              class="MuiListSubheader-root MuiListSubheader-gutters MuiListSubheader-sticky css-9n6tfv-MuiListSubheader-root"
+            >
+              Storage Tracker
+            </li>
+            <li
+              class="MuiListItem-root MuiListItem-gutters MuiListItem-padding css-5s5fu8-MuiListItem-root"
+            >
+              <div
+                class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters css-beasn0-MuiButtonBase-root-MuiListItemButton-root"
+                role="button"
+                tabindex="0"
+              >
+                <div
+                  class="MuiBox-root css-0"
+                >
+                  <div
+                    class="MuiListItemIcon-root css-12zuami-MuiListItemIcon-root"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-4uxqju-MuiSvgIcon-root"
+                      data-testid="FlatwareSharpIcon"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M16 7.08c0 1.77-.84 3.25-2 3.82V21h-2V10.9c-1.16-.57-2-2.05-2-3.82C10.01 4.83 11.35 3 13 3c1.66 0 3 1.83 3 4.08M17 3v18h2v-8h2V7c0-1.76-1.24-4-4-4M8.28 3h-.72v4h-.84V3H5.28v4h-.84V3H3v8h2v10h2V11h2V3z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div
+                  class="MuiListItemText-root css-47n8y9-MuiListItemText-root"
+                >
+                  <span
+                    class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-rizt0-MuiTypography-root"
+                  >
+                    Food Storage
+                  </span>
+                </div>
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-2h7b9q-MuiSvgIcon-root"
+                  data-testid="ExpandMoreIcon"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                  />
+                </svg>
+              </div>
+            </li>
+            <li>
+              <hr
+                class="MuiDivider-root MuiDivider-fullWidth css-1v9irfx-MuiDivider-root"
+              />
+            </li>
+          </ul>
+          <span
+            class="MuiTypography-root MuiTypography-caption css-17umxpf-MuiTypography-root"
+          >
+            © 2025 Made with love by Ze Li
+          </span>
+        </nav>
+      </div>
+    </div>
+    <div
+      class="MuiBox-root css-11dfn0q"
+    >
+      <div
+        class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-175hjyd-MuiToolbar-root"
+      />
+      <main
+        class="MuiBox-root css-23htwk"
+      >
+        <div
+          class="MuiContainer-root MuiContainer-maxWidthLg css-8dyk8f-MuiContainer-root"
+        >
+          <div
+            class="MuiStack-root css-q8qkca-MuiStack-root"
+          >
+            <div
+              class="MuiStack-root css-nen11g-MuiStack-root"
+            >
+              <nav
+                aria-label="breadcrumb"
+                class="MuiTypography-root MuiTypography-body1 MuiBreadcrumbs-root css-9wyelp-MuiTypography-root-MuiBreadcrumbs-root"
+              >
+                <ol
+                  class="MuiBreadcrumbs-ol css-1uwp4ue-MuiBreadcrumbs-ol"
+                />
+              </nav>
+              <div
+                class="css-lc31tn"
+              >
+                <div
+                  class="css-1yx7255"
+                />
+              </div>
+            </div>
+            <div
+              class="MuiBox-root css-k0sogd"
+            />
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</DocumentFragment>
+`;
