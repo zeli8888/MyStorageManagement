@@ -16,7 +16,9 @@ export default defineConfig({
         coverage: {
             provider: 'v8',
             exclude: [
-                '**/index.jsx'
+                '**/index.jsx',
+                '**/setupTests.js',
+                '**/vite.config.js'
             ]
         },
         setupFiles: './src/__test__/setupTests.js',

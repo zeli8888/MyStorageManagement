@@ -164,7 +164,7 @@ describe('LoginComponent', () => {
             </MemoryRouter>
         );
 
-        act(() => {
+        await act(async () => {
             fireEvent.click(screen.getByText('Google'));
         })
 
@@ -199,7 +199,7 @@ describe('LoginComponent', () => {
             </MemoryRouter>
         );
 
-        act(() => {
+        await act(async () => {
             fireEvent.click(screen.getByText('GitHub'));
         })
 
@@ -227,7 +227,9 @@ describe('LoginComponent', () => {
             </MemoryRouter>
         );
 
-        fireEvent.click(screen.getByText('GitHub'));
+        await act(async () => {
+            fireEvent.click(screen.getByText('GitHub'));
+        })
 
         await vi.waitFor(() => {
             expect(signInWithGithub).toHaveBeenCalledWith(false);
@@ -250,7 +252,9 @@ describe('LoginComponent', () => {
             </MemoryRouter>
         );
 
-        fireEvent.click(screen.getByText('GitHub'));
+        await act(async () => {
+            fireEvent.click(screen.getByText('GitHub'));
+        })
 
         await vi.waitFor(() => {
             expect(signInWithGithub).toHaveBeenCalledWith(false);
@@ -277,7 +281,7 @@ describe('LoginComponent', () => {
             </MemoryRouter>
         );
 
-        act(() => {
+        await act(async () => {
             fireEvent.change(screen.getByTestId('email-input'), {
                 target: { value: 'test@example.com' }
             });

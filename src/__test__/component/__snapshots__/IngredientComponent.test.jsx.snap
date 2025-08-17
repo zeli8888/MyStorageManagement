@@ -1,0 +1,72 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`IngredientComponent Integration Tests > initial render matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiBox-root css-i9gxme"
+  >
+    <div
+      class="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-row css-d64g0g-MuiGrid-root"
+    >
+      <div
+        class="MuiGrid-root MuiGrid-direction-xs-row MuiGrid-grid-xs-12 css-yqiqnf-MuiGrid-root"
+      />
+      <div
+        class="MuiGrid-root MuiGrid-direction-xs-row MuiGrid-grid-xs-12 css-yqiqnf-MuiGrid-root"
+      >
+        <div>
+          Ingredients
+          <input
+            data-testid="search-input"
+          />
+          <button
+            data-testid="delete-button"
+          >
+            Delete
+          </button>
+          <button
+            data-testid="update-button"
+          >
+            Update
+          </button>
+        </div>
+      </div>
+      <div
+        class="MuiGrid-root MuiGrid-direction-xs-row MuiGrid-grid-xs-12 css-yqiqnf-MuiGrid-root"
+      >
+        <div
+          data-testid="datagrid"
+        >
+          <div>
+            Test Ingredient
+          </div>
+          <button
+            data-testid="select-row"
+          >
+            Select Row
+          </button>
+        </div>
+      </div>
+      <button
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSuccess MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorSuccess MuiButton-root MuiButton-contained MuiButton-containedSuccess MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorSuccess css-qlt66a-MuiButtonBase-root-MuiButton-root"
+        tabindex="0"
+        type="button"
+      >
+        New Ingredient
+      </button>
+    </div>
+    <div>
+      <button
+        data-testid="confirm-delete"
+      >
+        Confirm
+      </button>
+      <button
+        data-testid="cancel-delete"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
