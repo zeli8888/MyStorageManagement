@@ -1,4 +1,4 @@
-import baseApi from './BaseApi';
+import baseApi from './baseApi';
 
 class DishService {
     getAllDishes() {

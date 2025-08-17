@@ -125,7 +125,7 @@ export async function signUpWithCredentials(rememberMe, email, password) {
         const userCredential = await createUserWithEmailAndPassword(firebaseAuth, email, password);
         return { success: true, user: userCredential.user, error: null };
     } catch (error) {
-        return { success: false, user: null, error: error instanceof Error ? error.message : "Registration failed" };
+        return { success: false, user: null, error: error.message || "Registration failed" };
     }
 }
 
@@ -135,7 +135,7 @@ export async function sendPasswordReset(email) {
         await sendPasswordResetEmail(firebaseAuth, email);
         return { success: true };
     } catch (error) {
-        return { success: false, error: error instanceof Error ? error.message : "Password reset failed" };
+        return { success: false, error: error.message || "Password reset failed" };
     }
 }
 
