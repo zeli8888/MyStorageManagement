@@ -13,7 +13,7 @@ pipeline {
           sh """
             docker run --rm \
               --name storage-management-frontend \
-              -v ${PWD}:/app \
+              -v ${WORKSPACE}:/app \
               -w /app \
               ${DOCKER_IMAGE} \
               sh -c 'npm install && npm run test && npm run build'
@@ -27,7 +27,7 @@ pipeline {
         script {
           sh "mkdir -p ${HOST_TARGET_DIR}"
           
-          sh "cp -rf ${PWD}/dist/* ${HOST_TARGET_DIR}/"
+          sh "cp -rf ${WORKSPACE}/dist/* ${HOST_TARGET_DIR}/"
         }
       }
     }
