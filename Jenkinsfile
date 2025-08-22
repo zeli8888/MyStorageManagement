@@ -1,32 +1,39 @@
-pipeline{
-
+pipeline {
   agent any
   environment {
     version = '1.0'
-  }
-
-  tools {
-    nodejs "NodeJS24" // Reference the NodeJS installation
+    DOCKER_IMAGE = "node:20.17.0"
+    HOST_TARGET_DIR = "/home/ubuntu/zeli8888/storage-management/frontend"
   }
   
-  stages{
-    stage('Test'){
-        steps{
-            sh 'npm install'
-            sh 'npm run test'
+  stages {
+    stage('Test and Build') {
+      steps {
+        script {
+          sh """
+            docker run --rm \
+              --name storage-management-frontend \
+              -v ${WORKSPACE}:/app \
+              -w /app \
+              ${DOCKER_IMAGE} \
+              sh -c 'npm install && npm run test && npm run build'
+          """
         }
-    }
-
-    stage('Build'){
-      steps{
-        sh 'npm run build'
       }
     }
 
-    stage('Deploy'){
-      steps{
-        sh "cp -rf dist/* /home/ubuntu/zeli8888/storage-management/frontend/"
+    stage('Deploy') {
+      steps {
+        script {
+          sh "mkdir -p ${HOST_TARGET_DIR}"
+          
+          sh "cp -rf ${WORKSPACE}/dist/* ${HOST_TARGET_DIR}/"
+        }
       }
     }
   }
 }
+// For local dev
+// docker run -it --rm --name test-app -p 3006:3006 -v ${PWD}:/app -w /app node:20.17.0 sh -c 'npm start -- --host 0.0.0.0'
+// For local test
+// docker run --rm --name test-app -v ${PWD}:/app -w /app node:20.17.0 sh -c 'npm install && npm run test:update && npm run build'
