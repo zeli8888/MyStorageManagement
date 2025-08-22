@@ -8,7 +8,8 @@ pipeline{
   tools {
     nodejs "NodeJS24" // Reference the NodeJS installation
   }
-
+  
+  stages{
     stage('Test'){
         steps{
             sh 'npm install'
@@ -27,4 +28,5 @@ pipeline{
         sh "cp -rf dist/* /home/ubuntu/zeli8888/storage-management/frontend/"
       }
     }
+  }
 }
