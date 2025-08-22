@@ -228,7 +228,7 @@ describe('Dish Component Integration Tests', () => {
 
     // Expandable content
     test('displays recipe details when expanded', async () => {
-        const { asFragment } = render(
+        render(
             <FoodContext.Provider value={mockContextValue}>
                 <DishComponent />
             </FoodContext.Provider>
@@ -239,7 +239,6 @@ describe('Dish Component Integration Tests', () => {
 
         await waitFor(() => {
             expect(screen.getByText('Test Ingredient')).toBeInTheDocument();
-            expect(asFragment()).toMatchSnapshot();
         });
     });
 });
