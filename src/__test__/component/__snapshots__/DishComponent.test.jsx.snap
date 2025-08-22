@@ -246,7 +246,7 @@ exports[`Dish Component Integration Tests > displays recipe details when expande
             />
             <p
               class="MuiTablePagination-selectLabel css-s09cke-MuiTablePagination-selectLabel"
-              id=":r33:"
+              id=":r36:"
             >
               Rows per page:
             </p>
@@ -256,9 +256,9 @@ exports[`Dish Component Integration Tests > displays recipe details when expande
               <div
                 aria-expanded="false"
                 aria-haspopup="listbox"
-                aria-labelledby=":r33: :r32:"
+                aria-labelledby=":r36: :r35:"
                 class="MuiSelect-select MuiTablePagination-select MuiSelect-standard MuiInputBase-input css-18zjd9i-MuiNativeSelect-root-MuiSelect-select-MuiInputBase-input"
-                id=":r32:"
+                id=":r35:"
                 role="combobox"
                 tabindex="0"
               >
