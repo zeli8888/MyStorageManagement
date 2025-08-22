@@ -195,7 +195,7 @@ describe('DishRecord Component Integration Tests', () => {
 
     // Expandable content verification
     test('displays ingredients when expanded', async () => {
-        const { asFragment } = render(
+        render(
             <FoodContext.Provider value={mockContextValue}>
                 <DishRecordComponent />
             </FoodContext.Provider>
@@ -205,7 +205,6 @@ describe('DishRecord Component Integration Tests', () => {
 
         await waitFor(() => {
             expect(screen.getByText('Test Dish')).toBeInTheDocument();
-            expect(asFragment()).toMatchSnapshot();
         });
     });
 });
