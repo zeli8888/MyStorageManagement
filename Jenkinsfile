@@ -3,7 +3,7 @@ pipeline {
   environment {
     version = '1.0'
     DOCKER_IMAGE = "node:20.17.0"
-    HOST_TARGET_DIR = "/var/www/zeli8888/storage-management/frontend"
+    HOST_TARGET_DIR = "/var/www/zeli8888/storage-management"
   }
   
   stages {
