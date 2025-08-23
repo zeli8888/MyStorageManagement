@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
+    base: '/storage-management/',
     plugins: [
         react({
             jsxImportSource: '@emotion/react', // replace default 'react' with '@emotion/react'， allowing emotion css props
