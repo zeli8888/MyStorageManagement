@@ -87,7 +87,7 @@ export function CustomAppTitle() {
   return (
     <Stack direction="row" alignItems="center" spacing={2}>
       <ManageAccountsSharpIcon fontSize="large" color="primary" />
-      <Typography variant="h6">Storage Management App</Typography>
+      <Typography variant="h6" sx={{ display: { xs: 'none', sm: 'block' } }}>Storage Management App</Typography>
       <Chip size="small" label="BETA" color="info" />
       {/* <Tooltip title="Connected to production">
         <CheckCircleIcon color="success" fontSize="small" />
