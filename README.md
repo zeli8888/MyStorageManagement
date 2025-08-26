@@ -22,11 +22,12 @@ your meals. 🎉
 
 ## ✨ Features
 - **Feature 1**: Interactive Dashboard Interface 📂
-- **Feature 2**: Complete Test Cases with >97% Coverage 🧑‍🔬
-- **Feature 3**: User Authentication with Firebase Authentication 🔐
-- **Feature 4**: Update Ingredients Storage Automatically With New Meal Record 🔃
-- **Feature 5**: Ongoing: Visualized Storage Panel, Meal Record Statics and Shopping Suggestions 📈
-- **Feature 6**: Responsive Website suitable for different size of mobile phones, tablets and desktop computers 📱
+- **Feature 2**: User Authentication with Firebase Authentication 🔐
+- **Feature 3**: Update Ingredients Storage Automatically With New Meal Record 🔃
+- **Feature 4**: Ongoing: Visualized Storage Panel, Meal Record Statics and Shopping Suggestions 📈
+- **Feature 5**: Responsive Website suitable for different size of mobile phones, tablets and desktop computers 📱
+- **Feature 6**: Complete Test Cases with >97% Coverage 🧑‍🔬
+![test report](project-storage-management-frontend-test.png)
 ---
 
 ## 🚀 Getting Started
