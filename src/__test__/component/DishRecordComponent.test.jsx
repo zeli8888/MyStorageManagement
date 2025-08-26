@@ -3,6 +3,7 @@ import { describe, test, vi, beforeEach, expect } from 'vitest';
 import DishRecordComponent from '../../component/DishRecordComponent';
 import { FoodContext } from '../../component/FoodProvider';
 import dishRecordService from '../../service/DishRecordService';
+import { TextField } from '@mui/material';
 import '@testing-library/jest-dom/vitest';
 
 // Mock navigation hook
@@ -47,6 +48,7 @@ vi.mock('../../component/utils', async (importOriginal) => ({
         </div>
     ),
     EnhancedTableHead: () => <thead data-testid="enhanced-table-head" />,
+    NumberInput: (props) => <TextField {...props} />
 }));
 
 describe('DishRecord Component Integration Tests', () => {

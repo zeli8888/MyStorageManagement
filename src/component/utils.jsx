@@ -28,9 +28,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import { NumericFormat } from 'react-number-format';
 
 export function NumberInput(props) {
-    const { defaultValue } = props;
+    const { defaultValue, prefix } = props;
     const [value, setValue] = useState(defaultValue);
-    return <NumericFormat customInput={TextField} value={value} onValueChange={({ floatValue }) => floatValue && setValue(floatValue)} {...props} />;
+    return <NumericFormat customInput={TextField} prefix={prefix} value={value} onValueChange={({ floatValue }) => setValue(floatValue)} {...props} />;
 }
 
 export function RememberMeCheckbox(props) {

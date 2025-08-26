@@ -19,7 +19,9 @@ export default defineConfig({
             exclude: [
                 '**/index.jsx',
                 '**/setupTests.js',
-                '**/vite.config.js'
+                '**/vite.config.js',
+                '**/dist/**',
+                '**/node_modules/**',
             ]
         },
         setupFiles: './src/__test__/setupTests.js',

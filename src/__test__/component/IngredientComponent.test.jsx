@@ -3,6 +3,7 @@ import { describe, test, vi, beforeEach, expect } from 'vitest';
 import IngredientComponent from '../../component/IngredientComponent';
 import { FoodContext } from '../../component/FoodProvider';
 import ingredientService from '../../service/IngredientService';
+import { TextField } from '@mui/material';
 import '@testing-library/jest-dom/vitest';
 
 // Mock navigation hook
@@ -40,6 +41,7 @@ vi.mock('../../component/utils', () => ({
             <button data-testid="cancel-delete" onClick={onClose}>Cancel</button>
         </div>
     ),
+    NumberInput: (props) => <TextField {...props} />
 }));
 
 // Mock DataGrid with selection handling
