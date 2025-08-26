@@ -29,7 +29,7 @@ import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid'
 import moment from 'moment';
-import { DeletionConfirmationComponent, EnhancedTableToolbar, EnhancedTableHead, handleClick, getVisibleRows } from './utils';
+import { DeletionConfirmationComponent, EnhancedTableToolbar, EnhancedTableHead, handleClick, getVisibleRows, NumberInput } from './utils';
 import Alert from '@mui/material/Alert';
 import TablePagination from '@mui/material/TablePagination';
 const DishRecordComponent = function () {
@@ -401,14 +401,19 @@ const DishRecordComponent = function () {
                     <Grid container spacing={2} >
                         {ingredientsForDishRecord.map((ingredient) => {
                             return (
-                                <TextField
+                                <NumberInput
                                     key={ingredient}
                                     name={ingredient}
                                     label={ingredient + " Amount"}
                                     variant="standard"
                                     color="success"
                                     margin="dense"
-                                    type="number"
+                                    // NumericFormat 
+                                    props prefix="€"
+                                    thousandSeparator
+                                    decimalScale={2}
+                                    fixedDecimalScale
+                                    //
                                     defaultValue={initIngredientAmountForDishRecord(ingredient)}
                                     required
                                 />

@@ -30,7 +30,7 @@ import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid'
 import moment from 'moment';
-import { DeletionConfirmationComponent, getVisibleRows, handleClick, EnhancedTableToolbar, EnhancedTableHead } from './utils';
+import { DeletionConfirmationComponent, getVisibleRows, handleClick, EnhancedTableToolbar, EnhancedTableHead, NumberInput } from './utils';
 import Alert from '@mui/material/Alert';
 import TablePagination from '@mui/material/TablePagination';
 const DishComponent = function () {
@@ -452,14 +452,19 @@ const DishComponent = function () {
                     <Grid container spacing={2} >
                         {ingredientsForDish.map((ingredient) => {
                             return (
-                                <TextField
+                                <NumberInput
                                     key={ingredient}
                                     name={ingredient}
                                     label={ingredient + " Amount"}
                                     variant="standard"
                                     color="success"
                                     margin="dense"
-                                    type="number"
+                                    // NumericFormat 
+                                    props prefix="€"
+                                    thousandSeparator
+                                    decimalScale={2}
+                                    fixedDecimalScale
+                                    //
                                     defaultValue={initIngredientAmountForDish(ingredient)}
                                     required
                                 />

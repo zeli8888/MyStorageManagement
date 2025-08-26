@@ -25,6 +25,14 @@ import { Stack } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { useTheme } from '@mui/material/styles';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import { NumericFormat } from 'react-number-format';
+
+export function NumberInput(props) {
+    const { defaultValue } = props;
+    const [value, setValue] = useState(defaultValue);
+    return <NumericFormat customInput={TextField} value={value} onValueChange={({ floatValue }) => floatValue && setValue(floatValue)} {...props} />;
+}
+
 export function RememberMeCheckbox(props) {
     const theme = useTheme();
     const { rememberMe, setRememberMe, sx } = props;

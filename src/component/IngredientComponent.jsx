@@ -9,7 +9,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import ingredientService from '../service/IngredientService'
 import { FoodContext } from './FoodProvider';
-import { DeletionConfirmationComponent, EnhancedTableToolbar } from './utils';
+import { DeletionConfirmationComponent, EnhancedTableToolbar, NumberInput } from './utils';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -218,21 +218,31 @@ const IngredientComponent = function () {
                         variant="standard"
                         defaultValue={ingredientUpdating ? ingredientUpdating.ingredientName : ""}
                     />
-                    <TextField
+                    <NumberInput
                         required
                         margin="dense"
                         name="ingredientStorage"
                         label="Ingredient Storage"
-                        type="number"
+                        // NumericFormat 
+                        props prefix="€"
+                        thousandSeparator
+                        decimalScale={2}
+                        fixedDecimalScale
+                        //
                         fullWidth
                         variant="standard"
                         defaultValue={ingredientUpdating ? ingredientUpdating.ingredientStorage : ""}
                     />
-                    <TextField
+                    <NumberInput
                         margin="dense"
                         name="ingredientCost"
                         label="Ingredient Cost"
-                        type="number"
+                        // NumericFormat 
+                        props prefix="€"
+                        thousandSeparator
+                        decimalScale={2}
+                        fixedDecimalScale
+                        //
                         fullWidth
                         variant="standard"
                         defaultValue={ingredientUpdating ? ingredientUpdating.ingredientCost : ""}
