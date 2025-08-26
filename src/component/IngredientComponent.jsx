@@ -224,7 +224,6 @@ const IngredientComponent = function () {
                         name="ingredientStorage"
                         label="Ingredient Storage"
                         // NumericFormat props 
-                        prefix="€"
                         thousandSeparator
                         decimalScale={2}
                         fixedDecimalScale
@@ -238,7 +237,6 @@ const IngredientComponent = function () {
                         name="ingredientCost"
                         label="Ingredient Cost"
                         // NumericFormat props 
-                        prefix="€"
                         thousandSeparator
                         decimalScale={2}
                         fixedDecimalScale

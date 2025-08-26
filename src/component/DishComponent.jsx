@@ -460,7 +460,6 @@ const DishComponent = function () {
                                     color="success"
                                     margin="dense"
                                     // NumericFormat props 
-                                    prefix="€"
                                     thousandSeparator
                                     decimalScale={2}
                                     fixedDecimalScale
