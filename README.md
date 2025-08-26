@@ -1,73 +1,129 @@
-# MyStorageManagement
-My personal money, budget and food storage management
-# Getting Started with Create React App
+# 📦 Storage Management App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**StorageManagementApp** is a responsive web application built with React and Vite, designed to help you manage food storage. 
+Always forget how much you left in the fridge like me? This app can help you keep track of it and record 
+your meals. 🎉
 
-## Available Scripts
+**Backend Repository**: https://github.com/zeli8888/MyStorageManagement-API.git
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 📋 Table of Contents
+- [✨ Features](#-features)
+- [🚀 Getting Started](#-getting-started)
+  - [🔧 Installation](#-installation)
+  - [⚙️ Configuration](#️-configuration)
+- [💻 Usage](#-usage)
+- [🤝 Contributing](#-contributing)
+- [📝 License](#-license)
+- [📧 Contact](#-contact)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## ✨ Features
+- **Feature 1**: Interactive Dashboard Interface 📂
+- **Feature 2**: Complete Test Cases with >97% Coverage 🧑‍🔬
+- **Feature 3**: User Authentication with Firebase Authentication 🔐
+- **Feature 4**: Update Ingredients Storage Automatically With New Meal Record 🔃
+- **Feature 5**: Ongoing: Visualized Storage Panel, Meal Record Statics and Shopping Suggestions 📈
+- **Feature 6**: Responsive Website suitable for different size of mobile phones, tablets and desktop computers 📱
+---
 
-### `npm test`
+## 🚀 Getting Started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🔧 Installation
+To get started with **StorageManagementApp**, follow these steps:
 
-### `npm run build`
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/zeli8888/MyStorageManagement.git
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Navigate to the project directory:
+   ```bash
+   cd MyStorageManagement
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Install the dependencies:
+   ```bash
+   npm install
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### ⚙️ Configuration
+- This application use [Firebase](https://console.firebase.google.com/)
+- To configure the project, please replace the following environment variables in [.env](./.env) with yours first:
 
-### `npm run eject`
+    ```env
+    VITE_REACT_APP_API_URL=your_api_url
+    VITE_REACT_APP_CONTEXT=your_react_context
+    VITE_FIREBASE_API_KEY=your_firebase_api_key
+    VITE_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
+    VITE_FIREBASE_PROJECT_ID=your_firebase_project_id
+    VITE_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
+    VITE_FIREBASE_MESSAGE_SENDER_ID=your_firebase_message_sender_id
+    VITE_FIREBASE_APP_ID=your_firebase_app_id
+    VITE_FIREBASE_MEASUREMENT_ID=your_firebase_measurement_id
+    ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- If you use mine, you can only try it in localhost (no guarantee to work in the future), other domains are banned.
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 💻 Usage
+Here’s how to use **StorageManagementApp**:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Install the dependencies:
+   ```bash
+   npm install
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+2. Run the project:
+   ```bash
+   npm start
+   ```
 
-## Learn More
+3. Access the application at `http://127.0.0.1:3006`.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+4. (Optional) Run the test:
+    ```bash
+    npm test
+    ```
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🤝 Contributing
+We welcome contributions! 🎉 If you'd like to contribute, please follow these steps:
 
-### Code Splitting
+1. Fork the repository.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+2. Create a new branch:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
 
-### Analyzing the Bundle Size
+3. Commit your changes:
+   ```bash
+   git commit -m "Add your awesome feature"
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+4. Push to the branch:
+   ```bash
+   git push origin feature/your-feature-name
+   ```
 
-### Making a Progressive Web App
+5. Open a pull request. 🚀
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## 📝 License
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details. 🐜
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## 📧 Contact
+If you have any questions or feedback, feel free to reach out:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- **Email**: zeli8888@outlook.com 📩
+- **GitHub Issues**: [Open an Issue](https://github.com/zeli8888/MyStorageManagement/issues) 🐛
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
->>>>>>> 50f6e13 (init)
+Made with ❤️ by [Ze Li](https://github.com/zeli8888). Happy coding! 🎉
