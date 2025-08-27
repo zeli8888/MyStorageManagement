@@ -1,8 +1,7 @@
 # 📦 Storage Management App
 
-**StorageManagementApp** is a responsive web application built with React and Vite, designed to help you manage food storage. 
-Always forget how much you left in the fridge like me? This app can help you keep track of it and record 
-your meals. 🎉
+**[StorageManagementApp](https://zeli8888.ddns.net/storage-management/)** is a responsive web application built with React and Vite, designed to help you manage food storage. 
+Always forget how much you left in the fridge like me? This app can help you keep track of it and record your meals. 🎉
 
 **Backend Repository**: https://github.com/zeli8888/MyStorageManagement-API.git
 
@@ -10,6 +9,7 @@ your meals. 🎉
 
 ## 📋 Table of Contents
 - [✨ Features](#-features)
+- [🎈 Demos](#-demos)
 - [🚀 Getting Started](#-getting-started)
   - [🔧 Installation](#-installation)
   - [⚙️ Configuration](#️-configuration)
@@ -28,6 +28,13 @@ your meals. 🎉
 - **Feature 5**: Responsive Website suitable for different size of mobile phones, tablets and desktop computers 📱
 - **Feature 6**: Complete Test Cases with >97% Coverage 🧑‍🔬
 ![test report](project-storage-management-frontend-test.png)
+---
+
+## 🎈 Demos
+![demo1](demo/project-storage-management-1.png) 
+![demo2](demo/project-storage-management-2.png) 
+![demo3](demo/project-storage-management-3.png) 
+![demo4](demo/project-storage-management-4.png)
 ---
 
 ## 🚀 Getting Started
