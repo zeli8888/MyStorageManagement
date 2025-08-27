@@ -100,10 +100,11 @@ const DishComponent = function () {
                 dishDesc: data.dishDesc,
             },
             ingredientIdQuantityList:
-                data.ingredientsForDish.split(',').map(ingredient => ({
-                    ingredientName: ingredient,
-                    quantity: data[ingredient]
-                }))
+                data.ingredientsForDish
+                    ? data.ingredientsForDish.split(',').map(ingredient => ({
+                        ingredientName: ingredient,
+                        quantity: data[ingredient]
+                    })) : []
 
         }
         if (dishUpdating) {
@@ -129,10 +130,11 @@ const DishComponent = function () {
                 }
             },
             ingredientIdQuantityList:
-                data.ingredientsForDish.split(',').map(ingredient => ({
-                    ingredientName: ingredient,
-                    quantity: data[ingredient]
-                }))
+                data.ingredientsForDish
+                    ? data.ingredientsForDish.split(',').map(ingredient => ({
+                        ingredientName: ingredient,
+                        quantity: data[ingredient]
+                    })) : []
         }
 
         dishRecordService.addDishRecord(dishRecordIngredientDTO).then(response => {
