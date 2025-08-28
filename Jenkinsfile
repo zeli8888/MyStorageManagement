@@ -16,7 +16,7 @@ pipeline {
               -v ${WORKSPACE}:/app \
               -w /app \
               ${DOCKER_IMAGE} \
-              sh -c 'npm install && npm run test && npm run build'
+              sh -c 'npm ci && npm run test && npm run build'
           """
         }
       }
