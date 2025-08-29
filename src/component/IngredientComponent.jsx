@@ -13,19 +13,191 @@ import { DeletionConfirmationComponent, EnhancedTableToolbar, NumberInput } from
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import moment from 'moment';
+import InputLabel from '@mui/material/InputLabel';
+import dishRecordService from '../service/DishRecordService'
+
+const ModalContentIngredients = function (props) {
+    const { ingredientUpdating } = props;
+    return (
+        <div>
+            <DialogTitle>{ingredientUpdating ? "Update Ingredient" : "New Ingredient"}</DialogTitle>
+            <DialogContent>
+                {ingredientUpdating && <input type="hidden" name="ingredientId" value={ingredientUpdating.ingredientId} />}
+                <TextField
+                    autoFocus
+                    required
+                    margin="dense"
+                    name="ingredientName"
+                    label="Ingredient Name"
+                    type="text"
+                    fullWidth
+                    variant="standard"
+                    defaultValue={ingredientUpdating ? ingredientUpdating.ingredientName : ""}
+                />
+                <NumberInput
+                    required
+                    margin="dense"
+                    name="ingredientStorage"
+                    label="Ingredient Storage"
+                    // NumericFormat props 
+                    thousandSeparator
+                    decimalScale={2}
+                    fixedDecimalScale
+                    //
+                    fullWidth
+                    variant="standard"
+                    defaultValue={ingredientUpdating ? ingredientUpdating.ingredientStorage : ""}
+                />
+                <NumberInput
+                    margin="dense"
+                    name="ingredientCost"
+                    label="Ingredient Cost"
+                    // NumericFormat props 
+                    thousandSeparator
+                    decimalScale={2}
+                    fixedDecimalScale
+                    //
+                    fullWidth
+                    variant="standard"
+                    defaultValue={ingredientUpdating ? ingredientUpdating.ingredientCost : ""}
+                />
+                <TextField
+                    margin="dense"
+                    name="ingredientDesc"
+                    label="Ingredient Description"
+                    type="text"
+                    fullWidth
+                    variant="standard"
+                    defaultValue={ingredientUpdating ? ingredientUpdating.ingredientDesc : ""}
+                />
+            </DialogContent>
+        </div>
+    )
+}
+
+const ModalContentRecord = function (props) {
+    const { ingredientIdsForRecord, ingredients } = props;
+    const ingredientNamesForRecord = ingredientIdsForRecord.map(
+        ingredientId => ingredients.find(ingredient => ingredient.ingredientId == ingredientId).ingredientName
+    );
+    return (
+        <div>
+            <DialogTitle>New Record</DialogTitle>
+            <DialogContent>
+                <TextField
+                    autoFocus={false}
+                    margin="dense"
+                    name={"dishRecordDesc"}
+                    label={"Record Description"}
+                    type="text"
+                    fullWidth
+                    variant="standard"
+                    defaultValue={ingredientNamesForRecord.join(", ")}
+                />
+                <TextField
+                    margin="dense"
+                    name="dishRecordTime"
+                    label="Record Time"
+                    type="datetime-local"
+                    fullWidth
+                    variant="standard"
+                    defaultValue={moment(new Date()).format('YYYY-MM-DD HH:mm')}
+                />
+                <Box mt={4} />
+                <InputLabel id="add-ingredient-for-record">{"Ingredients Used"}</InputLabel>
+                <Grid container spacing={2} >
+                    {ingredientIdsForRecord.map((ingredientId, index) => {
+                        const ingredientName = ingredientNamesForRecord[index];
+                        return (
+                            <div key={'ingredient-' + ingredientId}>
+                                <input type="hidden" name={'ingredientName-' + ingredientId} value={ingredientName} />
+                                <NumberInput
+                                    name={'ingredientAmount-' + ingredientId}
+                                    label={ingredientName + " Amount"}
+                                    variant="standard"
+                                    color="success"
+                                    margin="dense"
+                                    // NumericFormat props 
+                                    thousandSeparator
+                                    decimalScale={2}
+                                    fixedDecimalScale
+                                    defaultValue={1}
+                                    required
+                                />
+                            </div>
+                        );
+                    })}
+                </Grid>
+            </DialogContent>
+        </div>
+    )
+}
+
+const IngredientsModal = function (props) {
+    const { open, addingDishRecord, ingredientUpdating, ingredientIdsForRecord, ingredients, onClose, onSubmit } = props;
+    return (
+        <Dialog
+            open={open}
+            onClose={onClose}
+            maxWidth="xs"
+            fullWidth={true}
+            slotProps={{
+                paper: {
+                    component: 'form',
+                    onSubmit: onSubmit,
+                },
+            }}
+        >
+            {!addingDishRecord ?
+                <ModalContentIngredients ingredientUpdating={ingredientUpdating} /> :
+                <ModalContentRecord ingredientIdsForRecord={ingredientIdsForRecord} ingredients={ingredients} />
+            }
+
+            <DialogActions>
+                <Button onClick={onClose}>Cancel</Button>
+                <Button type="submit">Save</Button>
+            </DialogActions>
+        </Dialog>)
+}
+
 const IngredientComponent = function () {
     const navigate = useNavigate();
     const [ingredients, setIngredients] = useState([]);
     const { setAllIngredients } = useContext(FoodContext);
     const [ingredientUpdating, setIngredientUpdating] = useState();
-    const [addingIngredient, setAddingIngredient] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
     const [ingredientAlert, setIngredientAlert] = useState();
     const [selected, setSelected] = useState([]);
     const [deletingIngredient, setDeletingIngredient] = useState(false);
+    const [addingDishRecord, setAddingDishRecord] = useState(false);
 
     useEffect(() => {
         refreshIngredients();
     }, [navigate]);
+
+    const addDishRecord = (data) => {
+        let dishRecordIngredientDTO = {
+            dishRecord: {
+                dishRecordDesc: data.dishRecordDesc,
+                dishRecordTime: new Date(data.dishRecordTime).toISOString(),
+            },
+            ingredientIdQuantityList:
+                selected.map(ingredientId => ({
+                    ingredientName: data['ingredientName-' + ingredientId],
+                    quantity: data['ingredientAmount-' + ingredientId]
+                }))
+        }
+
+        dishRecordService.addDishRecord(dishRecordIngredientDTO).then(response => {
+            setAddingDishRecord(false);
+            setOpenModal(false);
+            refreshIngredients();
+            setIngredientAlert({ severity: "success", message: "Record added successfully!" });
+        }).catch(error => {
+            console.log(error);
+        });
+    }
 
     const refreshIngredients = () => {
         ingredientService.getAllIngredients().then(response => {
@@ -47,7 +219,7 @@ const IngredientComponent = function () {
     const updateIngredient = (data) => {
         ingredientService.updateIngredient(data.ingredientId, data).then(response => {
             setIngredientUpdating();
-            setAddingIngredient(false);
+            setOpenModal(false);
             refreshIngredients();
             setIngredientAlert({ severity: "success", message: "Ingredient " + data.ingredientName + " updated successfully!" });
         }).catch(error => {
@@ -56,9 +228,10 @@ const IngredientComponent = function () {
     }
 
     const addIngredient = (data) => {
+        if (addingDishRecord) return addDishRecord(data);
         if (ingredientUpdating) return updateIngredient(data);
         ingredientService.addIngredient(data).then(response => {
-            setAddingIngredient(false);
+            setOpenModal(false);
             refreshIngredients();
             setIngredientAlert({ severity: "success", message: "Ingredient " + data.ingredientName + " added successfully!" });
         }).catch(error => {
@@ -127,7 +300,7 @@ const IngredientComponent = function () {
                         updateSelected={() => {
                             let ingredient = ingredients.find(ingredient => ingredient.ingredientId == selected[0]);
                             setIngredientUpdating(ingredient);
-                            setAddingIngredient(true);
+                            setOpenModal(true);
                         }}
                         onSearch={(text) => { searchIngredients(text); }} />
                 </Grid>
@@ -170,10 +343,22 @@ const IngredientComponent = function () {
                         }}
                     />
                 </Grid>
+                {selected.length > 0 && <Button variant="contained" color="info"
+                    onClick={() => {
+                        setAddingDishRecord(true);
+                        setOpenModal(true);
+                    }}
+                    sx={{
+                        marginLeft: 0,
+                        marginRight: 'auto',
+                        marginTop: 1
+                    }}
+                >
+                    Add Record
+                </Button>}
                 <Button variant="contained" color="success"
                     onClick={() => {
-                        setIngredientUpdating();
-                        setAddingIngredient(true);
+                        setOpenModal(true);
                     }}
                     sx={{
                         marginRight: 0,
@@ -184,85 +369,19 @@ const IngredientComponent = function () {
                     New Ingredient
                 </Button>
             </Grid>
-            <Dialog
-                open={addingIngredient}
+            <IngredientsModal open={openModal} ingredientUpdating={ingredientUpdating} addingDishRecord={addingDishRecord} ingredientIdsForRecord={selected} ingredients={ingredients}
                 onClose={() => {
                     setIngredientUpdating();
-                    setAddingIngredient(false);
+                    setAddingDishRecord(false);
+                    setOpenModal(false);
                 }}
-                maxWidth="xs"
-                fullWidth={true}
-                slotProps={{
-                    paper: {
-                        component: 'form',
-                        onSubmit: (event) => {
-                            event.preventDefault();
-                            const formData = new FormData(event.currentTarget);
-                            const formJson = Object.fromEntries(formData.entries());
-                            addIngredient(formJson);
-                        },
-                    },
+                onSubmit={(event) => {
+                    event.preventDefault();
+                    const formData = new FormData(event.currentTarget);
+                    const formJson = Object.fromEntries(formData.entries());
+                    addIngredient(formJson);
                 }}
-            >
-                <DialogTitle>{ingredientUpdating ? "Update Ingredient" : "New Ingredient"}</DialogTitle>
-                <DialogContent>
-                    {ingredientUpdating && <input type="hidden" name="ingredientId" value={ingredientUpdating.ingredientId} />}
-                    <TextField
-                        autoFocus
-                        required
-                        margin="dense"
-                        name="ingredientName"
-                        label="Ingredient Name"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                        defaultValue={ingredientUpdating ? ingredientUpdating.ingredientName : ""}
-                    />
-                    <NumberInput
-                        required
-                        margin="dense"
-                        name="ingredientStorage"
-                        label="Ingredient Storage"
-                        // NumericFormat props 
-                        thousandSeparator
-                        decimalScale={2}
-                        fixedDecimalScale
-                        //
-                        fullWidth
-                        variant="standard"
-                        defaultValue={ingredientUpdating ? ingredientUpdating.ingredientStorage : ""}
-                    />
-                    <NumberInput
-                        margin="dense"
-                        name="ingredientCost"
-                        label="Ingredient Cost"
-                        // NumericFormat props 
-                        thousandSeparator
-                        decimalScale={2}
-                        fixedDecimalScale
-                        //
-                        fullWidth
-                        variant="standard"
-                        defaultValue={ingredientUpdating ? ingredientUpdating.ingredientCost : ""}
-                    />
-                    <TextField
-                        margin="dense"
-                        name="ingredientDesc"
-                        label="Ingredient Description"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                        defaultValue={ingredientUpdating ? ingredientUpdating.ingredientDesc : ""}
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={() => {
-                        setAddingIngredient(false);
-                        setAddingIngredient(false);
-                    }}>Cancel</Button>
-                    <Button type="submit">Save</Button>
-                </DialogActions>
-            </Dialog>
+            />
             <DeletionConfirmationComponent warningMessage={deletingIngredient ? "Are you sure you want to delete selected " + (selected.length > 1 ? selected.length + " ingredients?" : "ingredient?") : "Processing"}
                 open={deletingIngredient} onClose={() => setDeletingIngredient(false)}
                 onConfirm={() => {

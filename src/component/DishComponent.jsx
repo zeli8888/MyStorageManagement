@@ -37,7 +37,7 @@ const DishComponent = function () {
     const navigate = useNavigate();
     const [dishes, setDishes] = useState([]);
     const { allIngredients, setAllDishes } = useContext(FoodContext);
-    const [addingDish, setAddingDish] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
     const [addingDishRecord, setAddingDishRecord] = useState(false);
     const [dishUpdating, setDishUpdating] = useState();
     const [ingredientsForDish, setIngredientsForDish] = useState([]);
@@ -79,7 +79,7 @@ const DishComponent = function () {
         setDishUpdating();
         setAddingDishRecord(false);
         setIngredientsForDish([]);
-        setAddingDish(false);
+        setOpenModal(false);
     }
 
     const updateDish = (data) => {
@@ -189,7 +189,7 @@ const DishComponent = function () {
                                 setDishUpdating(dish);
                                 setIngredientsForDish(dish.dishIngredients.map(dishIngredient => dishIngredient.ingredient.ingredientName));
                                 setAddingDishRecord(true);
-                                setAddingDish(true);
+                                setOpenModal(true);
                             }}>Add</Button>
                     </TableCell>
                     <TableCell>
@@ -316,7 +316,7 @@ const DishComponent = function () {
                             setDishUpdating(dish);
                             setAddingDishRecord(false);
                             setIngredientsForDish(dish.dishIngredients.map(dishIngredient => dishIngredient.ingredient.ingredientName));
-                            setAddingDish(true);
+                            setOpenModal(true);
                         }}
                         onSearch={(text) => { setPage(0); searchDishes(text); }} />
                 </Grid>
@@ -359,7 +359,7 @@ const DishComponent = function () {
                         setDishUpdating();
                         setAddingDishRecord(false);
                         setIngredientsForDish([]);
-                        setAddingDish(true);
+                        setOpenModal(true);
                     }}
                     sx={{
                         marginRight: 0,
@@ -372,7 +372,7 @@ const DishComponent = function () {
             </Grid>
 
             <Dialog
-                open={addingDish}
+                open={openModal}
                 onClose={() => {
                     closeDialog();
                 }}
