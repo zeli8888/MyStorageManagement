@@ -155,7 +155,7 @@ const IngredientsModal = function (props) {
             }
 
             <DialogActions>
-                <Button onClick={onClose}>Cancel</Button>
+                <Button onClick={onClose} data-testid="modal-cancel-button">Cancel</Button>
                 <Button type="submit">Save</Button>
             </DialogActions>
         </Dialog>)

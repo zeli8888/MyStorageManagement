@@ -3,6 +3,7 @@ import { describe, test, vi, beforeEach, expect } from 'vitest';
 import IngredientComponent from '../../component/IngredientComponent';
 import { FoodContext } from '../../component/FoodProvider';
 import ingredientService from '../../service/IngredientService';
+import dishRecordService from '../../service/DishRecordService';
 import { TextField } from '@mui/material';
 import '@testing-library/jest-dom/vitest';
 
@@ -19,6 +20,12 @@ vi.mock('../../service/IngredientService', () => ({
         addIngredient: vi.fn().mockResolvedValue({}),
         updateIngredient: vi.fn().mockResolvedValue({}),
         deleteIngredients: vi.fn().mockResolvedValue({}),
+    },
+}));
+
+vi.mock('../../service/DishRecordService', () => ({
+    default: {
+        addDishRecord: vi.fn().mockResolvedValue({}),
     },
 }));
 
@@ -150,6 +157,34 @@ describe('IngredientComponent Integration Tests', () => {
                 ingredientDesc: 'Test Description'
             });
         });
+    });
+
+    // Add dish record from ingredient
+    test('add dish record from ingredient', async () => {
+        render(
+            <FoodContext.Provider value={{ setAllIngredients: vi.fn() }}>
+                <IngredientComponent />
+            </FoodContext.Provider>);
+
+        await waitFor(() => screen.getByTestId(/select-row/i));
+        fireEvent.click(screen.getByTestId(/select-row/i));
+        fireEvent.click(screen.getByText(/Add Record/i));
+        fireEvent.click(screen.getByText(/Save/i));
+        await waitFor(() => { expect(dishRecordService.addDishRecord).toHaveBeenCalled() });
+    });
+
+    // Cancel button
+    test('add dish record from ingredient', async () => {
+        render(
+            <FoodContext.Provider value={{ setAllIngredients: vi.fn() }}>
+                <IngredientComponent />
+            </FoodContext.Provider>);
+
+        await waitFor(() => screen.getByTestId(/select-row/i));
+        fireEvent.click(screen.getByTestId(/select-row/i));
+        fireEvent.click(screen.getByText(/Add Record/i));
+        fireEvent.click(screen.getByTestId(/modal-cancel-button/i));
+        await waitFor(() => { expect(dishRecordService.addDishRecord).not.toHaveBeenCalled() });
     });
 
     // Delete functionality
