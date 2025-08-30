@@ -60,9 +60,15 @@ vi.mock('@mui/x-data-grid', () => ({
             ))}
             <button
                 data-testid="select-row"
-                onClick={() => onRowSelectionModelChange({ ids: [1] })}
+                onClick={() => onRowSelectionModelChange({ 'type': 'include', ids: new Set([1]) })}
             >
                 Select Row
+            </button>
+            <button
+                data-testid="select-exclude-row"
+                onClick={() => onRowSelectionModelChange({ 'type': 'exclude', ids: new Set() })}
+            >
+                Select Row With Exclude
             </button>
         </div>
     ),
@@ -167,7 +173,7 @@ describe('IngredientComponent Integration Tests', () => {
             </FoodContext.Provider>);
 
         await waitFor(() => screen.getByTestId(/select-row/i));
-        fireEvent.click(screen.getByTestId(/select-row/i));
+        fireEvent.click(screen.getByTestId(/select-exclude-row/i));
         fireEvent.click(screen.getByText(/Add Record/i));
         fireEvent.click(screen.getByText(/Save/i));
         await waitFor(() => { expect(dishRecordService.addDishRecord).toHaveBeenCalled() });

@@ -45,6 +45,11 @@ exports[`IngredientComponent Integration Tests > initial render matches snapshot
           >
             Select Row
           </button>
+          <button
+            data-testid="select-exclude-row"
+          >
+            Select Row With Exclude
+          </button>
         </div>
       </div>
       <button

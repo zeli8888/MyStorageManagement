@@ -309,7 +309,11 @@ const IngredientComponent = function () {
                         autoWidth
                         rows={ingredients}
                         selectionModel={selected}
-                        onRowSelectionModelChange={(newSelection) => setSelected([...newSelection.ids])}
+                        onRowSelectionModelChange={
+                            (newSelection) =>
+                                newSelection.type === 'include' ? setSelected([...newSelection.ids]) :
+                                    setSelected(ingredients.filter(ingredient => !newSelection.ids.has(ingredient.ingredientId)).map(ingredient => ingredient.ingredientId))
+                        }
                         columns={columns}
                         initialState={{
                             sorting: {
