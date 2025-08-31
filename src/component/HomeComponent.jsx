@@ -4,6 +4,14 @@ import dishRecordService from '../service/DishRecordService';
 import { PieChartCard } from './utils'
 import Grid from '@mui/material/Grid';
 import { DataGrid } from '@mui/x-data-grid';
+import dayjs from 'dayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import Button from '@mui/material/Button';
+import { Box } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import { Stack, ButtonGroup } from '@mui/material';
 const columns = [
     {
         field: 'ingredientId',
@@ -21,7 +29,7 @@ const columns = [
     },
     {
         field: 'supplyDays',
-        headerName: 'Supply Days',
+        headerName: 'Supply Duration (Days)',
         flex: 2,
         type: 'number',
         editable: false,
@@ -29,7 +37,7 @@ const columns = [
     },
     {
         field: 'dailyUsage',
-        headerName: 'Daily Usage',
+        headerName: 'Daily Consumption',
         flex: 2,
         type: 'number',
         editable: false,
@@ -37,7 +45,7 @@ const columns = [
     },
     {
         field: 'totalUsage',
-        headerName: 'Total Usage',
+        headerName: 'Total Consumption',
         flex: 2,
         type: 'number',
         editable: false,
@@ -79,30 +87,119 @@ const columns = [
 export default function HomeComponent() {
     const navigate = useNavigate();
     const [foodRecordAnalysis, setFoodRecordAnalysis] = useState();
-    const [endTime, setEndTime] = useState(new Date().toISOString());
-    const [startTime, setStartTime] = useState(() => {
-        const date = new Date();
-        date.setMonth(date.getMonth() - 1);
-        return date.toISOString();
-    });
+    const [endDate, setEndDate] = useState(dayjs());
+    const [startDate, setStartDate] = useState(endDate.subtract(1, 'month'));
 
-    const refresh = () => {
-        dishRecordService.getDishRecordAnalysis(startTime, endTime).then(response => {
+    const refresh = (startDate, endDate) => {
+        dishRecordService.getDishRecordAnalysis(startDate.toISOString(), endDate.toISOString()).then(response => {
             setFoodRecordAnalysis(response.data);
-            console.log(response.data);
         }).catch(error => {
             console.log(error);
         });
     }
 
     useEffect(() => {
-        refresh();
+        refresh(startDate, endDate);
     }, [navigate]);
 
     return (
         foodRecordAnalysis && <div>
-            <Grid container spacing={2} direction="row" width={'100%'}>
-                <Grid size={{ md: 12, lg: 10 }} width={'100%'}>
+            <Grid container spacing={2} direction="row" width={'100%'}
+                sx={{
+                    justifyContent: "center",
+                }}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <Box
+                        sx={{
+                            border: '2px solid',
+                            borderColor: 'divider',
+                            p: 3,
+                            borderRadius: 2,
+                            boxShadow: 1,
+                            width: '100%',
+                        }}
+                    >
+                        <Typography variant="h6" gutterBottom sx={{ fontWeight: 'medium' }}>
+                            Analysis Period
+                        </Typography>
+
+                        <Grid container spacing={3} alignItems="center">
+                            <Grid size={{ xs: 12, md: 6 }}>
+                                <Stack direction="row" spacing={2}>
+                                    <DatePicker
+                                        label="Start Date"
+                                        value={startDate}
+                                        onChange={(newValue) => setStartDate(newValue)}
+                                        maxDate={endDate ?? undefined}
+                                        slotProps={{ textField: { fullWidth: true } }}
+                                    />
+                                    <DatePicker
+                                        label="End Date"
+                                        value={endDate}
+                                        onChange={(newValue) => setEndDate(newValue)}
+                                        minDate={startDate ?? undefined}
+                                        slotProps={{ textField: { fullWidth: true } }}
+                                    />
+                                </Stack>
+                            </Grid>
+
+                            <Grid size={{ xs: 12, md: 6 }}>
+                                <Grid container spacing={2} justifyContent="flex-end">
+                                    <Grid>
+                                        <Button
+                                            variant="contained"
+                                            onClick={() => refresh(startDate, endDate)}
+                                            sx={{ textTransform: 'capitalize' }}
+                                        >
+                                            Apply Filter
+                                        </Button>
+                                    </Grid>
+                                    <Grid>
+                                        <ButtonGroup variant="outlined">
+                                            <Button
+                                                onClick={() => {
+                                                    const oneMonthAgo = dayjs().subtract(1, 'month')
+                                                    const now = dayjs()
+                                                    setStartDate(oneMonthAgo)
+                                                    setEndDate(now)
+                                                    refresh(oneMonthAgo, now)
+                                                }}
+                                                sx={{ textTransform: 'capitalize' }}
+                                            >
+                                                Last Month
+                                            </Button>
+                                            <Button
+                                                onClick={() => {
+                                                    const oneWeekAgo = dayjs().subtract(1, 'week')
+                                                    const now = dayjs()
+                                                    setStartDate(oneWeekAgo)
+                                                    setEndDate(now)
+                                                    refresh(oneWeekAgo, now)
+                                                }}
+                                                sx={{ textTransform: 'capitalize' }}
+                                            >
+                                                Last Week
+                                            </Button>
+                                            <Button
+                                                onClick={() => {
+                                                    const threeDaysAgo = dayjs().subtract(3, 'day')
+                                                    const now = dayjs()
+                                                    setStartDate(threeDaysAgo)
+                                                    setEndDate(now)
+                                                    refresh(threeDaysAgo, now)
+                                                }}
+                                                sx={{ textTransform: 'capitalize' }}
+                                            >
+                                                3 Days
+                                            </Button>
+                                        </ButtonGroup>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </LocalizationProvider>
+                <Grid size={{ md: 12, lg: 9 }} width={'100%'}>
                     <DataGrid
                         rows={foodRecordAnalysis.ingredientsSummary.map(
                             summary => ({
@@ -146,7 +243,7 @@ export default function HomeComponent() {
                     />
                 </Grid>
 
-                <Grid size={{ md: 12, lg: 2 }} width={'100%'}>
+                <Grid size={{ md: 12, lg: 3 }} width={'100%'}>
                     <Grid container direction="column" spacing={1}>
                         <Grid sx={{ flex: 1 }}>
                             <PieChartCard

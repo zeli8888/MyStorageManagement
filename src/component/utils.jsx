@@ -353,16 +353,16 @@ const pieChartColors = [
 
 export function PieChartCard(props) {
     const {
-        // data,
+        data,
         showLinear,
         title,
     } = props;
     // fake test data
-    const data = Array.from({ length: 20 }, (_, i) => ({
-        id: `item-${i + 1}`,
-        label: `Category ${String.fromCharCode(65 + (i % 26))}${i > 25 ? Math.floor(i / 26) + 1 : ''}`, // 生成 A-Z, AA-AZ...
-        value: Math.floor(10000 * Math.pow(0.85, i) * (1 + Math.random() * 0.3))
-    }));
+    // const data = Array.from({ length: 20 }, (_, i) => ({
+    //     id: `item-${i + 1}`,
+    //     label: `Category ${String.fromCharCode(65 + (i % 26))}${i > 25 ? Math.floor(i / 26) + 1 : ''}`, // 生成 A-Z, AA-AZ...
+    //     value: Math.floor(10000 * Math.pow(0.85, i) * (1 + Math.random() * 0.3))
+    // }));
 
     // Sort data by value in descending order
     const sortedData = [...data].sort((a, b) => b.value - a.value);
@@ -391,13 +391,13 @@ export function PieChartCard(props) {
                         colors={pieChartColors}
                         series={[{
                             data: displayData,
-                            innerRadius: 75,
-                            outerRadius: 100,
+                            innerRadius: 40,
+                            outerRadius: 75,
                             paddingAngle: 0,
                             // arcLabel: 'value'
                         }]}
-                        height={260}
-                        width={260}
+                        height={150}
+                        width={150}
                         hideLegend
                     >
                         {displayData.length > 0 && <PieCenterLabel primaryText={totalValue.toFixed(2)} secondaryText="Total" />}
