@@ -303,7 +303,7 @@ const DishComponent = function () {
     ];
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box>
             <Grid container spacing={0} >
                 <Grid size={12}>
                     {dishAlert && <Alert severity={dishAlert.severity} onClose={() => { setDishAlert(null) }}>{dishAlert.message}</Alert>}

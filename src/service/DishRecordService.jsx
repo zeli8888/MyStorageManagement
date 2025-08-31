@@ -26,6 +26,10 @@ class DishRecordService {
             + '&page=' + page + '&size=' + size);
     }
 
+    getDishRecordAnalysis(startTime, endTime) {
+        return baseApi.get('/dishrecords/analysis?startTime=' + startTime + '&endTime=' + endTime);
+    }
+
 }
 
 export default new DishRecordService()

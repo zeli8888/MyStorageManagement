@@ -17,6 +17,46 @@ import moment from 'moment';
 import InputLabel from '@mui/material/InputLabel';
 import dishRecordService from '../service/DishRecordService'
 
+const columns = [
+    {
+        field: 'ingredientId',
+        headerName: 'Id',
+        width: 0,
+        editable: false,
+        headerAlign: 'center'
+    },
+    {
+        field: 'ingredientName',
+        headerName: 'Ingredient',
+        flex: 2,
+        editable: false,
+        headerAlign: 'center'
+    },
+    {
+        field: 'ingredientStorage',
+        headerName: 'Storage',
+        flex: 2,
+        type: 'number',
+        editable: false,
+        headerAlign: 'center'
+    },
+    {
+        field: 'ingredientCost',
+        headerName: 'Cost',
+        flex: 2,
+        type: 'number',
+        editable: false,
+        headerAlign: 'center'
+    },
+    {
+        field: 'ingredientDesc',
+        headerName: 'Description',
+        flex: 3,
+        editable: false,
+        headerAlign: 'center'
+    }
+];
+
 const ModalContentIngredients = function (props) {
     const { ingredientUpdating } = props;
     return (
@@ -248,48 +288,8 @@ const IngredientComponent = function () {
         });
     }
 
-    const columns = [
-        {
-            field: 'ingredientId',
-            headerName: 'Id',
-            with: 0,
-            editable: false,
-            headerAlign: 'center'
-        },
-        {
-            field: 'ingredientName',
-            headerName: 'Ingredient',
-            flex: 2,
-            editable: false,
-            headerAlign: 'center'
-        },
-        {
-            field: 'ingredientStorage',
-            headerName: 'Storage',
-            flex: 2,
-            type: 'number',
-            editable: false,
-            headerAlign: 'center'
-        },
-        {
-            field: 'ingredientCost',
-            headerName: 'Cost',
-            flex: 2,
-            type: 'number',
-            editable: false,
-            headerAlign: 'center'
-        },
-        {
-            field: 'ingredientDesc',
-            headerName: 'Description',
-            flex: 3,
-            editable: false,
-            headerAlign: 'center'
-        }
-    ];
-
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box>
             <Grid container spacing={0} >
                 <Grid size={12}>
                     {ingredientAlert && <Alert severity={ingredientAlert.severity} onClose={() => { setIngredientAlert(null) }}>{ingredientAlert.message}</Alert>}
