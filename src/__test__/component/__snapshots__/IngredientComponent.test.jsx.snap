@@ -3,7 +3,7 @@
 exports[`IngredientComponent Integration Tests > initial render matches snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="MuiBox-root css-i9gxme"
+    class="MuiBox-root css-0"
   >
     <div
       class="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-row css-d64g0g-MuiGrid-root"

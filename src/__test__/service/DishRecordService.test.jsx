@@ -99,4 +99,20 @@ describe('DishRecordService', () => {
             );
         });
     });
+
+    describe('getDishRecordAnalysis', () => {
+        test('should make GET request with start and end time', async () => {
+            const mockResponse = { data: [] };
+            baseApi.get.mockResolvedValue(mockResponse);
+
+            const startTime = '2023-01-01T00:00:00.000Z';
+            const endTime = '2023-02-01T00:00:00.000Z';
+
+            await DishRecordService.getDishRecordAnalysis(startTime, endTime);
+
+            expect(baseApi.get).toHaveBeenCalledWith(
+                `/dishrecords/analysis?startTime=${startTime}&endTime=${endTime}`
+            );
+        })
+    });
 });

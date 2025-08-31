@@ -88,7 +88,7 @@ export default function HomeComponent() {
     const navigate = useNavigate();
     const [foodRecordAnalysis, setFoodRecordAnalysis] = useState();
     const [endDate, setEndDate] = useState(dayjs());
-    const [startDate, setStartDate] = useState(endDate.subtract(1, 'month'));
+    const [startDate, setStartDate] = useState(dayjs().subtract(1, 'month'));
 
     const refresh = (startDate, endDate) => {
         dishRecordService.getDishRecordAnalysis(startDate.toISOString(), endDate.toISOString()).then(response => {
@@ -131,14 +131,24 @@ export default function HomeComponent() {
                                         value={startDate}
                                         onChange={(newValue) => setStartDate(newValue)}
                                         maxDate={endDate ?? undefined}
-                                        slotProps={{ textField: { fullWidth: true } }}
+                                        slotProps={{
+                                            textField: {
+                                                fullWidth: true,
+                                                "data-testid": "start-date-picker"
+                                            }
+                                        }}
                                     />
                                     <DatePicker
                                         label="End Date"
                                         value={endDate}
                                         onChange={(newValue) => setEndDate(newValue)}
                                         minDate={startDate ?? undefined}
-                                        slotProps={{ textField: { fullWidth: true } }}
+                                        slotProps={{
+                                            textField: {
+                                                fullWidth: true,
+                                                "data-testid": "end-date-picker"
+                                            }
+                                        }}
                                     />
                                 </Stack>
                             </Grid>

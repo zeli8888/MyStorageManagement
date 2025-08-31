@@ -1,0 +1,1409 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`HomeComponent > should match snapshot 1`] = `
+<div>
+  <div>
+    <div
+      class="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-row MuiGrid-spacing-xs-2 css-140t6vx-MuiGrid-root"
+    >
+      <div
+        class="MuiBox-root css-1k0tkkw"
+      >
+        <h6
+          class="MuiTypography-root MuiTypography-h6 MuiTypography-gutterBottom css-14p70kh-MuiTypography-root"
+        >
+          Analysis Period
+        </h6>
+        <div
+          class="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-row MuiGrid-spacing-xs-3 css-1289k7o-MuiGrid-root"
+        >
+          <div
+            class="MuiGrid-root MuiGrid-direction-xs-row MuiGrid-grid-xs-12 MuiGrid-grid-md-6 css-204a8q-MuiGrid-root"
+          >
+            <div
+              class="MuiStack-root css-pl8gqh-MuiStack-root"
+            >
+              <div
+                class="MuiFormControl-root MuiFormControl-fullWidth MuiPickersTextField-root css-19y0qf7-MuiFormControl-root-MuiPickersTextField-root"
+                data-testid="start-date-picker"
+              >
+                <label
+                  class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
+                  data-shrink="true"
+                  for=":r0:"
+                  id=":r0:-label"
+                >
+                  Start Date
+                </label>
+                <div
+                  aria-invalid="false"
+                  aria-labelledby=":r0:-label"
+                  class="MuiPickersInputBase-root MuiPickersOutlinedInput-root MuiPickersInputBase-fullWidth MuiPickersInputBase-colorPrimary MuiPickersInputBase-adornedEnd css-1hgcujo-MuiPickersInputBase-root-MuiPickersOutlinedInput-root"
+                  role="group"
+                >
+                  <div
+                    class="MuiPickersSectionList-root MuiPickersInputBase-sectionsContainer css-1fb7els-MuiPickersSectionList-root-MuiPickersInputBase-sectionsContainer-MuiPickersOutlinedInput-sectionsContainer"
+                    contenteditable="false"
+                    tabindex="0"
+                  >
+                    <span
+                      class="MuiPickersSectionList-section css-joz0rk-MuiPickersSectionList-section-MuiPickersInputBase-section"
+                      data-sectionindex="0"
+                    >
+                      <span
+                        class="MuiPickersInputBase-sectionBefore css-w1q93y-MuiPickersSectionList-sectionSeparator-MuiPickersInputBase-separator"
+                      />
+                      <span
+                        aria-disabled="false"
+                        aria-label="Month"
+                        aria-labelledby=":r1:-month"
+                        aria-readonly="false"
+                        aria-valuemax="12"
+                        aria-valuemin="1"
+                        aria-valuenow="12"
+                        aria-valuetext="December"
+                        autocapitalize="off"
+                        autocorrect="off"
+                        class="MuiPickersSectionList-sectionContent MuiPickersInputBase-sectionContent css-1jpopwz-MuiPickersSectionList-sectionContent-MuiPickersInputBase-sectionContent"
+                        contenteditable="true"
+                        id=":r1:-month"
+                        inputmode="numeric"
+                        role="spinbutton"
+                        spellcheck="false"
+                        tabindex="0"
+                      >
+                        12
+                      </span>
+                      <span
+                        class="MuiPickersInputBase-sectionAfter css-w1q93y-MuiPickersSectionList-sectionSeparator-MuiPickersInputBase-separator"
+                      >
+                        /
+                      </span>
+                    </span>
+                    <span
+                      class="MuiPickersSectionList-section css-joz0rk-MuiPickersSectionList-section-MuiPickersInputBase-section"
+                      data-sectionindex="1"
+                    >
+                      <span
+                        class="MuiPickersInputBase-sectionBefore css-w1q93y-MuiPickersSectionList-sectionSeparator-MuiPickersInputBase-separator"
+                      />
+                      <span
+                        aria-disabled="false"
+                        aria-label="Day"
+                        aria-labelledby=":r1:-day"
+                        aria-readonly="false"
+                        aria-valuemax="31"
+                        aria-valuemin="1"
+                        aria-valuenow="1"
+                        aria-valuetext="1st"
+                        autocapitalize="off"
+                        autocorrect="off"
+                        class="MuiPickersSectionList-sectionContent MuiPickersInputBase-sectionContent css-1jpopwz-MuiPickersSectionList-sectionContent-MuiPickersInputBase-sectionContent"
+                        contenteditable="true"
+                        id=":r1:-day"
+                        inputmode="numeric"
+                        role="spinbutton"
+                        spellcheck="false"
+                        tabindex="-1"
+                      >
+                        01
+                      </span>
+                      <span
+                        class="MuiPickersInputBase-sectionAfter css-w1q93y-MuiPickersSectionList-sectionSeparator-MuiPickersInputBase-separator"
+                      >
+                        /
+                      </span>
+                    </span>
+                    <span
+                      class="MuiPickersSectionList-section css-joz0rk-MuiPickersSectionList-section-MuiPickersInputBase-section"
+                      data-sectionindex="2"
+                    >
+                      <span
+                        class="MuiPickersInputBase-sectionBefore css-w1q93y-MuiPickersSectionList-sectionSeparator-MuiPickersInputBase-separator"
+                      />
+                      <span
+                        aria-disabled="false"
+                        aria-label="Year"
+                        aria-labelledby=":r1:-year"
+                        aria-readonly="false"
+                        aria-valuemax="9999"
+                        aria-valuemin="0"
+                        aria-valuenow="2023"
+                        autocapitalize="off"
+                        autocorrect="off"
+                        class="MuiPickersSectionList-sectionContent MuiPickersInputBase-sectionContent css-1jpopwz-MuiPickersSectionList-sectionContent-MuiPickersInputBase-sectionContent"
+                        contenteditable="true"
+                        id=":r1:-year"
+                        inputmode="numeric"
+                        role="spinbutton"
+                        spellcheck="false"
+                        tabindex="-1"
+                      >
+                        2023
+                      </span>
+                      <span
+                        class="MuiPickersInputBase-sectionAfter css-w1q93y-MuiPickersSectionList-sectionSeparator-MuiPickersInputBase-separator"
+                      />
+                    </span>
+                  </div>
+                  <div
+                    class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-sizeMedium css-elo8k2-MuiInputAdornment-root"
+                  >
+                    <button
+                      aria-label="Choose date, selected date is Dec 1, 2023"
+                      class="MuiButtonBase-root MuiIconButton-root MuiIconButton-edgeEnd MuiIconButton-sizeMedium css-1ysp02-MuiButtonBase-root-MuiIconButton-root"
+                      tabindex="0"
+                      type="button"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+                        data-testid="CalendarIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <fieldset
+                    aria-hidden="true"
+                    class="MuiPickersOutlinedInput-notchedOutline css-lqwr9g-MuiPickersOutlinedInput-notchedOutline"
+                  >
+                    <legend
+                      class="css-kg5swy"
+                    >
+                      <span
+                        class="css-w48gsk"
+                      >
+                        Start Date
+                      </span>
+                    </legend>
+                  </fieldset>
+                  <input
+                    aria-hidden="true"
+                    class="MuiPickersInputBase-input MuiPickersOutlinedInput-input css-31lcvl-MuiPickersInputBase-input"
+                    id=":r0:"
+                    tabindex="-1"
+                    value="12/01/2023"
+                  />
+                </div>
+              </div>
+              <div
+                class="MuiFormControl-root MuiFormControl-fullWidth MuiPickersTextField-root css-19y0qf7-MuiFormControl-root-MuiPickersTextField-root"
+                data-testid="end-date-picker"
+              >
+                <label
+                  class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
+                  data-shrink="true"
+                  for=":r4:"
+                  id=":r4:-label"
+                >
+                  End Date
+                </label>
+                <div
+                  aria-invalid="false"
+                  aria-labelledby=":r4:-label"
+                  class="MuiPickersInputBase-root MuiPickersOutlinedInput-root MuiPickersInputBase-fullWidth MuiPickersInputBase-colorPrimary MuiPickersInputBase-adornedEnd css-1hgcujo-MuiPickersInputBase-root-MuiPickersOutlinedInput-root"
+                  role="group"
+                >
+                  <div
+                    class="MuiPickersSectionList-root MuiPickersInputBase-sectionsContainer css-1fb7els-MuiPickersSectionList-root-MuiPickersInputBase-sectionsContainer-MuiPickersOutlinedInput-sectionsContainer"
+                    contenteditable="false"
+                    tabindex="0"
+                  >
+                    <span
+                      class="MuiPickersSectionList-section css-joz0rk-MuiPickersSectionList-section-MuiPickersInputBase-section"
+                      data-sectionindex="0"
+                    >
+                      <span
+                        class="MuiPickersInputBase-sectionBefore css-w1q93y-MuiPickersSectionList-sectionSeparator-MuiPickersInputBase-separator"
+                      />
+                      <span
+                        aria-disabled="false"
+                        aria-label="Month"
+                        aria-labelledby=":r5:-month"
+                        aria-readonly="false"
+                        aria-valuemax="12"
+                        aria-valuemin="1"
+                        aria-valuenow="1"
+                        aria-valuetext="January"
+                        autocapitalize="off"
+                        autocorrect="off"
+                        class="MuiPickersSectionList-sectionContent MuiPickersInputBase-sectionContent css-1jpopwz-MuiPickersSectionList-sectionContent-MuiPickersInputBase-sectionContent"
+                        contenteditable="true"
+                        id=":r5:-month"
+                        inputmode="numeric"
+                        role="spinbutton"
+                        spellcheck="false"
+                        tabindex="0"
+                      >
+                        01
+                      </span>
+                      <span
+                        class="MuiPickersInputBase-sectionAfter css-w1q93y-MuiPickersSectionList-sectionSeparator-MuiPickersInputBase-separator"
+                      >
+                        /
+                      </span>
+                    </span>
+                    <span
+                      class="MuiPickersSectionList-section css-joz0rk-MuiPickersSectionList-section-MuiPickersInputBase-section"
+                      data-sectionindex="1"
+                    >
+                      <span
+                        class="MuiPickersInputBase-sectionBefore css-w1q93y-MuiPickersSectionList-sectionSeparator-MuiPickersInputBase-separator"
+                      />
+                      <span
+                        aria-disabled="false"
+                        aria-label="Day"
+                        aria-labelledby=":r5:-day"
+                        aria-readonly="false"
+                        aria-valuemax="31"
+                        aria-valuemin="1"
+                        aria-valuenow="1"
+                        aria-valuetext="1st"
+                        autocapitalize="off"
+                        autocorrect="off"
+                        class="MuiPickersSectionList-sectionContent MuiPickersInputBase-sectionContent css-1jpopwz-MuiPickersSectionList-sectionContent-MuiPickersInputBase-sectionContent"
+                        contenteditable="true"
+                        id=":r5:-day"
+                        inputmode="numeric"
+                        role="spinbutton"
+                        spellcheck="false"
+                        tabindex="-1"
+                      >
+                        01
+                      </span>
+                      <span
+                        class="MuiPickersInputBase-sectionAfter css-w1q93y-MuiPickersSectionList-sectionSeparator-MuiPickersInputBase-separator"
+                      >
+                        /
+                      </span>
+                    </span>
+                    <span
+                      class="MuiPickersSectionList-section css-joz0rk-MuiPickersSectionList-section-MuiPickersInputBase-section"
+                      data-sectionindex="2"
+                    >
+                      <span
+                        class="MuiPickersInputBase-sectionBefore css-w1q93y-MuiPickersSectionList-sectionSeparator-MuiPickersInputBase-separator"
+                      />
+                      <span
+                        aria-disabled="false"
+                        aria-label="Year"
+                        aria-labelledby=":r5:-year"
+                        aria-readonly="false"
+                        aria-valuemax="9999"
+                        aria-valuemin="0"
+                        aria-valuenow="2024"
+                        autocapitalize="off"
+                        autocorrect="off"
+                        class="MuiPickersSectionList-sectionContent MuiPickersInputBase-sectionContent css-1jpopwz-MuiPickersSectionList-sectionContent-MuiPickersInputBase-sectionContent"
+                        contenteditable="true"
+                        id=":r5:-year"
+                        inputmode="numeric"
+                        role="spinbutton"
+                        spellcheck="false"
+                        tabindex="-1"
+                      >
+                        2024
+                      </span>
+                      <span
+                        class="MuiPickersInputBase-sectionAfter css-w1q93y-MuiPickersSectionList-sectionSeparator-MuiPickersInputBase-separator"
+                      />
+                    </span>
+                  </div>
+                  <div
+                    class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-sizeMedium css-elo8k2-MuiInputAdornment-root"
+                  >
+                    <button
+                      aria-label="Choose date, selected date is Jan 1, 2024"
+                      class="MuiButtonBase-root MuiIconButton-root MuiIconButton-edgeEnd MuiIconButton-sizeMedium css-1ysp02-MuiButtonBase-root-MuiIconButton-root"
+                      tabindex="0"
+                      type="button"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+                        data-testid="CalendarIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <fieldset
+                    aria-hidden="true"
+                    class="MuiPickersOutlinedInput-notchedOutline css-lqwr9g-MuiPickersOutlinedInput-notchedOutline"
+                  >
+                    <legend
+                      class="css-kg5swy"
+                    >
+                      <span
+                        class="css-w48gsk"
+                      >
+                        End Date
+                      </span>
+                    </legend>
+                  </fieldset>
+                  <input
+                    aria-hidden="true"
+                    class="MuiPickersInputBase-input MuiPickersOutlinedInput-input css-31lcvl-MuiPickersInputBase-input"
+                    id=":r4:"
+                    tabindex="-1"
+                    value="01/01/2024"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="MuiGrid-root MuiGrid-direction-xs-row MuiGrid-grid-xs-12 MuiGrid-grid-md-6 css-204a8q-MuiGrid-root"
+          >
+            <div
+              class="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-row MuiGrid-spacing-xs-2 css-1lcqp46-MuiGrid-root"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-direction-xs-row css-17fpwt7-MuiGrid-root"
+              >
+                <button
+                  class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-1f3hfkx-MuiButtonBase-root-MuiButton-root"
+                  tabindex="0"
+                  type="button"
+                >
+                  Apply Filter
+                </button>
+              </div>
+              <div
+                class="MuiGrid-root MuiGrid-direction-xs-row css-17fpwt7-MuiGrid-root"
+              >
+                <div
+                  class="MuiButtonGroup-root MuiButtonGroup-outlined MuiButtonGroup-horizontal MuiButtonGroup-colorPrimary css-zv9ro0-MuiButtonGroup-root"
+                  role="group"
+                >
+                  <button
+                    class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorPrimary MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlinedPrimary MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorPrimary MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlinedPrimary MuiButtonGroup-firstButton css-kcra1k-MuiButtonBase-root-MuiButton-root"
+                    tabindex="0"
+                    type="button"
+                  >
+                    Last Month
+                  </button>
+                  <button
+                    class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorPrimary MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlinedPrimary MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorPrimary MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlinedPrimary MuiButtonGroup-middleButton css-kcra1k-MuiButtonBase-root-MuiButton-root"
+                    tabindex="0"
+                    type="button"
+                  >
+                    Last Week
+                  </button>
+                  <button
+                    class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorPrimary MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlinedPrimary MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorPrimary MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlinedPrimary MuiButtonGroup-lastButton css-kcra1k-MuiButtonBase-root-MuiButton-root"
+                    tabindex="0"
+                    type="button"
+                  >
+                    3 Days
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiGrid-root MuiGrid-direction-xs-row MuiGrid-grid-md-12 MuiGrid-grid-lg-9 css-qnbim1-MuiGrid-root"
+      >
+        <div
+          class="MuiDataGrid-root MuiDataGrid-root--densityStandard MuiDataGrid-withBorderColor MuiDataGridVariables-3851315942 css-1mmxxeq-MuiDataGrid-root"
+          style="--DataGrid-hasScrollX: 0; --DataGrid-hasScrollY: 1; --DataGrid-scrollbarSize: 0px; --DataGrid-rowWidth: 0px; --DataGrid-columnsTotalWidth: 0px; --DataGrid-leftPinnedWidth: 0px; --DataGrid-rightPinnedWidth: 0px; --DataGrid-headerHeight: 56px; --DataGrid-headersTotalHeight: 56px; --DataGrid-topContainerHeight: 56px; --DataGrid-bottomContainerHeight: 0px; --height: 52px;"
+        >
+          <div
+            class="MuiDataGrid-mainContent"
+            role="presentation"
+          >
+            <div
+              aria-colcount="5"
+              aria-multiselectable="false"
+              aria-rowcount="2"
+              class="MuiDataGrid-main css-1bgckiu-MuiDataGrid-main"
+              role="grid"
+              tabindex="-1"
+            >
+              <div
+                class="css-18l11qw"
+                data-id="gridPanelAnchor"
+                role="presentation"
+              />
+              <div
+                class="MuiDataGrid-virtualScroller css-1vigakz-MuiDataGrid-virtualScroller"
+                role="presentation"
+                style="overflow-x: hidden;"
+              >
+                <div
+                  class="MuiDataGrid-topContainer MuiDataGrid-container--top css-b1wygl"
+                  role="presentation"
+                >
+                  <div
+                    class="MuiDataGrid-columnHeaders css-1gtv474-MuiDataGrid-columnHeaders"
+                    role="presentation"
+                  >
+                    <div
+                      aria-rowindex="1"
+                      class="MuiDataGrid-row--borderBottom css-yseucu-MuiDataGrid-columnHeaderRow"
+                      role="row"
+                      style="height: 56px;"
+                    >
+                      <div
+                        role="presentation"
+                        style="width: 0px;"
+                      />
+                      <div
+                        aria-colindex="1"
+                        aria-sort="none"
+                        class="MuiDataGrid-columnHeader MuiDataGrid-columnHeader--alignCenter MuiDataGrid-columnHeader--sortable MuiDataGrid-withBorderColor"
+                        data-field="ingredientName"
+                        role="columnheader"
+                        style="width: 0px;"
+                        tabindex="0"
+                      >
+                        <div
+                          class="MuiDataGrid-columnHeaderDraggableContainer"
+                          draggable="false"
+                          role="presentation"
+                        >
+                          <div
+                            class="MuiDataGrid-columnHeaderTitleContainer"
+                            role="presentation"
+                          >
+                            <div
+                              class="MuiDataGrid-columnHeaderTitleContainerContent"
+                            >
+                              <div
+                                class="MuiDataGrid-columnHeaderTitle css-1gqmilo-MuiDataGrid-columnHeaderTitle"
+                                data-mui-internal-clone-element="true"
+                              >
+                                Ingredient
+                              </div>
+                            </div>
+                            <div
+                              class="MuiDataGrid-iconButtonContainer css-ltf0zy-MuiDataGrid-iconButtonContainer"
+                            >
+                              <button
+                                aria-label="Sort"
+                                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall MuiDataGrid-sortButton css-1vkrt00-MuiButtonBase-root-MuiIconButton-root-MuiDataGrid-sortButton"
+                                field="ingredientName"
+                                tabindex="-1"
+                                title="Sort"
+                                type="button"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall MuiDataGrid-sortIcon css-120dh41-MuiSvgIcon-root"
+                                  data-testid="ArrowUpwardIcon"
+                                  focusable="false"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
+                          </div>
+                          <div
+                            class="MuiDataGrid-menuIcon"
+                          >
+                            <button
+                              aria-expanded="false"
+                              aria-haspopup="menu"
+                              aria-label="Ingredient column menu"
+                              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall MuiDataGrid-menuIconButton css-155wbr6-MuiButtonBase-root-MuiIconButton-root"
+                              data-mui-internal-clone-element="true"
+                              id=":rk:"
+                              tabindex="-1"
+                              type="button"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1ckov0h-MuiSvgIcon-root"
+                                data-testid="TripleDotsVerticalIcon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                        <div
+                          class="MuiDataGrid-columnSeparator MuiDataGrid-columnSeparator--resizable MuiDataGrid-columnSeparator--sideRight"
+                          style="min-height: 56px;"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiDataGrid-iconSeparator css-1umw9bq-MuiSvgIcon-root"
+                            data-testid="SeparatorIcon"
+                            focusable="false"
+                            viewBox="0 0 24 24"
+                          >
+                            <rect
+                              height="24"
+                              rx="0.5"
+                              width="1"
+                              x="11.5"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                      <div
+                        aria-colindex="2"
+                        aria-sort="ascending"
+                        class="MuiDataGrid-columnHeader MuiDataGrid-columnHeader--alignCenter MuiDataGrid-columnHeader--sortable MuiDataGrid-columnHeader--sorted MuiDataGrid-columnHeader--numeric MuiDataGrid-withBorderColor"
+                        data-field="supplyDays"
+                        role="columnheader"
+                        style="width: 0px;"
+                        tabindex="-1"
+                      >
+                        <div
+                          class="MuiDataGrid-columnHeaderDraggableContainer"
+                          draggable="false"
+                          role="presentation"
+                        >
+                          <div
+                            class="MuiDataGrid-columnHeaderTitleContainer"
+                            role="presentation"
+                          >
+                            <div
+                              class="MuiDataGrid-columnHeaderTitleContainerContent"
+                            >
+                              <div
+                                class="MuiDataGrid-columnHeaderTitle css-1gqmilo-MuiDataGrid-columnHeaderTitle"
+                                data-mui-internal-clone-element="true"
+                              >
+                                Supply Duration (Days)
+                              </div>
+                            </div>
+                            <div
+                              class="MuiDataGrid-iconButtonContainer css-ltf0zy-MuiDataGrid-iconButtonContainer"
+                            >
+                              <button
+                                aria-label="Sort"
+                                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall MuiDataGrid-sortButton css-1vkrt00-MuiButtonBase-root-MuiIconButton-root-MuiDataGrid-sortButton"
+                                field="supplyDays"
+                                tabindex="-1"
+                                title="Sort"
+                                type="button"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall MuiDataGrid-sortIcon css-120dh41-MuiSvgIcon-root"
+                                  data-testid="ArrowUpwardIcon"
+                                  focusable="false"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
+                          </div>
+                          <div
+                            class="MuiDataGrid-menuIcon"
+                          >
+                            <button
+                              aria-expanded="false"
+                              aria-haspopup="menu"
+                              aria-label="Supply Duration (Days) column menu"
+                              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall MuiDataGrid-menuIconButton css-155wbr6-MuiButtonBase-root-MuiIconButton-root"
+                              data-mui-internal-clone-element="true"
+                              id=":rq:"
+                              tabindex="-1"
+                              type="button"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1ckov0h-MuiSvgIcon-root"
+                                data-testid="TripleDotsVerticalIcon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                        <div
+                          class="MuiDataGrid-columnSeparator MuiDataGrid-columnSeparator--resizable MuiDataGrid-columnSeparator--sideRight"
+                          style="min-height: 56px;"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiDataGrid-iconSeparator css-1umw9bq-MuiSvgIcon-root"
+                            data-testid="SeparatorIcon"
+                            focusable="false"
+                            viewBox="0 0 24 24"
+                          >
+                            <rect
+                              height="24"
+                              rx="0.5"
+                              width="1"
+                              x="11.5"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                      <div
+                        aria-colindex="3"
+                        aria-sort="none"
+                        class="MuiDataGrid-columnHeader MuiDataGrid-columnHeader--alignCenter MuiDataGrid-columnHeader--sortable MuiDataGrid-columnHeader--numeric MuiDataGrid-withBorderColor"
+                        data-field="dailyUsage"
+                        role="columnheader"
+                        style="width: 0px;"
+                        tabindex="-1"
+                      >
+                        <div
+                          class="MuiDataGrid-columnHeaderDraggableContainer"
+                          draggable="false"
+                          role="presentation"
+                        >
+                          <div
+                            class="MuiDataGrid-columnHeaderTitleContainer"
+                            role="presentation"
+                          >
+                            <div
+                              class="MuiDataGrid-columnHeaderTitleContainerContent"
+                            >
+                              <div
+                                class="MuiDataGrid-columnHeaderTitle css-1gqmilo-MuiDataGrid-columnHeaderTitle"
+                                data-mui-internal-clone-element="true"
+                              >
+                                Daily Consumption
+                              </div>
+                            </div>
+                            <div
+                              class="MuiDataGrid-iconButtonContainer css-ltf0zy-MuiDataGrid-iconButtonContainer"
+                            >
+                              <button
+                                aria-label="Sort"
+                                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall MuiDataGrid-sortButton css-1vkrt00-MuiButtonBase-root-MuiIconButton-root-MuiDataGrid-sortButton"
+                                field="dailyUsage"
+                                tabindex="-1"
+                                title="Sort"
+                                type="button"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall MuiDataGrid-sortIcon css-120dh41-MuiSvgIcon-root"
+                                  data-testid="ArrowUpwardIcon"
+                                  focusable="false"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
+                          </div>
+                          <div
+                            class="MuiDataGrid-menuIcon"
+                          >
+                            <button
+                              aria-expanded="false"
+                              aria-haspopup="menu"
+                              aria-label="Daily Consumption column menu"
+                              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall MuiDataGrid-menuIconButton css-155wbr6-MuiButtonBase-root-MuiIconButton-root"
+                              data-mui-internal-clone-element="true"
+                              id=":r10:"
+                              tabindex="-1"
+                              type="button"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1ckov0h-MuiSvgIcon-root"
+                                data-testid="TripleDotsVerticalIcon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                        <div
+                          class="MuiDataGrid-columnSeparator MuiDataGrid-columnSeparator--resizable MuiDataGrid-columnSeparator--sideRight"
+                          style="min-height: 56px;"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiDataGrid-iconSeparator css-1umw9bq-MuiSvgIcon-root"
+                            data-testid="SeparatorIcon"
+                            focusable="false"
+                            viewBox="0 0 24 24"
+                          >
+                            <rect
+                              height="24"
+                              rx="0.5"
+                              width="1"
+                              x="11.5"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                      <div
+                        aria-colindex="4"
+                        aria-sort="none"
+                        class="MuiDataGrid-columnHeader MuiDataGrid-columnHeader--alignCenter MuiDataGrid-columnHeader--sortable MuiDataGrid-columnHeader--numeric MuiDataGrid-withBorderColor"
+                        data-field="totalUsage"
+                        role="columnheader"
+                        style="width: 0px;"
+                        tabindex="-1"
+                      >
+                        <div
+                          class="MuiDataGrid-columnHeaderDraggableContainer"
+                          draggable="false"
+                          role="presentation"
+                        >
+                          <div
+                            class="MuiDataGrid-columnHeaderTitleContainer"
+                            role="presentation"
+                          >
+                            <div
+                              class="MuiDataGrid-columnHeaderTitleContainerContent"
+                            >
+                              <div
+                                class="MuiDataGrid-columnHeaderTitle css-1gqmilo-MuiDataGrid-columnHeaderTitle"
+                                data-mui-internal-clone-element="true"
+                              >
+                                Total Consumption
+                              </div>
+                            </div>
+                            <div
+                              class="MuiDataGrid-iconButtonContainer css-ltf0zy-MuiDataGrid-iconButtonContainer"
+                            >
+                              <button
+                                aria-label="Sort"
+                                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall MuiDataGrid-sortButton css-1vkrt00-MuiButtonBase-root-MuiIconButton-root-MuiDataGrid-sortButton"
+                                field="totalUsage"
+                                tabindex="-1"
+                                title="Sort"
+                                type="button"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall MuiDataGrid-sortIcon css-120dh41-MuiSvgIcon-root"
+                                  data-testid="ArrowUpwardIcon"
+                                  focusable="false"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
+                          </div>
+                          <div
+                            class="MuiDataGrid-menuIcon"
+                          >
+                            <button
+                              aria-expanded="false"
+                              aria-haspopup="menu"
+                              aria-label="Total Consumption column menu"
+                              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall MuiDataGrid-menuIconButton css-155wbr6-MuiButtonBase-root-MuiIconButton-root"
+                              data-mui-internal-clone-element="true"
+                              id=":r16:"
+                              tabindex="-1"
+                              type="button"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1ckov0h-MuiSvgIcon-root"
+                                data-testid="TripleDotsVerticalIcon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                        <div
+                          class="MuiDataGrid-columnSeparator MuiDataGrid-columnSeparator--resizable MuiDataGrid-columnSeparator--sideRight"
+                          style="min-height: 56px;"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiDataGrid-iconSeparator css-1umw9bq-MuiSvgIcon-root"
+                            data-testid="SeparatorIcon"
+                            focusable="false"
+                            viewBox="0 0 24 24"
+                          >
+                            <rect
+                              height="24"
+                              rx="0.5"
+                              width="1"
+                              x="11.5"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                      <div
+                        aria-colindex="5"
+                        aria-sort="none"
+                        class="MuiDataGrid-columnHeader MuiDataGrid-columnHeader--alignCenter MuiDataGrid-columnHeader--sortable MuiDataGrid-columnHeader--numeric MuiDataGrid-withBorderColor MuiDataGrid-columnHeader--lastUnpinned MuiDataGrid-columnHeader--last"
+                        data-field="totalCost"
+                        role="columnheader"
+                        style="width: 0px;"
+                        tabindex="-1"
+                      >
+                        <div
+                          class="MuiDataGrid-columnHeaderDraggableContainer"
+                          draggable="false"
+                          role="presentation"
+                        >
+                          <div
+                            class="MuiDataGrid-columnHeaderTitleContainer"
+                            role="presentation"
+                          >
+                            <div
+                              class="MuiDataGrid-columnHeaderTitleContainerContent"
+                            >
+                              <div
+                                class="MuiDataGrid-columnHeaderTitle css-1gqmilo-MuiDataGrid-columnHeaderTitle"
+                                data-mui-internal-clone-element="true"
+                              >
+                                Total Cost
+                              </div>
+                            </div>
+                            <div
+                              class="MuiDataGrid-iconButtonContainer css-ltf0zy-MuiDataGrid-iconButtonContainer"
+                            >
+                              <button
+                                aria-label="Sort"
+                                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall MuiDataGrid-sortButton css-1vkrt00-MuiButtonBase-root-MuiIconButton-root-MuiDataGrid-sortButton"
+                                field="totalCost"
+                                tabindex="-1"
+                                title="Sort"
+                                type="button"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall MuiDataGrid-sortIcon css-120dh41-MuiSvgIcon-root"
+                                  data-testid="ArrowUpwardIcon"
+                                  focusable="false"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
+                          </div>
+                          <div
+                            class="MuiDataGrid-menuIcon"
+                          >
+                            <button
+                              aria-expanded="false"
+                              aria-haspopup="menu"
+                              aria-label="Total Cost column menu"
+                              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall MuiDataGrid-menuIconButton css-155wbr6-MuiButtonBase-root-MuiIconButton-root"
+                              data-mui-internal-clone-element="true"
+                              id=":r1c:"
+                              tabindex="-1"
+                              type="button"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1ckov0h-MuiSvgIcon-root"
+                                data-testid="TripleDotsVerticalIcon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                        <div
+                          class="MuiDataGrid-columnSeparator MuiDataGrid-columnSeparator--resizable MuiDataGrid-columnSeparator--sideRight"
+                          style="min-height: 56px;"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiDataGrid-iconSeparator css-1umw9bq-MuiSvgIcon-root"
+                            data-testid="SeparatorIcon"
+                            focusable="false"
+                            viewBox="0 0 24 24"
+                          >
+                            <rect
+                              height="24"
+                              rx="0.5"
+                              width="1"
+                              x="11.5"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                      <div
+                        class="MuiDataGrid-filler"
+                        role="presentation"
+                      />
+                      <div
+                        class="MuiDataGrid-scrollbarFiller MuiDataGrid-scrollbarFiller--header"
+                        role="presentation"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiDataGrid-virtualScrollerContent css-aymtem-MuiDataGrid-virtualScrollerContent"
+                  role="presentation"
+                  style="width: auto; flex-basis: 52px; flex-shrink: 0;"
+                >
+                  <div
+                    class="MuiDataGrid-virtualScrollerRenderZone css-11dqcl8-MuiDataGrid-virtualScrollerRenderZone"
+                    role="rowgroup"
+                    style="transform: translate3d(0, 0px, 0);"
+                  >
+                    <div
+                      aria-rowindex="2"
+                      aria-selected="false"
+                      class="MuiDataGrid-row MuiDataGrid-row--firstVisible MuiDataGrid-row--lastVisible"
+                      data-id="1"
+                      data-rowindex="0"
+                      role="row"
+                      style="max-height: 52px; min-height: 52px; --height: 52px;"
+                    >
+                      <div
+                        class="MuiDataGrid-cellOffsetLeft"
+                        role="presentation"
+                        style="width: 0px;"
+                      />
+                      <div
+                        aria-colindex="1"
+                        aria-colspan="1"
+                        aria-rowspan="1"
+                        class="MuiDataGrid-cell MuiDataGrid-cell--textLeft"
+                        data-colindex="0"
+                        data-field="ingredientName"
+                        role="gridcell"
+                        style="--width: 0px;"
+                        tabindex="-1"
+                        title="Test Ingredient"
+                      >
+                        Test Ingredient
+                      </div>
+                      <div
+                        aria-colindex="2"
+                        aria-colspan="1"
+                        aria-rowspan="1"
+                        class="MuiDataGrid-cell MuiDataGrid-cell--textRight"
+                        data-colindex="1"
+                        data-field="supplyDays"
+                        role="gridcell"
+                        style="--width: 0px;"
+                        tabindex="-1"
+                        title="5"
+                      >
+                        5
+                      </div>
+                      <div
+                        aria-colindex="3"
+                        aria-colspan="1"
+                        aria-rowspan="1"
+                        class="MuiDataGrid-cell MuiDataGrid-cell--textRight"
+                        data-colindex="2"
+                        data-field="dailyUsage"
+                        role="gridcell"
+                        style="--width: 0px;"
+                        tabindex="-1"
+                        title="2"
+                      >
+                        2
+                      </div>
+                      <div
+                        aria-colindex="4"
+                        aria-colspan="1"
+                        aria-rowspan="1"
+                        class="MuiDataGrid-cell MuiDataGrid-cell--textRight"
+                        data-colindex="3"
+                        data-field="totalUsage"
+                        role="gridcell"
+                        style="--width: 0px;"
+                        tabindex="-1"
+                        title="10"
+                      >
+                        10
+                      </div>
+                      <div
+                        aria-colindex="5"
+                        aria-colspan="1"
+                        aria-rowspan="1"
+                        class="MuiDataGrid-cell MuiDataGrid-cell--textRight"
+                        data-colindex="4"
+                        data-field="totalCost"
+                        role="gridcell"
+                        style="--width: 0px;"
+                        tabindex="-1"
+                        title="100"
+                      >
+                        100
+                      </div>
+                      <div
+                        class="MuiDataGrid-cell MuiDataGrid-cellEmpty"
+                        role="presentation"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiDataGrid-bottomContainer MuiDataGrid-container--bottom css-gzxaox"
+                  role="presentation"
+                />
+              </div>
+              <div
+                aria-hidden="true"
+                class="MuiDataGrid-scrollbar MuiDataGrid-scrollbar--vertical css-1ir2opr"
+                tabindex="-1"
+              >
+                <div
+                  class="MuiDataGrid-scrollbarContent"
+                />
+              </div>
+            </div>
+            <div
+              class="MuiDataGrid-footerContainer MuiDataGrid-withBorderColor css-15lx25q-MuiDataGrid-footerContainer"
+            >
+              <div />
+              <div
+                class="MuiTablePagination-root css-y1ejz4-MuiTablePagination-root"
+              >
+                <div
+                  class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular MuiTablePagination-toolbar css-1gak8h1-MuiToolbar-root-MuiTablePagination-toolbar"
+                >
+                  <div
+                    class="MuiTablePagination-spacer css-1wtxofq-MuiTablePagination-spacer"
+                  />
+                  <p
+                    class="MuiTablePagination-selectLabel css-s09cke-MuiTablePagination-selectLabel"
+                    id=":rd:"
+                  >
+                    Rows per page:
+                  </p>
+                  <div
+                    class="MuiInputBase-root MuiInputBase-colorPrimary MuiTablePagination-select MuiSelect-root MuiTablePagination-input css-oegngy-MuiInputBase-root-MuiTablePagination-select"
+                  >
+                    <div
+                      aria-expanded="false"
+                      aria-haspopup="listbox"
+                      aria-labelledby=":rd: :rc:"
+                      class="MuiSelect-select MuiTablePagination-select MuiSelect-standard MuiInputBase-input css-18zjd9i-MuiNativeSelect-root-MuiSelect-select-MuiInputBase-input"
+                      id=":rc:"
+                      role="combobox"
+                      tabindex="0"
+                    >
+                      10
+                    </div>
+                    <input
+                      aria-hidden="true"
+                      aria-invalid="false"
+                      class="MuiSelect-nativeInput css-j0riat-MuiSelect-nativeInput"
+                      tabindex="-1"
+                      value="10"
+                    />
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiTablePagination-selectIcon MuiSelect-iconStandard css-ug7h84-MuiSvgIcon-root-MuiNativeSelect-root-MuiSelect-icon"
+                      data-testid="ArrowDropDownIcon"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M7 10l5 5 5-5z"
+                      />
+                    </svg>
+                  </div>
+                  <p
+                    class="MuiTablePagination-displayedRows css-11cfq65-MuiTablePagination-displayedRows"
+                  >
+                    1–1 of 1
+                  </p>
+                  <div
+                    class="MuiTablePaginationActions-root MuiTablePagination-actions css-sjsoon-MuiTablePaginationActions-root"
+                  >
+                    <button
+                      aria-label="Go to previous page"
+                      class="MuiButtonBase-root Mui-disabled MuiIconButton-root Mui-disabled MuiIconButton-colorInherit MuiIconButton-sizeMedium css-h7cjts-MuiButtonBase-root-MuiIconButton-root"
+                      disabled=""
+                      tabindex="-1"
+                      title="Go to previous page"
+                      type="button"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+                        data-testid="KeyboardArrowLeftIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"
+                        />
+                      </svg>
+                    </button>
+                    <button
+                      aria-label="Go to next page"
+                      class="MuiButtonBase-root Mui-disabled MuiIconButton-root Mui-disabled MuiIconButton-colorInherit MuiIconButton-sizeMedium css-h7cjts-MuiButtonBase-root-MuiIconButton-root"
+                      disabled=""
+                      tabindex="-1"
+                      title="Go to next page"
+                      type="button"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+                        data-testid="KeyboardArrowRightIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <style
+            href="/MuiDataGridVariables-3851315942"
+          >
+            .MuiDataGridVariables-3851315942{--DataGrid-t-spacing-unit:8px;--DataGrid-t-color-border-base:rgba(224, 224, 224, 1);--DataGrid-t-color-background-base:#fff;--DataGrid-t-color-background-overlay:#fff;--DataGrid-t-color-background-backdrop:rgba(255, 255, 255, 0.38);--DataGrid-t-color-foreground-base:rgba(0, 0, 0, 0.87);--DataGrid-t-color-foreground-muted:rgba(0, 0, 0, 0.6);--DataGrid-t-color-foreground-accent:#1565c0;--DataGrid-t-color-foreground-disabled:rgba(0, 0, 0, 0.38);--DataGrid-t-color-foreground-error:#c62828;--DataGrid-t-color-interactive-hover:rgba(0, 0, 0, 0.04);--DataGrid-t-color-interactive-hover-opacity:0.04;--DataGrid-t-color-interactive-focus:rgba(from #1976d2 r g b / 1);--DataGrid-t-color-interactive-focus-opacity:0.12;--DataGrid-t-color-interactive-disabled:rgba(from rgba(0, 0, 0, 0.26) r g b / 1);--DataGrid-t-color-interactive-disabled-opacity:0.38;--DataGrid-t-color-interactive-selected:#1976d2;--DataGrid-t-color-interactive-selected-opacity:0.08;--DataGrid-t-header-background-base:#fff;--DataGrid-t-cell-background-pinned:#fff;--DataGrid-t-radius-base:4px;--DataGrid-t-typography-font-family-base:"Roboto", "Helvetica", "Arial", sans-serif;--DataGrid-t-typography-font-weight-light:300;--DataGrid-t-typography-font-weight-regular:400;--DataGrid-t-typography-font-weight-medium:500;--DataGrid-t-typography-font-weight-bold:700;--DataGrid-t-typography-font-body:400 0.875rem / 1.43 "Roboto", "Helvetica", "Arial", sans-serif;--DataGrid-t-typography-font-small:400 0.75rem / 1.66 "Roboto", "Helvetica", "Arial", sans-serif;--DataGrid-t-typography-font-large:400 1rem / 1.5 "Roboto", "Helvetica", "Arial", sans-serif;--DataGrid-t-transition-easing-ease-in:cubic-bezier(0.4, 0, 1, 1);--DataGrid-t-transition-easing-ease-out:cubic-bezier(0.0, 0, 0.2, 1);--DataGrid-t-transition-easing-ease-in-out:cubic-bezier(0.4, 0, 0.2, 1);--DataGrid-t-transition-duration-short:200ms;--DataGrid-t-transition-duration-base:250ms;--DataGrid-t-transition-duration-long:300ms;--DataGrid-t-shadow-base:0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);--DataGrid-t-shadow-overlay:0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12);--DataGrid-t-z-index-panel:1300;--DataGrid-t-z-index-menu:1300;}
+          </style>
+        </div>
+      </div>
+      <div
+        class="MuiGrid-root MuiGrid-direction-xs-row MuiGrid-grid-md-12 MuiGrid-grid-lg-3 css-creslv-MuiGrid-root"
+      >
+        <div
+          class="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-column MuiGrid-spacing-xs-1 css-1576e5u-MuiGrid-root"
+        >
+          <div
+            class="MuiGrid-root MuiGrid-direction-xs-row css-1dxe1w3-MuiGrid-root"
+          >
+            <div
+              class="MuiPaper-root MuiPaper-outlined MuiPaper-rounded MuiCard-root css-1sph8r0-MuiPaper-root-MuiCard-root"
+            >
+              <div
+                class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
+              >
+                <h2
+                  class="MuiTypography-root MuiTypography-subtitle2 css-1ypmsg6-MuiTypography-root"
+                >
+                  Ingredients Cost
+                </h2>
+                <div
+                  class="MuiBox-root css-70qvj9"
+                >
+                  <div
+                    class="css-12daddi-MuiChartsWrapper-root"
+                  >
+                    <svg
+                      class="css-1ijouvw-MuiChartsSurface-root"
+                      viewBox="0 0 150 150"
+                    >
+                      <g>
+                        <g
+                          class="MuiPieChart-series"
+                          data-series="auto-generated-id-0"
+                          transform="translate(75, 75)"
+                        >
+                          <g>
+                            <path
+                              class="MuiPieArc-root MuiPieArc-series-auto-generated-id-0 MuiPieArc-data-index-0 css-yqw5vn-MuiPieArc-root"
+                              cursor="unset"
+                              d="M0,-75A75,75,0,1,1,0,75A75,75,0,1,1,0,-75M0,-40A40,40,0,1,0,0,40A40,40,0,1,0,0,-40Z"
+                              fill="#FF6B6B"
+                              filter="none"
+                              opacity="1"
+                              stroke-linejoin="round"
+                              stroke-width="1"
+                              visibility="visible"
+                            />
+                          </g>
+                        </g>
+                        <g
+                          class="MuiPieChart-seriesLabels"
+                          data-series="auto-generated-id-0"
+                          transform="translate(75, 75)"
+                        >
+                          <g>
+                            <text
+                              class="MuiPieArcLabel-root MuiPieArcLabel-series-auto-generated-id-0 css-1vffdx8-MuiPieArcLabel-root"
+                              x="-2.201427001882996e-14"
+                              y="57.5"
+                            />
+                          </g>
+                        </g>
+                      </g>
+                      <text
+                        class="css-zdo7ic"
+                        x="75"
+                        y="65"
+                      >
+                        100.00
+                      </text>
+                      <text
+                        class="css-1xi3ict"
+                        x="75"
+                        y="89"
+                      >
+                        Total
+                      </text>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="MuiGrid-root MuiGrid-direction-xs-row css-s81vq3-MuiGrid-root"
+          >
+            <div
+              class="MuiPaper-root MuiPaper-outlined MuiPaper-rounded MuiCard-root css-1sph8r0-MuiPaper-root-MuiCard-root"
+            >
+              <div
+                class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
+              >
+                <h2
+                  class="MuiTypography-root MuiTypography-subtitle2 css-1ypmsg6-MuiTypography-root"
+                >
+                  Dishes Cooked
+                </h2>
+                <div
+                  class="MuiBox-root css-70qvj9"
+                >
+                  <div
+                    class="css-12daddi-MuiChartsWrapper-root"
+                  >
+                    <svg
+                      class="css-1ijouvw-MuiChartsSurface-root"
+                      viewBox="0 0 150 150"
+                    >
+                      <g>
+                        <g
+                          class="MuiPieChart-series"
+                          data-series="auto-generated-id-0"
+                          transform="translate(75, 75)"
+                        >
+                          <g>
+                            <path
+                              class="MuiPieArc-root MuiPieArc-series-auto-generated-id-0 MuiPieArc-data-index-0 css-yqw5vn-MuiPieArc-root"
+                              cursor="unset"
+                              d="M0,-75A75,75,0,1,1,0,75A75,75,0,1,1,0,-75M0,-40A40,40,0,1,0,0,40A40,40,0,1,0,0,-40Z"
+                              fill="#FF6B6B"
+                              filter="none"
+                              opacity="1"
+                              stroke-linejoin="round"
+                              stroke-width="1"
+                              visibility="visible"
+                            />
+                          </g>
+                        </g>
+                        <g
+                          class="MuiPieChart-seriesLabels"
+                          data-series="auto-generated-id-0"
+                          transform="translate(75, 75)"
+                        >
+                          <g>
+                            <text
+                              class="MuiPieArcLabel-root MuiPieArcLabel-series-auto-generated-id-0 css-1vffdx8-MuiPieArcLabel-root"
+                              x="3.5208595475486406e-15"
+                              y="57.5"
+                            />
+                          </g>
+                        </g>
+                      </g>
+                      <text
+                        class="css-zdo7ic"
+                        x="75"
+                        y="65"
+                      >
+                        5.00
+                      </text>
+                      <text
+                        class="css-1xi3ict"
+                        x="75"
+                        y="89"
+                      >
+                        Total
+                      </text>
+                    </svg>
+                  </div>
+                </div>
+                <div
+                  class="MuiStack-root css-u2iubo-MuiStack-root"
+                >
+                  <div
+                    class="MuiStack-root css-19jd1d1-MuiStack-root"
+                  >
+                    <div
+                      class="MuiStack-root css-xdne4y-MuiStack-root"
+                    >
+                      <p
+                        class="MuiTypography-root MuiTypography-body2 css-7andst-MuiTypography-root"
+                      >
+                        Test Dish
+                      </p>
+                      <span
+                        class="MuiTypography-root MuiTypography-caption css-1374baf-MuiTypography-root"
+                      >
+                        (
+                        100.00
+                        %)
+                      </span>
+                    </div>
+                    <p
+                      class="MuiTypography-root MuiTypography-body2 css-1wle3ir-MuiTypography-root"
+                    >
+                      5.00
+                    </p>
+                  </div>
+                  <span
+                    aria-valuemax="100"
+                    aria-valuemin="0"
+                    aria-valuenow="100"
+                    class="MuiLinearProgress-root MuiLinearProgress-colorPrimary MuiLinearProgress-determinate css-dfilbu-MuiLinearProgress-root"
+                    role="progressbar"
+                  >
+                    <span
+                      class="MuiLinearProgress-bar MuiLinearProgress-bar1 MuiLinearProgress-barColorPrimary MuiLinearProgress-bar1Determinate css-l16vtb-MuiLinearProgress-bar1"
+                      style="transform: translateX(0%);"
+                    />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

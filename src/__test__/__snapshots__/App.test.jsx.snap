@@ -49,7 +49,7 @@ try {
             class="MuiStack-root css-m69qwo-MuiStack-root"
           >
             <div
-              class="MuiBox-root css-9cb9u5"
+              class="MuiBox-root css-1oh67lr"
             >
               <div
                 aria-label="Expand menu"
@@ -77,7 +77,7 @@ try {
               </div>
             </div>
             <div
-              class="MuiBox-root css-11ihgbh"
+              class="MuiBox-root css-54sge"
             >
               <div
                 aria-label="Expand menu"
@@ -212,7 +212,7 @@ try {
       </div>
     </header>
     <div
-      class="MuiDrawer-root MuiDrawer-anchorLeft MuiDrawer-docked css-of2ba0-MuiDrawer-docked"
+      class="MuiDrawer-root MuiDrawer-anchorLeft MuiDrawer-docked css-1hvrvza-MuiDrawer-docked"
     >
       <div
         class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation0 MuiDrawer-paper MuiDrawer-paperAnchorLeft MuiDrawer-paperAnchorDockedLeft css-oc2eyy-MuiPaper-root-MuiDrawer-paper"
@@ -459,7 +459,7 @@ try {
       </div>
     </div>
     <div
-      class="MuiDrawer-root MuiDrawer-anchorLeft MuiDrawer-docked css-127af6x-MuiDrawer-docked"
+      class="MuiDrawer-root MuiDrawer-anchorLeft MuiDrawer-docked css-9ky8ey-MuiDrawer-docked"
     >
       <div
         class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation0 MuiDrawer-paper MuiDrawer-paperAnchorLeft MuiDrawer-paperAnchorDockedLeft css-oc2eyy-MuiPaper-root-MuiDrawer-paper"

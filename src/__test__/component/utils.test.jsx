@@ -8,7 +8,9 @@ import {
     handleClick,
     EnhancedTableHead,
     EnhancedTableToolbar,
-    NumberInput
+    NumberInput,
+    PieChartCard,
+    pieChartColors
 } from '../../component/utils';
 import '@testing-library/jest-dom/vitest';
 import userEvent from '@testing-library/user-event';
@@ -313,5 +315,63 @@ describe('EnhancedTableToolbar', () => {
         );
 
         expect({ deleteState: deleteState(), updateState: updateState(), searchState: searchState() }).toMatchSnapshot();
+    });
+});
+
+describe('PieChartCard', () => {
+    const TEST_COLORS_LENGTH = pieChartColors.length;
+    // Test case 1: Data exceeds color threshold
+    it('should merge excess items into "Other" category when data exceeds color limit', () => {
+        // Create data with 1 more item than available colors
+        const longData = Array.from({ length: TEST_COLORS_LENGTH + 2 }, (_, i) => ({
+            id: `item-${i}`,
+            label: `Category ${i + 1}`,
+            value: 1000 - i * 100, // Descending values
+        }));
+
+        render(<PieChartCard data={longData} title="Test Chart" showLinear={true} />);
+
+        // Verify merged data
+        const otherItem = screen.getByText('Other');
+        expect(otherItem).toBeInTheDocument();
+
+        // Verify original items count after merge (N-1 colors + Other)
+        const slicedItems = longData.slice(0, TEST_COLORS_LENGTH - 1);
+        slicedItems.forEach(item => {
+            expect(screen.getByText(item.label)).toBeInTheDocument();
+        });
+    });
+
+    // Test case 2: Data within color limit
+    it('should display all items directly when data is within color limit', () => {
+        // Create data with 2 items less than color limit
+        const shortData = Array.from({ length: TEST_COLORS_LENGTH - 2 }, (_, i) => ({
+            id: `item-${i}`,
+            label: `Category ${i + 1}`,
+            value: 1000 - i * 100,
+        }));
+
+        render(<PieChartCard data={shortData} title="Test Chart" showLinear={true} />);
+
+        // Verify no "Other" category
+        expect(screen.queryByText('Other')).not.toBeInTheDocument();
+
+        // Verify all items are displayed
+        shortData.forEach(item => {
+            expect(screen.getByText(item.label)).toBeInTheDocument();
+        });
+    });
+
+    // Optional: Add tests for total value calculation, sorting, etc.
+    it('should calculate and display correct total value', () => {
+        const testData = [
+            { id: '1', label: 'A', value: 500 },
+            { id: '2', label: 'B', value: 300 },
+        ];
+
+        render(<PieChartCard data={testData} title="Test Chart" showLinear={false} />);
+
+        const totalValue = testData.reduce((sum, item) => sum + item.value, 0);
+        expect(screen.getByText(totalValue.toFixed(2))).toBeInTheDocument();
     });
 });

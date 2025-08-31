@@ -24,7 +24,7 @@ Always forget how much you left in the fridge like me? This app can help you kee
 - **Feature 1**: Interactive Dashboard Interface 📂
 - **Feature 2**: User Authentication with Firebase Authentication 🔐
 - **Feature 3**: Update Ingredients Storage Automatically With New Meal Record 🔃
-- **Feature 4**: Ongoing: Visualized Storage Panel, Meal Record Statics and Shopping Suggestions 📈
+- **Feature 4**: Visualized food statistics with custom time range 📈
 - **Feature 5**: Responsive Website suitable for different size of mobile phones, tablets and desktop computers 📱
 - **Feature 6**: Complete Test Cases with >97% Coverage 🧑‍🔬
 ![test report](project-storage-management-frontend-test.png)
@@ -35,6 +35,7 @@ Always forget how much you left in the fridge like me? This app can help you kee
 ![demo2](demo/project-storage-management-2.png) 
 ![demo3](demo/project-storage-management-3.png) 
 ![demo4](demo/project-storage-management-4.png)
+![demo4](demo/project-storage-management-5.png)
 ---
 
 ## 🚀 Getting Started

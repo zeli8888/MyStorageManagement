@@ -339,7 +339,7 @@ function PieCenterLabel({ primaryText, secondaryText }) {
     );
 }
 
-const pieChartColors = [
+export const pieChartColors = [
     '#FF6B6B',
     '#4ECDC4',
     '#FFD93D',
@@ -435,7 +435,7 @@ export function PieChartCard(props) {
                                 value={percentage}
                                 sx={{
                                     [`& .${linearProgressClasses.bar}`]: {
-                                        backgroundColor: pieChartColors[index > pieChartColors.length - 1 ? pieChartColors.length - 1 : index]
+                                        backgroundColor: pieChartColors[index]
                                     }
                                 }}
                             />
